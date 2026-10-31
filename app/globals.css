@@ -1,0 +1,55 @@
+body {
+ --tw-bg-opacity: 1;
+}
+
+.custom-shadow {
+    box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Default font */
+.font-montserrat {
+    font-family: var(--font-montserrat), sans-serif;
+}
+
+/* Special words */
+.font-michroma {
+    font-family: var(--font-michroma), sans-serif;
+}
+
+.font-mrs-saint {
+    font-family: var(--font-mrs-saint-delafield), cursive;
+}
+
+.swiper-scrollbar-drag {
+    /* width: 210px !important; */
+    height: 16px !important;
+}
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+    height: 16px !important;
+    margin-top: 50px;
+    position: relative !important;
+    left: 0% !important;
+    bottom: 0%;
+    width: 100% !important;
+}
+
+
+
+
+@media (max-width: 640px) {
+
+
+    .swiper-scrollbar-drag {
+        width: 100px !important;
+        height: 16px !important;
+    }
+    .swiper-scrollbar.swiper-scrollbar-horizontal {
+        height: 16px !important;
+        margin-top: 10px;
+        position: relative !important;
+        left: 0% !important;
+        bottom: 0%;
+        width: 100% !important;
+    }
+    
+}

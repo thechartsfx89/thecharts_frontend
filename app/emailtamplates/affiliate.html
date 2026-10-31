@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Welcome Affiliate - EduCandle</title>
+
+  <style>
+    body,
+    table,
+    td,
+    a {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    table,
+    td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    img {
+      border: 0;
+      outline: none;
+      text-decoration: none;
+      display: block;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100% !important;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .wrapper {
+      width: 100%;
+      padding: 30px 12px;
+    }
+
+    .container {
+      max-width: 620px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      border: 1px solid #1e293b;
+    }
+
+    .header {
+      padding: 40px 24px;
+      text-align: center;
+      color: #ffffff;
+      background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.4), transparent 40%),
+                  linear-gradient(135deg, #064e3b, #065f46, #0f172a);
+    }
+
+    .brand-img {
+      width: 130px;
+      margin: 0 auto 16px;
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 6px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      font-size: 14px;
+      opacity: 0.9;
+      color: #d1fae5;
+    }
+
+    .body {
+      padding: 30px;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .body h4 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      color: #0f172a;
+    }
+
+    .body p {
+      font-size: 15px;
+      margin: 0 0 14px;
+      color: #475569;
+    }
+
+    /* DIRECT INCOME BOX */
+    .income-box {
+      background: linear-gradient(135deg, #ecfdf5, #ccfbf1);
+      border-left: 5px solid #10b981;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 22px 0;
+      font-size: 15px;
+      color: #065f46;
+      font-weight: 600;
+    }
+
+    /* MULTI LEVEL BOX */
+    .level-box {
+      background: linear-gradient(135deg, #f0fdfa, #e0f2fe);
+      border: 1px solid #99f6e4;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 22px 0;
+      font-size: 14px;
+      color: #065f46;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #065f46, #10b981);
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.4px;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.45);
+    }
+
+    .footer {
+      padding: 20px 22px;
+      text-align: center;
+      font-size: 13px;
+      color: #94a3b8;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .footer a {
+      color: #065f46;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width:480px) {
+      .body {
+        padding: 22px 18px;
+      }
+
+      .title {
+        font-size: 22px;
+      }
+
+      .brand-img {
+        width: 110px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <table width="100%" cellpadding="0" cellspacing="0" class="wrapper">
+    <tr>
+      <td align="center">
+
+        <table width="100%" cellpadding="0" cellspacing="0" class="container">
+
+          <!-- HEADER -->
+          <tr>
+            <td class="header">
+              <img src="https://api.educandle.com/uploads/Screenshot_2025_12_12_at_5_28_19_PM_removebg_preview_1_b3b79eb32e.png"
+                alt="EduCandle" class="brand-img" />
+              <h2 class="title">Welcome to the EduCandle Affiliate Network 🚀</h2>
+              <div class="subtitle">Your earning journey starts now.</div>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td class="body">
+
+              <h4>Hello <%= USER_NAME %> 👋</h4>
+
+              <p>
+                Congratulations! Your affiliate account has been successfully activated.
+                You are now eligible to start earning with EduCandle.
+              </p>
+
+              <!-- DIRECT INCOME -->
+              <div class="income-box">
+                💰 You are eligible for Direct Referral Income: ₹ 3,500 per successful enrollment.
+              </div>
+
+              <!-- MULTI LEVEL INCOME -->
+              <div class="level-box">
+                <strong>🚀 Unlock Multi-Level Income Potential</strong><br><br>
+                🔹 Register <strong>3 Direct Active Users</strong> → Earn up to <strong>5 Levels</strong><br><br>
+                🔹 Register <strong>5 Direct Active Users</strong> → Earn up to <strong>10 Levels</strong>
+              </div>
+
+              <p>
+                Share your referral link, build your network, and maximize your income potential.
+              </p>
+
+              <a href="<%= AFFILIATE_DASHBOARD_URL %>" class="button">
+                Access Affiliate Dashboard
+              </a>
+
+              <p style="margin-top:18px; font-weight:600; color:#0f172a;">
+                Let’s build success together.<br />
+                EduCandle Affiliate Team
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td class="footer">
+              © 2025 EduCandle. All rights reserved.<br><br>
+              Need help?
+              <a href="mailto:info@educandle.com">info@educandle.com</a>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+
+</html>

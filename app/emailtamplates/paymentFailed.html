@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Payment Rejected</title>
+
+  <style>
+    body,
+    table,
+    td,
+    a {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    table,
+    td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    img {
+      border: 0;
+      outline: none;
+      text-decoration: none;
+      display: block;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100% !important;
+      background: #eef1f7;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    .wrapper {
+      width: 100%;
+      padding: 24px 12px;
+    }
+
+    .container {
+      max-width: 620px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+      border: 1px solid #e5e7eb;
+    }
+
+    /* SAME HEADER THEME */
+    .header {
+      padding: 28px 22px;
+      text-align: center;
+      color: #ffffff;
+      background: linear-gradient(135deg, #5f2eea, #9333ea, #ec4899);
+    }
+
+    .brand-img {
+      width: 170px;
+      height: auto;
+      margin: 0 auto 12px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .subtitle {
+      margin-top: 4px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* BODY */
+    .body {
+  padding: 28px 28px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+ .body h3 {
+  font-size: 16px;
+   color: #4b5563;
+  
+}
+
+.body p {
+  font-size: 15px;
+  color: #4b5563;
+  margin: 0 0 14px;
+}
+
+    /* PAYMENT DETAILS BOX */
+    .details-box {
+      margin: 18px 0;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .details-header {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #fdf2ff, #eef2ff);
+      font-weight: 600;
+      color: #5b21b6;
+      font-size: 14px;
+      border-bottom: 1px solid #e9d5ff;
+    }
+
+    .details-content {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .details-content p {
+      margin: 6px 0;
+    }
+
+    /* ADMIN REMARKS */
+    .remarks {
+      background: linear-gradient(135deg, #fdf2ff, #eef2ff);
+      border: 1px solid #e9d5ff;
+      border-radius: 14px;
+      padding: 16px;
+      margin: 18px 0;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    /* BUTTON */
+    .button {
+      display: inline-block;
+      margin: 18px 0;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #5f2eea, #9333ea);
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 13px;
+      box-shadow: 0 8px 18px rgba(147, 51, 234, 0.35);
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 18px 22px;
+      text-align: center;
+      font-size: 13px;
+      color: #9ca3af;
+      background: #fafafa;
+      border-top: 1px solid #eeeeee;
+    }
+
+    .footer a {
+      color: #7c3aed;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width:480px) {
+      .body {
+        padding: 22px 18px;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+      .subtitle {
+        font-size: 13px;
+      }
+
+      .brand-img {
+        width: 140px;
+      }
+      .body h3 {
+  font-size: 16px;
+  
+}
+
+.body p {
+  font-size: 14px;
+ 
+}
+.details-content{
+    font-size: 11px;
+}
+    }
+  </style>
+</head>
+
+<body>
+
+  <table width="100%" cellpadding="0" cellspacing="0" class="wrapper">
+    <tr>
+      <td align="center">
+
+        <table width="100%" cellpadding="0" cellspacing="0" class="container">
+
+          <!-- HEADER -->
+          <tr>
+            <td class="header">
+              <img src="https://api.educandle.com/uploads/Screenshot_2025_12_12_at_5_28_19_PM_removebg_preview_1_b3b79eb32e.png"
+                alt="EduCandle" class="brand-img" />
+              <h3 class="title">Payment Verification Failed</h3>
+              <div class="subtitle">Your submitted payment could not be approved.</div>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td class="body">
+
+              <h3>Hello Student 👋</h3>
+
+              <p>
+                We regret to inform you that your recent payment submission has been rejected after verification.
+              </p>
+
+              <!-- PAYMENT DETAILS -->
+              <div class="details-box">
+                <div class="details-header">
+                  Payment Details
+                </div>
+                <div class="details-content">
+                  <p><strong>Course Name:</strong> </p>
+                  <p><strong>Payment Amount:</strong> </p>
+                  <p><strong>Payment Mode:</strong> </p>
+                  <p><strong>Transaction ID:</strong> </p>
+                </div>
+              </div>
+
+              <!-- ADMIN REMARKS -->
+              <div class="remarks">
+                <strong>Admin Remarks:</strong><br />
+                <%= ADMIN_REMARKS %>
+              </div>
+
+              <p>
+                Please review the remarks above and resubmit the correct details for verification.
+              </p>
+
+              <a href="<%= RESUBMIT_PAYMENT_URL %>" class="button">
+                Resubmit Payment
+              </a>
+
+              <p style="margin-top:18px;">
+                If you need any assistance, feel free to contact our support team.
+              </p>
+
+              <p style="margin-top:18px; font-weight:500; color:#111827;">
+                EduCandle<br />
+                Support Team
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td class="footer">
+              © 2025 EduCandle. All rights reserved.<br><br>
+              Need help?
+              <a href="mailto:info@educandle.com">info@educandle.com</a>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+
+</html>
