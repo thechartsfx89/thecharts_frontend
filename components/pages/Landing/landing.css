@@ -1,0 +1,172 @@
+/* The Charts – landing page */
+.tc-root {
+    --tc-ink: #0b1b33;
+    --tc-ink-soft: #4a5a72;
+    --tc-green: #16c75f;
+    --tc-green-dark: #0e9f4a;
+    --tc-red: #ef4444;
+    --tc-mist: #e9f8ef;
+    font-family: var(--font-tc-sans), system-ui, sans-serif;
+    color: var(--tc-ink);
+    background: #ffffff;
+}
+
+.tc-serif {
+    font-family: var(--font-tc-serif), Georgia, serif;
+}
+
+/* Hero backdrop: white at the top fading into a green/teal mist like the reference */
+.tc-hero-bg {
+    background:
+        radial-gradient(60% 45% at 50% 100%, rgba(22, 199, 95, 0.28) 0%, rgba(22, 199, 95, 0) 70%),
+        radial-gradient(40% 35% at 10% 95%, rgba(14, 165, 233, 0.18) 0%, rgba(14, 165, 233, 0) 70%),
+        radial-gradient(40% 35% at 90% 90%, rgba(16, 185, 129, 0.22) 0%, rgba(16, 185, 129, 0) 70%),
+        linear-gradient(180deg, #ffffff 0%, #ffffff 45%, #eefaf3 75%, #d9f4e4 100%);
+}
+
+/* Glassy 3D coin */
+.tc-coin {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 25%, #ffffff 0%, #eafff2 35%, #9fe8bd 75%, #4fd38a 100%);
+    box-shadow:
+        inset -6px -10px 18px rgba(14, 159, 74, 0.35),
+        inset 6px 8px 16px rgba(255, 255, 255, 0.9),
+        0 24px 48px -12px rgba(11, 27, 51, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.tc-coin::before {
+    content: '';
+    position: absolute;
+    inset: 9%;
+    border-radius: 9999px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 2px 6px rgba(14, 159, 74, 0.25);
+}
+
+.tc-coin::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 18%;
+    width: 38%;
+    height: 22%;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+    transform: rotate(-20deg);
+}
+
+.tc-coin--ink {
+    background: radial-gradient(circle at 30% 25%, #2b4a78 0%, #13284a 45%, #0b1b33 100%);
+    box-shadow:
+        inset -6px -10px 18px rgba(0, 0, 0, 0.45),
+        inset 6px 8px 16px rgba(255, 255, 255, 0.15),
+        0 30px 60px -14px rgba(11, 27, 51, 0.5);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.tc-coin--ink::before {
+    border-color: rgba(22, 199, 95, 0.55);
+}
+
+.tc-coin--ink::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
+}
+
+.tc-coin--gold {
+    background: radial-gradient(circle at 30% 25%, #fff6e0 0%, #ffd27a 40%, #f7931a 85%, #d9770c 100%);
+    box-shadow:
+        inset -6px -10px 18px rgba(170, 85, 0, 0.35),
+        inset 6px 8px 16px rgba(255, 255, 255, 0.8),
+        0 24px 48px -12px rgba(11, 27, 51, 0.28);
+}
+
+.tc-coin > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Soft pulsing halo around the centre coin */
+.tc-halo {
+    position: absolute;
+    border-radius: 9999px;
+    border: 1px solid rgba(22, 199, 95, 0.25);
+    animation: tc-pulse 4s ease-out infinite;
+}
+
+@keyframes tc-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-14px);
+    }
+}
+
+@keyframes tc-pulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1.25);
+        opacity: 0;
+    }
+}
+
+@keyframes tc-draw {
+    from {
+        stroke-dashoffset: 1200;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes tc-rise {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tc-float {
+    animation: tc-float 6s ease-in-out infinite;
+}
+
+.tc-draw {
+    stroke-dasharray: 1200;
+    animation: tc-draw 3s ease-out forwards;
+}
+
+.tc-rise {
+    animation: tc-rise 0.8s ease-out both;
+}
+
+.tc-grid-bg {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tc-float,
+    .tc-halo,
+    .tc-draw,
+    .tc-rise {
+        animation: none;
+    }
+    .tc-draw {
+        stroke-dasharray: none;
+    }
+}

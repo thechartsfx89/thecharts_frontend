@@ -1,48 +1,39 @@
-import ComponentsDashboardSales from '@/components/dashboard/components-dashboard-sales';
 import { Metadata } from 'next';
-import React from 'react';
-import Hero from './dashboard/landing/hero';
-import Highlights from './dashboard/landing/Highlights';
-import FeaturedCourses from './dashboard/landing/features';
-import WhoWeAre from './dashboard/landing/WhoWeAre';
-import MissionVision from './dashboard/landing/mission';
-// import HeaderLanding from '@/components/landing/headerLanding';
-// import Footer from '@/components/layouts/footer';
-import HeaderLanding from './dashboard/landing/headerLanding';
-import Footer from '@/components/pages/Footer/footer';
-import PricingCard from '@/components/pages/Home/pricingcard';
-import Testimonials from '@/components/pages/Home/testimonials';
-import ForexDemoCard from './dashboard/landing/heromobilehome';
-import HeroMobileHome from './dashboard/landing/heromobilehome';
-import WhoWeAreMobile from './dashboard/landing/whowearemobile';
-import Webinar from '@/components/pages/Home/webinar';
-import MobileTestimonials from '@/components/pages/Home/mobiletestimonials';
-import CoursesDropdown from '@/component/Dropdown/coursesdropdown';
-import Header from './dashboard/landing/headerLanding';
+import { Inter, Merriweather } from 'next/font/google';
+import Header from '@/components/pages/Landing/header';
+import Hero from '@/components/pages/Landing/hero';
+import { AboutMission, HowItWorks, Plans, StatsRow, Testimonials, TopicsStrip } from '@/components/pages/Landing/sections';
+import FeaturedCourses from '@/components/pages/Landing/featured-courses';
+import DemoCTA from '@/components/pages/Landing/demo-cta';
+import Footer from '@/components/pages/Landing/footer';
+import '@/components/pages/Landing/landing.css';
 
 export const metadata: Metadata = {
-    title: 'Educandle',
+    title: 'The Charts',
+    description: 'Learn forex, stock and crypto trading with step-by-step lessons, live chart analysis and mentorship.',
 };
 
+const serif = Merriweather({ weight: ['700', '900'], subsets: ['latin'], variable: '--font-tc-serif' });
+const sans = Inter({ subsets: ['latin'], variable: '--font-tc-sans' });
+
+// Home page
 const Landing = () => {
     return (
-        <>
+        <div className={`tc-root ${serif.variable} ${sans.variable}`}>
             <Header />
-            {/* <Header /> */}
-            {/* <CoursesDropdown /> */}
-            <Hero />
-            <HeroMobileHome />
-            <Highlights />
-            <FeaturedCourses />
-            <WhoWeAre />
-            <WhoWeAreMobile />
-            <MissionVision />
-            <Webinar />
-            <PricingCard />
-            <Testimonials />
-            <MobileTestimonials />
+            <main>
+                <Hero />
+                <TopicsStrip />
+                <StatsRow />
+                <HowItWorks />
+                <FeaturedCourses />
+                <AboutMission />
+                <Plans />
+                <Testimonials />
+                <DemoCTA />
+            </main>
             <Footer />
-        </>
+        </div>
     );
 };
 
