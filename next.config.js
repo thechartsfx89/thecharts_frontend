@@ -14,7 +14,8 @@ const nextConfig = {
       "72.62.194.30",
       "img.feminaforce.com",
       "api.feminaforce.com",
-      "api.educandle.com"
+      "api.educandle.com",
+      "api.thechartsfx.com"
     ],
     remotePatterns: [
       {
@@ -43,6 +44,24 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "api.educandle.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "72.62.194.30",
+        port: "1338",
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "api.thechartsfx.com",
+        port: "",
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "api.thechartsfx.com",
         port: "",
         pathname: "/**",
       },
