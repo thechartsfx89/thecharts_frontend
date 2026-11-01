@@ -165,7 +165,7 @@ const ComponentsAppsInvoicePreview = () => {
                 <div className="px-4 ltr:text-right rtl:text-left">
                     <div className="mt-6 space-y-1 text-white-dark">
                         <div>8244+XJF, Shakti Enclave, Kaonli, Dehradun, Uttarakhand 248171</div>
-                        <div>info@educandle.com</div>
+                        <div>thechartsfx89@gmail.com</div>
                         <div>+91 98775 94203</div>
                     </div>
                 </div>
@@ -201,7 +201,7 @@ const ComponentsAppsInvoicePreview = () => {
                         <div className="xl:1/3 sm:w-1/2 lg:w-2/5">
                             <div className="mb-2 flex w-full items-center justify-between">
                                 <div className="text-white-dark">Bank Holder Name:</div>
-                                <div className="whitespace-nowrap">Educandle</div>
+                                <div className="whitespace-nowrap">The Charts</div>
                             </div>
                             <div className="mb-2 flex w-full items-center justify-between">
                                 <div className="text-white-dark">Account Number:</div>

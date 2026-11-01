@@ -368,7 +368,7 @@ const KYCApprovalList = () => {
                         { value: 'REJECTED', label: 'Rejected' },
                     ]}
                 />
-                <Button fullWidth mt="md" onClick={saveStatus} className="bg-primary">Update Status</Button>
+                <Button fullWidth mt="md" onClick={saveStatus} className="bg-brand hover:bg-brand-hover">Update Status</Button>
             </Modal> */}
 
 
@@ -450,7 +450,7 @@ const KYCApprovalList = () => {
 
                             radius="md"
                             leftIcon={<IconCheck size={18} />}
-                            className={`bg-primary hover:brightness-95 transition-all`}
+                            className={`bg-brand hover:bg-brand-hover transition-all`}
                             loading={isUpdating}
                             // Disable button if REJECTED but no comment provided
                             disabled={statusValue === 'REJECTED' && !adminComment}

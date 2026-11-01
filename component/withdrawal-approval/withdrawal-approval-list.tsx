@@ -459,7 +459,7 @@ const WithdrawalApprovalList = () => {
                         onChange={(e) => setAdminRemark(e.currentTarget.value)}
                         minRows={3}
                     />
-                    <Button fullWidth onClick={saveStatus} className="bg-primary">Update Withdrawal</Button>
+                    <Button fullWidth onClick={saveStatus} className="bg-brand hover:bg-brand-hover">Update Withdrawal</Button>
                 </div>
             </Modal> */}
             <Modal
@@ -622,7 +622,7 @@ const WithdrawalApprovalList = () => {
                             size="sm"
                             radius="md"
                             leftIcon={<IconCheck size={18} />}
-                            className={`bg-primary hover:brightness-95 transition-all`}
+                            className={`bg-brand hover:bg-brand-hover transition-all`}
                             loading={isUpdating}
                             // Disable button if REJECTED but no comment provided
                             disabled={statusValue === 'REJECTED' && !adminComment}

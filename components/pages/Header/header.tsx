@@ -1,3 +1,4 @@
+import TheChartsLogo from '@/components/pages/Landing/logo';
 
 
 export default function Header() {
@@ -7,7 +8,7 @@ export default function Header() {
         <div className="flex justify-between items-center ">
           <div className="flex items-center">
             <div className=" flex items-center">
-              <img src="https://kooqxit.com/wp-content/uploads/2025/08/logo-removebg-preview.png" className="w-full h-full"/>
+              <TheChartsLogo className="h-12" />
             </div>
           </div>
 

@@ -362,7 +362,7 @@ const saveStatus = async () => {
                             { value: 'FAILED', label: 'Failed' },
                         ]}
                     />
-                    <Button fullWidth onClick={saveStatus} className="bg-primary text-white">
+                    <Button fullWidth onClick={saveStatus} className="bg-brand text-white hover:bg-brand-hover">
                         Update Status
                     </Button>
                 </div>
@@ -465,7 +465,7 @@ const saveStatus = async () => {
                 size="md"
                 radius="md"
                 leftIcon={<IconCheck size={18} />}
-                className="bg-primary hover:brightness-95 transition-all"
+                className="bg-brand hover:bg-brand-hover transition-all"
                 loading={isUpdating}
                 disabled={(statusValue === 'REJECTED' || statusValue === 'FAILED' ) && !adminComment}
             >

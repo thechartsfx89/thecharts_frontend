@@ -11,7 +11,7 @@ export default function QuizPage() {
   return (
     <div className="p-6 min-h-screen bg-white dark:bg-gray-900 panel">
       <h1 className="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white">
-        Educandle Quiz
+        The Charts Quiz
       </h1>
       <div className="max-w-3xl mx-auto">
         <Quiz  />

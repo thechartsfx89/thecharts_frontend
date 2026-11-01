@@ -63,14 +63,14 @@ export default function page() {
   <p className="mb-3 font-semibold relative break-all"> {/* 👈 break long words */}
     <span>{'Link -> '}</span>
     <span id="copyLink" className="break-all">
-      https://educandle.com/Newregistration.aspx?param=2w%2bEyNeor5Rs3gz5ewOrDA%3d%3d
+      https://thechartsfx.com/Newregistration.aspx?param=2w%2bEyNeor5Rs3gz5ewOrDA%3d%3d
     </span>
   </p>
 
   <div className="sm:flex space-y-2 sm:space-y-0 sm:space-x-2 rtl:space-x-reverse mt-5">
     <CopyToClipboard
       text={
-        'https://educandle.com/Newregistration.aspx?param=2w%2bEyNeor5Rs3gz5ewOrDA%3d%3d'
+        'https://thechartsfx.com/Newregistration.aspx?param=2w%2bEyNeor5Rs3gz5ewOrDA%3d%3d'
       }
       onCopy={(text, result) => {
         if (result) {

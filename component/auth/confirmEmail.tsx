@@ -1,4 +1,5 @@
 "use client";
+import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
 import React, { useState, Fragment } from "react";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import IconMail from "@/components/icon/icon-mail";
@@ -104,8 +105,8 @@ export default function ConfirmEmail(
                             <DialogPanel className="panel border-0 py-1 px-4 rounded-lg overflow-hidden w-full max-w-sm my-8 text-black dark:text-white-dark">
                                 {/* Header */}
                                 <div className="flex items-center justify-between p-5 font-semibold text-lg dark:text-white">
-                                    <div className='flex gap-2'>
-                                        <img src="/assets/images/auth/logo-mob.png" alt="img" width={40} />
+                                    <div className='flex items-center gap-3'>
+                                        <TheChartsThemedLogo className="h-9" />
                                         <h5 className='text-dark'>Check Your Email</h5>
                                     </div>
 
@@ -163,8 +164,8 @@ export default function ConfirmEmail(
                                 <div className="p-5 border-t border-[#ebe9f1] dark:border-white/10">
                                     <p className="text-sm text-center text-white-dark dark:text-white-dark/70 text-center">
                                         Nothing in sight? {" "}
-                                        {/* info@educandle.com */}
-                                        <a className="text-primary underline" href="mailto:info@educandle.com?subject=Need%20help%20with%20email%20verification" role="button">
+                                       
+                                        <a className="text-primary underline" href="mailto:thechartsfx89@gmail.com?subject=Need%20help%20with%20email%20verification" role="button">
                                             Contact Support
                                         </a>
                                         {/* <button

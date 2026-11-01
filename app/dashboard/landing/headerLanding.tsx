@@ -1,5 +1,6 @@
 'use client';
 
+import { TheChartsThemedLogo, TheChartsMark } from '@/components/pages/Landing/logo';
 import IconCaretsDown from '@/components/icon/icon-carets-down';
 import { IRootState } from '@/store';
 import Image from 'next/image';
@@ -95,11 +96,7 @@ export default function HeaderLanding() {
                         <div className="flex items-center">
                             <Link href="/">
                                 <div className=" flex items-center">
-                                    <Image src="/assets/images/auth/logo-mob.png" className="w-full h-full" alt="logo" width={180} height={100} style={{ width: '80px' }} />
-                                    <div className='flex flex-col justify-center items-center'>
-                                        <span className='font-bold text-2xl text-dark'>EduCandle</span>
-                                        <span className='text-xs'>Vision to Reality</span>
-                                    </div>
+                                    <TheChartsThemedLogo className="h-12" />
                                 </div>
                             </Link>
                         </div>
@@ -302,7 +299,7 @@ export default function HeaderLanding() {
                     <div className="relative flex w-full items-center bg-white px-5 py-2.5 dark:bg-black">
                         <div className="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
                             <Link href="/" className="main-logo flex shrink-0 items-center">
-                                <img className="inline w-8 ltr:-ml-1 rtl:-mr-1" src="/assets/images/auth/logo-mob.png" alt="logo" style={{ width: '3rem' }} />
+                                <TheChartsMark className="h-10 w-10" />
                                 <span className="hidden align-middle text-2xl  font-semibold  transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline"></span>
                             </Link>
                         </div>
@@ -436,22 +433,18 @@ export default function HeaderLanding() {
                             <div className="flex items-center justify-between px-4 py-3">
                                 <Link href="/" className="main-logo flex shrink-0 items-center width-10 hh">
                                     {themeConfig?.menu == 'collapsible-vertical' ? (
-                                        <img className="inline w-8 ltr:-ml-1 rtl:-mr-1" src="/assets/images/auth/logo-mob.png" alt="logo" style={{ width: '3rem' }} />
+                                        <TheChartsMark className="h-10 w-10" />
                                     ) : (
                                         <div className="flex items-center">
                                             <Link href="/">
                                                 <div className=" flex items-center">
-                                                    <Image src="/assets/images/auth/logo-mob.png" className="w-full h-full" alt="logo" width={120} height={100} style={{ width: '50px' }} />
-                                                    <div className='flex flex-col justify-center items-center'>
-                                                        <span className='font-bold text-lg text-dark'>EduCandle</span>
-                                                        <span className='text-xs' style={{ fontSize: "9px", marginTop: "-6px" }}>Vision to Reality</span>
-                                                    </div>
+                                                    <TheChartsThemedLogo className="h-12" />
                                                 </div>
                                             </Link>
                                         </div>
                                         // <img className="ml-[5px] w-8 flex-none" src="https://kooqxit.com/wp-content/uploads/2025/08/logo-removebg-preview.png" alt="logo" style={{ width: '8.7rem' }} />
                                     )}
-                                    {/* <span className="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">Educandle</span> */}
+                                    {/* <span className="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">The Charts</span> */}
                                 </Link>
 
                                 <button

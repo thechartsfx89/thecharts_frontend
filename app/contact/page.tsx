@@ -114,7 +114,7 @@ export default function ContactPage() {
                 <div>
                   <p className="text-gray-500 text-sm">E-mail</p>
                   <p className="font-medium text-gray-800">
-                    info@educandle.com
+                    thechartsfx89@gmail.com
                   </p>
                 </div>
               </div>

@@ -1,4 +1,5 @@
 'use client';
+import { TheChartsMark } from '@/components/pages/Landing/logo';
 import Dropdown from '@/components/dropdown';
 import IconBell from '@/components/icon/icon-bell';
 import IconCamera from '@/components/icon/icon-camera';
@@ -417,7 +418,7 @@ const Community = () => {
                                     <IconMenu />
                                 </button>
                                 <div className=" flex items-center">
-                                    <Image src="/assets/images/auth/logo-mob.png" className="w-full h-full" alt="logo" width={80} height={60} style={{ width: '40px', marginBottom: "7px" }} />
+                                    <TheChartsMark className="h-9 w-9" />
 
                                 </div>
 

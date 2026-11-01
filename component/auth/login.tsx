@@ -1,4 +1,5 @@
 "use client"
+import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
 import React, { useEffect } from 'react'
 import { Dialog, DialogPanel, Transition, Tab, TransitionChild } from '@headlessui/react';
 import { useState, Fragment } from 'react';
@@ -196,8 +197,8 @@ const Login = React.memo(function Login({
                                         {/* <div className='flex justify-center'>
                                         <img src="/assets/landing/logo2.png" alt="img"/>
                                     </div> */}
-                                        <div className='flex gap-2'>
-                                            <img src="/assets/images/auth/logo-mob.png" alt="img" width={40} />
+                                        <div className='flex items-center gap-3'>
+                                            <TheChartsThemedLogo className="h-9" />
                                             <h5 className='text-dark'>Login</h5>
                                         </div>
 

@@ -8,7 +8,7 @@ const rotateX = plugin(function ({ addUtilities }) {
     });
 });
 module.exports = {
-    content: ['./App.tsx', './app/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
+    content: ['./App.tsx', './app/**/*.{js,ts,jsx,tsx}', './component/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
     darkMode: 'class',
     theme: {
         container: {
@@ -25,6 +25,11 @@ module.exports = {
                 shine: 'shine 2s linear infinite',
             },
             colors: {
+                // The Charts navy, matching the landing header's Get Started button
+                brand: {
+                    DEFAULT: '#0b1b33',
+                    hover: '#13284a',
+                },
                 primary: {
                     DEFAULT: '#4361ee',
                     light: '#eaf1ff',

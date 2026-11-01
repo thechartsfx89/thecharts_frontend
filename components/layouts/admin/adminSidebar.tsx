@@ -1,4 +1,5 @@
 'use client';
+import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
@@ -104,13 +105,7 @@ const AdminSidebar = () => {
                             <Link href="/" className="main-logo flex shrink-0 items-center width-10 hh">
 
                                 <div className="flex items-center">
-                                    <Image src="/assets/images/auth/logo-mob.png" className="w-full h-full" alt="logo" width={180} height={100} style={{ width: '70px' }} />
-                                    <span className="hidden align-middle text-2xl  font-semibold  transition-all duration-300 ltr:ml-1 rtl:mr-1.5 dark:text-white-light md:inline">
-                                        <div className='flex flex-col justify-center items-center'>
-                                            <span className='font-bold text-xl text-dark dark:text-white-light'>EduCandle</span>
-                                            <span className='text-xs m-0 p-0'>Vision to Reality</span>
-                                        </div>
-                                    </span>
+                                    <TheChartsThemedLogo className="h-10" />
                                 </div>
                             </Link>
 

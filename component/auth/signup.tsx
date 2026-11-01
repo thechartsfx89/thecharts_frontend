@@ -1,4 +1,5 @@
 "use client"
+import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
 import React, { use, useEffect } from 'react'
 import { Dialog, DialogPanel, Transition, Tab, TransitionChild } from '@headlessui/react';
 import { useState, Fragment } from 'react';
@@ -240,8 +241,8 @@ const Signup = React.memo(function Signup({
                                 <DialogPanel className="panel border-0 py-1 px-4 rounded-lg overflow-hidden w-full max-w-3xl my-8 text-black dark:text-white-dark">
 
                                     <div className="flex items-center justify-between p-5 font-semibold text-lg dark:text-white">
-                                        <div className='flex gap-2'>
-                                            <img src="/assets/images/auth/logo-mob.png" alt="img" width={40} />
+                                        <div className='flex items-center gap-3'>
+                                            <TheChartsThemedLogo className="h-9" />
                                             <h5 className='text-dark'>Register</h5>
                                         </div>
 

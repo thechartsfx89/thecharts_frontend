@@ -16,7 +16,7 @@ export default function UniqueAccordion() {
         {
             title: 'Psychology',
             content:
-                "Technicals & fundamentals are just 10% – 20% . 80% – 90% is psychology & mindset . We at EduCandle help you to build that profitable trader mindset through real-time market experience . Activities of personalized mind image perception and weekly journal analysis",
+                "Technicals & fundamentals are just 10% – 20% . 80% – 90% is psychology & mindset . We at The Charts help you to build that profitable trader mindset through real-time market experience . Activities of personalized mind image perception and weekly journal analysis",
             color: 'bg-[#FF985E]',
         },
         {
@@ -41,7 +41,7 @@ export default function UniqueAccordion() {
         <section className="bg-[#B5D2F0] lg:pt-20 pt-5 xl:px-10 lg:px-2.5 px-2.5 md:px-5 lg:mb-28 mb-5 lg:mt-0 mt-5 ">
             <div className="container mx-auto lg:pb-0 pb-5">
                 <h2 className="lg:text-5xl text-2xl md:text-3xl font-extrabold text-gray-900 lg:mb-6 mb-0">
-                    What Makes <span className="italic font-light font-mrs-saint lg:text-[88px] text-4xl mr-6">educandle</span>
+                    What Makes <span className="italic font-light font-mrs-saint lg:text-[88px] text-4xl mr-6">The Charts</span>
                     <span className="font-extrabold">Unique?</span>
                 </h2>
 

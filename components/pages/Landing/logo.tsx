@@ -16,3 +16,13 @@ export function TheChartsMark({ className = 'h-9 w-9', dark = false }: { classNa
 export default function TheChartsLogo({ className = 'h-12', onDark = false }: { className?: string; onDark?: boolean }) {
     return <img src={onDark ? '/assets/thecharts/logo-white.png' : '/assets/thecharts/logo.png'} alt="The Charts" width={720} height={200} className={`${className} w-auto object-contain`} />;
 }
+
+// Follows the app's class-based dark theme, swapping to the white-lettering logo when it is on
+export function TheChartsThemedLogo({ className = 'h-10' }: { className?: string }) {
+    return (
+        <>
+            <TheChartsLogo className={`${className} dark:hidden`} />
+            <TheChartsLogo className={`${className} hidden dark:block`} onDark />
+        </>
+    );
+}

@@ -16,7 +16,7 @@ const HeroAbout = () => {
                         <h2
                             className="lg:mt-11 mt-2 lg:text-[84px] text-3xl font-extrabold [text-shadow:5px_13px_4px_rgba(0,153,69,0.22)] font-michroma  text-[#009945]"
                         >
-                            EDUCANDLE
+                            THE CHARTS
                         </h2>
                         <p className="lg:mt-9 mt-3 max-w-2xl lg:text-lg text-sm  mx-auto">
                             Stay updated with the latest trends, expert analysis, and market-moving news. Your daily dose of clarity and confidence in the ever-changing world of trading.

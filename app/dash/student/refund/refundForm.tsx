@@ -119,7 +119,7 @@ export default function RefundForm({ courseName, courseId, handleClose }: Refund
         {errors?.description && <p className="text-red-500 text-xs" style={{ color: "red", marginTop: "2px" }}>{errors?.description?.message}</p>}
         {/* <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition btn btn-primary"
+          className="w-full text-white font-semibold py-2 rounded-lg transition btn btn-primary"
         >
           Submit
         </button> */}

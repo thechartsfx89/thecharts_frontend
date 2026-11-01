@@ -1,4 +1,5 @@
 "use client"
+import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
 import IconLoader from '@/components/icon/icon-loader';
 import IconLock from '@/components/icon/icon-lock';
 import HookFormCheckboxField from '@/hooks/hookFormCheckbox';
@@ -98,11 +99,7 @@ export default function page() {
             <div className="flex items-center mb-4">
                             <Link href="/">
                                 <div className=" flex items-center">
-                                    <Image src="/assets/images/auth/logo-mob.png" className="w-full h-full" alt="logo" width={160} height={80} style={{ width: '60px' }} />
-                                    <div className='flex flex-col justify-center items-center'>
-                                        <span className='font-bold text-xl text-dark'>EduCandle</span>
-                                        <span className='text-xs text-[10px]'>Vision to Reality</span>
-                                    </div>
+                                    <TheChartsThemedLogo className="h-14" />
                                 </div>
                             </Link>
                         </div>

@@ -1,3 +1,4 @@
+import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaXTwitter, FaYoutube } from "react-icons/fa6";
@@ -19,14 +20,10 @@ export default function Footer() {
         <div className="col-span-1 space-y-6">
           {/* Logo */}
           {/* <div className="flex items-center gap-3">
-                        <Image src="/assets/landing/logo1.png" alt="Educandle Logo" width={200} height={80} className="" />
+                        <Image src="/assets/landing/logo1.png" alt="The Charts Logo" width={200} height={80} className="" />
                     </div> */}
           <div className=" flex items-center">
-            <Image src="/assets/images/auth/logo-mob.png" className="w-full h-full" alt="logo" width={180} height={100} style={{ width: '90px' }} />
-            <div className='flex flex-col justify-center items-center'>
-              <span className='font-bold text-2xl text-dark'>EduCandle</span>
-              <span className='text-xs'>Vision to Reality</span>
-            </div>
+            <TheChartsThemedLogo className="h-14" />
           </div>
 
           <div className="flex gap-3 text-xl text-black">
@@ -38,7 +35,7 @@ export default function Footer() {
           </div>
 
           <p className="text-base lg:text-lg text-gray-700 leading-relaxed max-w-xs">
-            Get access to proven trading strategies, live market sessions, and mentorship that actually works — all inside EDUCANDLE.
+            Get access to proven trading strategies, live market sessions, and mentorship that actually works — all inside THE CHARTS.
           </p>
         </div>
 
@@ -81,7 +78,7 @@ export default function Footer() {
         Disclaimer: Futures, forex, stock, and options trading are not appropriate for all traders. There is a substantial risk of loss associated with trading these markets. Losses can and will occur. No system or methodology has ever been developed that can ensure returns or against losses. No representation or implication is being made that using any of these methodologies or systems will generate returns or ensure against losses.
       </div>
 
-      <div className="border-t border-gray-200 py-4 text-center text-xs text-gray-500">© {new Date().getFullYear()}. EduCandle All rights reserved.</div>
+      <div className="border-t border-gray-200 py-4 text-center text-xs text-gray-500">© {new Date().getFullYear()}. The Charts All rights reserved.</div>
     </footer>
 
   );

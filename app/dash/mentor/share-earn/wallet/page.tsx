@@ -148,27 +148,27 @@ total: {
     const items1 = [
         {
             id: 1,
-            text: 'Bill Payment for Educandle',
+            text: 'Bill Payment for The Charts',
             name: 'Paid on 08 Sep, 12:41 PM',
         },
         {
             id: 2,
-            text: 'Bill Payment for Educandle',
+            text: 'Bill Payment for The Charts',
             name: 'Paid on 08 Sep, 12:41 PM',
         },
         {
             id: 3,
-            text: 'Bill Payment for Educandle',
+            text: 'Bill Payment for The Charts',
             name: 'Paid on 08 Sep, 12:41 PM',
         },
         {
             id: 4,
-            text: 'Bill Payment for Educandle',
+            text: 'Bill Payment for The Charts',
             name: 'Paid on 08 Sep, 12:41 PM',
         },
         {
             id: 5,
-            text: 'Bill Payment for Educandle',
+            text: 'Bill Payment for The Charts',
             name: 'Paid on 08 Sep, 12:41 PM',
         },
     ];

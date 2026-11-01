@@ -16,16 +16,16 @@ export default function BuybackRefundExchangePolicy() {
           <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed">
             
             <p>
-              At <b>M/s Educandle</b> (hereinafter referred to as <b>“Educandle”</b>), it’s our
+              At <b>M/s The Charts</b> (hereinafter referred to as <b>“The Charts”</b>), it’s our
               passion to ensure the highest quality of our products and your complete
               satisfaction. However, if our products do not meet your expectations, you may
               return them within <b>30 days</b> from the date of invoice, provided you notify
               us within one week of purchase either by calling us or emailing us at{" "}
               <a
-                href="mailto:info@educandle.com"
+                href="mailto:thechartsfx89@gmail.com"
                 className="text-green-600 underline"
               >
-                info@educandle.com
+                thechartsfx89@gmail.com
               </a>.
             </p>
 
@@ -81,14 +81,14 @@ export default function BuybackRefundExchangePolicy() {
             </h4>
             <p>
               Return shipping costs are borne by the customer and are non-refundable unless
-              otherwise decided by Educandle.
+              otherwise decided by The Charts.
             </p>
 
             <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
               Cancellation of Orders
             </h4>
             <p>
-              <b>By Educandle:</b> Orders may be canceled due to stock or technical issues with
+              <b>By The Charts:</b> Orders may be canceled due to stock or technical issues with
               refunds issued via original payment mode.
             </p>
             <p>
@@ -101,23 +101,23 @@ export default function BuybackRefundExchangePolicy() {
             </h4>
             <ul>
               <li>Products must be returned to the head office with a return form</li>
-              <li>Return period is calculated till receipt at Educandle office</li>
+              <li>Return period is calculated till receipt at The Charts office</li>
               <li>BV points will be adjusted in the next payout</li>
               <li>Returned products cannot be repurchased within 30 days</li>
               <li>
                 For details visit{" "}
                 <a
-                  href="https://www.educandle.com"
+                  href="https://www.thechartsfx.com"
                   className="text-green-600 underline"
                 >
-                  www.educandle.com
+                  www.thechartsfx.com
                 </a>{" "}
                 or email{" "}
                 <a
-                  href="mailto:info@educandle.com"
+                  href="mailto:thechartsfx89@gmail.com"
                   className="text-green-600 underline"
                 >
-                  info@educandle.com
+                  thechartsfx89@gmail.com
                 </a>
               </li>
             </ul>

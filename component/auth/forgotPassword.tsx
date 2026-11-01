@@ -1,4 +1,5 @@
 "use client";
+import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
 import React, { useState, Fragment } from "react";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import IconMail from "@/components/icon/icon-mail";
@@ -102,8 +103,8 @@ export default function ForgotPassword(
               <DialogPanel className="panel border-0 py-1 px-4 rounded-lg overflow-hidden w-full max-w-sm my-8 text-black dark:text-white-dark">
                 {/* Header */}
                 <div className="flex items-center justify-between p-5 font-semibold text-lg dark:text-white">
-                  <div className='flex gap-2'>
-                    <img src="/assets/images/auth/logo-mob.png" alt="img" width={40} />
+                  <div className='flex items-center gap-3'>
+                    <TheChartsThemedLogo className="h-9" />
                     <h5 className='text-dark'>Forgot Password</h5>
                   </div>
 

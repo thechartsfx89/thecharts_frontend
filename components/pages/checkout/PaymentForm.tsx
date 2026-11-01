@@ -221,7 +221,7 @@ export default function PaymentPage(props: { course: any }) {
                                             Bank Details
                                         </h3>
                                         <div className="space-y-1">
-                                            <p><strong>Account Holder:</strong> Educandle</p>
+                                            <p><strong>Account Holder:</strong> The Charts</p>
                                             <p><strong>Account No:</strong> 78111010002006</p>
                                             <p><strong>IFSC:</strong> UBIN0817813</p>
                                             <p><strong>Branch:</strong> Yamuna Nagar</p>

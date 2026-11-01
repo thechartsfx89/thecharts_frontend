@@ -1,3 +1,4 @@
+import TheChartsLogo, { TheChartsMark } from '@/components/pages/Landing/logo';
 import ComponentsPagesComingSoonForm from '@/components/pages/coming-soon/components-pages-coming-soon-form';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -26,7 +27,7 @@ const ComingSoonCover = () => {
                         <div className="absolute inset-y-0 w-8 from-primary/10 via-transparent to-transparent ltr:-right-10 ltr:bg-gradient-to-r rtl:-left-10 rtl:bg-gradient-to-l xl:w-16 ltr:xl:-right-20 rtl:xl:-left-20"></div>
                         <div className="ltr:xl:-skew-x-[14deg] rtl:xl:skew-x-[14deg]">
                             <Link href="/" className="mx-auto block w-48 lg:w-72 2xl:m-0">
-                                <img src="https://kooqxit.com/wp-content/uploads/2025/08/logo-removebg-preview.png" alt="Logo" className="w-full" />
+                                <TheChartsLogo className="h-20" onDark />
                             </Link>
                             <div className="mt-24 hidden w-full max-w-[430px] rtl:rotate-y-180 lg:block">
                                 <img src="/assets/images/auth/coming-soon-cover.svg" alt="Cover Image" className="w-full" />
@@ -36,7 +37,7 @@ const ComingSoonCover = () => {
                     <div className="relative w-full px-4 pb-16 pt-6 sm:px-6 lg:max-w-[667px]">
                         <div className="mx-auto mt-5 w-full max-w-[550px] lg:mt-16">
                             <Link href="/" className="mb-8 block lg:hidden">
-                                <img src="/assets/images/logo.svg" alt="Logo" className="mx-auto w-10" />
+                                <TheChartsMark className="mx-auto h-8 w-8" />
                             </Link>
                             <div className="mb-12">
                                 <h1 className="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Coming Soon</h1>
@@ -44,7 +45,7 @@ const ComingSoonCover = () => {
                             </div>
                             <ComponentsPagesComingSoonForm />
                         </div>
-                        <p className="absolute bottom-6 w-full text-center dark:text-white">© {new Date().getFullYear()}.EduCandle All Rights Reserved.</p>
+                        <p className="absolute bottom-6 w-full text-center dark:text-white">© {new Date().getFullYear()}. The Charts All Rights Reserved.</p>
                     </div>
                 </div>
             </div>

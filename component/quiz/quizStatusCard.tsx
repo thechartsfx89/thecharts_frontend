@@ -16,7 +16,7 @@ export default function QuizStatusCard({ isUnlocked, moduleId, courseDocId }: { 
         message:
           "You’ve unlocked the quiz! Test your understanding now.",
         button: (
-          <button className="w-full py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
+          <button className="w-full py-2 rounded-lg bg-brand text-white hover:bg-brand-hover transition">
             Start Quiz
           </button>
         ),

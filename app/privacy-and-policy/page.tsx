@@ -18,16 +18,16 @@ export default function PrivacyPolicy() {
             {/* Content */}
             <div className="text-sm sm:text-base text-gray-700 leading-relaxed space-y-4">
               <p>
-                This Privacy Policy describes how <b>M/s Educandle</b> (hereinafter
-                referred to as <b>“Educandle”</b>) collects, uses, and protects
-                personal data received from Educandle Business Owner Partners
+                This Privacy Policy describes how <b>M/s The Charts</b> (hereinafter
+                referred to as <b>“The Charts”</b>) collects, uses, and protects
+                personal data received from The Charts Business Owner Partners
                 (SBO Partners) and New Registered Customers (NRCs).
               </p>
 
               <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
                 How We May Collect or Receive Personal Data from You
               </h4>
-              <p><b>Registration:</b> Educandle collects your personal data through the registration form completed and submitted via paper or electronically through the Educandle website.</p>
+              <p><b>Registration:</b> The Charts collects your personal data through the registration form completed and submitted via paper or electronically through the The Charts website.</p>
               <p><b>Logged In as SBO Partner or NRC:</b> We may collect your data when you order products or services while logged in.</p>
               <p><b>Contacting Us:</b> You may submit personal data through our communication channels listed on the “Contact Us” page.</p>
               <p><b>Cookies:</b> If you are logged in, we may use cookies to collect Website usage data. You can disable cookies in your browser settings, but some website features may not work properly.</p>
@@ -62,13 +62,13 @@ export default function PrivacyPolicy() {
                 <li>To communicate with you regarding updates or services</li>
                 <li>To operate, evaluate, and improve our business</li>
                 <li>To track and analyze your usage behavior</li>
-                <li>To assess your performance under your Educandle agreement</li>
+                <li>To assess your performance under your The Charts agreement</li>
                 <li>To provide information to your upline or downline</li>
                 <li>To perform accounting, billing, and compliance processes</li>
               </ul>
 
               <p>
-                If you withdraw consent, Educandle may not be able to continue
+                If you withdraw consent, The Charts may not be able to continue
                 providing services and reserves the right to terminate your
                 contract.
               </p>
@@ -77,7 +77,7 @@ export default function PrivacyPolicy() {
                 How We May Share Personal and Sensitive Data
               </h4>
               <ul className="list-disc pl-5 sm:pl-6 space-y-1">
-                <li>Entities within Educandle for operations</li>
+                <li>Entities within The Charts for operations</li>
                 <li>Government authorities as required by law</li>
                 <li>SBO Partners in your upline or downline</li>
                 <li>Servicing Distributors for NRCs</li>
@@ -99,10 +99,10 @@ export default function PrivacyPolicy() {
               <p>
                 Updates will be published on{" "}
                 <a
-                  href="https://www.educandle.com"
+                  href="https://www.thechartsfx.com"
                   className="text-green-600 underline break-all"
                 >
-                  www.educandle.com
+                  www.thechartsfx.com
                 </a>
               </p>
 
@@ -123,10 +123,10 @@ export default function PrivacyPolicy() {
                 Mr. Johnny Walkar <br />
                 📧 Email:{" "}
                 <a
-                  href="mailto:info@educandle.com"
+                  href="mailto:thechartsfx89@gmail.com"
                   className="text-green-600 underline break-all"
                 >
-                  info@educandle.com
+                  thechartsfx89@gmail.com
                 </a>
               </p>
 

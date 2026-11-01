@@ -1,6 +1,7 @@
 // app/courses/[id]/CourseDetails.tsx
 'use client';
 
+import { TheChartsMark } from '@/components/pages/Landing/logo';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -309,11 +310,11 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                         <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
                             <div className="w-14 md:w-14 h-14 md:h-14 border border-2 rounded-full flex items-center justify-center text-white font-bold text-lg md:text-xl ">
 
-                                <Image src="/assets/images/auth/logo-mob.png" className="w-full h-full" alt="logo" width={80} height={60} style={{ width: '46px', height: "36px", marginBottom: "7px" }} />
+                                <TheChartsMark className="h-9 w-9" />
 
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-900 text-sm md:text-base">Educandle</p>
+                                <p className="font-semibold text-gray-900 text-sm md:text-base">The Charts</p>
                                 <p className="text-gray-600 text-xs md:text-sm">Vision To reality</p>
                             </div>
                         </div>

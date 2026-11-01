@@ -16,24 +16,24 @@ export default function TermsAndConditions() {
           <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed">
 
             <p>
-              Access to and use of the <b>educandle.com</b> Website (hereinafter referred to as the{" "}
-              <b>Educandle Website</b>) and the information, materials, products, and services
+              Access to and use of the <b>The Charts.com</b> Website (hereinafter referred to as the{" "}
+              <b>The Charts Website</b>) and the information, materials, products, and services
               available through it are subject to these Terms of Use.
             </p>
 
             <p>
               The Website Terms of Use may be updated periodically. Updated versions will be
-              posted on the Educandle Website and take effect immediately.
+              posted on the The Charts Website and take effect immediately.
             </p>
 
             <p>
-              The Educandle Website provides information on <b>Educandle</b>, its business,
+              The The Charts Website provides information on <b>The Charts</b>, its business,
               products, and services, and is intended solely for use within the Republic of
               India under Indian law.
             </p>
 
             <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
-              1. Password-Protected Parts of the Educandle Website
+              1. Password-Protected Parts of the The Charts Website
             </h4>
             <p>
               Password-protected sections are exclusively for SBO Partners and NRCs in India.
@@ -41,10 +41,10 @@ export default function TermsAndConditions() {
             </p>
 
             <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
-              2. Educandle Privacy Statement and Policies
+              2. The Charts Privacy Statement and Policies
             </h4>
             <p>
-              All personal data is handled in accordance with the Educandle Privacy Policy.
+              All personal data is handled in accordance with the The Charts Privacy Policy.
               Incorrect or outdated information may result in restricted access.
             </p>
 
@@ -60,21 +60,21 @@ export default function TermsAndConditions() {
               4. Links to Other Websites
             </h4>
             <p>
-              Educandle is not responsible for third-party websites linked from this site.
+              The Charts is not responsible for third-party websites linked from this site.
             </p>
 
             <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
               5. Links from Other Websites
             </h4>
             <p>
-              Linking to <b>www.educandle.com</b> requires prior written approval.
+              Linking to <b>www.thechartsfx.com</b> requires prior written approval.
             </p>
 
             <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
               6. Limitation of Liability
             </h4>
             <p>
-              Educandle is not liable for damages arising from website use, including data loss
+              The Charts is not liable for damages arising from website use, including data loss
               or service interruption.
             </p>
 
@@ -82,7 +82,7 @@ export default function TermsAndConditions() {
               7. Restricting Access
             </h4>
             <p>
-              Educandle reserves the right to restrict or block access for violations.
+              The Charts reserves the right to restrict or block access for violations.
             </p>
 
             <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
@@ -104,8 +104,8 @@ export default function TermsAndConditions() {
             </h4>
             <p>
               Contact our Grievance Officer <b>Mr. Johnny Walkar</b> at{" "}
-              <a href="mailto:info@educandle.com" className="text-green-600 underline">
-                info@educandle.com
+              <a href="mailto:thechartsfx89@gmail.com" className="text-green-600 underline">
+                thechartsfx89@gmail.com
               </a>.
             </p>
 
