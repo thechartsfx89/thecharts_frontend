@@ -1,23 +1,24 @@
 // components/CourseCard.jsx
 'use client';
 
-import { getCourseUrl, getImageUrl } from '@/utils/common/common';
+import { getCourseUrl } from '@/utils/common/common';
+import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 
-export default function BlogCard({ category, title, desc, img, bg }: any) {
+export default function BlogCard({ category, title, desc, img }: any) {
     return (
-        <div className={` rounded-3xl p-6 relative custom-shadow panel`}>
-            <button className="absolute top-4 left-4">
-                <img src="/assets/landing/featured-courses/2.png" alt="icon" className="w-16 h-16" />
-            </button>
-            <div className="flex justify-end ">
-                <div className=''>
-                    <Image src={getCourseUrl(img)} alt={title} width={192} height={80} className="rounded-xl object-cover" />
-                </div>
+        <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-xl">
+            <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                <Image src={getCourseUrl(img)} alt={title} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 90vw" className="object-cover transition duration-500 group-hover:scale-105" />
+                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold capitalize text-[#0b1b33] backdrop-blur">{category}</span>
             </div>
-            <span className="inline-block border border-black px-6 py-2 text-sm rounded-2xl xl:mb-8 lg:mb-2 mb-1">{category}</span>
-            <h3 className="xl:text-2xl lg:text-xl text-lg lg:mb-4 mb-1">{title}</h3>
-            <p className="text-sm line-clamp-2">{desc}</p>
+            <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-start justify-between gap-3">
+                    <h3 className="text-lg font-bold leading-snug text-[#0b1b33]">{title}</h3>
+                    <ArrowUpRight className="h-5 w-5 shrink-0 text-[#0e9f4a] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </div>
+                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{desc}</p>
+            </div>
         </div>
     );
 }

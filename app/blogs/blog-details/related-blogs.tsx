@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import Link from 'next/link';
 import BlogCard from '@/components/pages/Blog/blogcards';
+import { SectionHeading } from '@/components/pages/Landing/sections';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y, Autoplay } from 'swiper/modules';
 
@@ -27,29 +29,23 @@ export default function RelatedBlogs({ category }: { category: string }) {
     }, [category]);
 
     return (
-        <section className="lg:py-16 py-8 ">
-            <div className="container mx-auto">
+        <section className="mt-16 bg-[#f3fbf6] py-16 sm:py-20">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* Title */}
-                <h2 className="lg:text-4xl md:text-3xl text-2xl font-extrabold mb-6">
-                    Related <span className="text-green-600 italic font-normal font-mrs-saint lg:text-[72px] text-3xl">Blogs</span>
-                </h2>
-
-                {/* Blogs Grid */}
-                {/* <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {Array.isArray(blogData) && blogData.length > 0 &&
-                    blogData.map((blog: any, index: any) => (
-                        <BlogCard
-                            key={index}
-                            category={blog?.blog_category?.categoryName || 'Uncategorized'}
-                            title={blog?.blog_title || 'Untitled'}
-                            desc={blog?.blog_description?.[0]?.children?.[0]?.text}
-                            img={blog?.blog_image?.[0]?.url}
-                        />
-                    ))}
-                </div> */}
+                <div className="mb-10">
+                    <SectionHeading
+                        eyebrow="Blogs"
+                        center={false}
+                        title={
+                            <>
+                                Related <span className="text-[#16c75f]">Blogs</span>
+                            </>
+                        }
+                    />
+                </div>
 
                 {blogData.length === 0 ? (
-                    <p className="text-gray-500">No related blogs found.</p>
+                    <p className="text-slate-500">No related blogs found.</p>
                 ) : (
                     <Swiper
                         modules={[Navigation, A11y, Autoplay]}
@@ -77,15 +73,15 @@ export default function RelatedBlogs({ category }: { category: string }) {
                         className="carouselFour"
                     >
                         {blogData.map((blog: any, index: number) => (
-                            <SwiperSlide key={blog?.id ?? index}>
-                                <div className="h-full p-2">
+                            <SwiperSlide key={blog?.id ?? index} className="!h-auto">
+                                <Link href={`/blogs/blog-details/${blog?.documentId}`} className="block h-full p-2">
                                     <BlogCard
                                         category={blog?.blog_category?.categoryName || 'Uncategorized'}
                                         title={blog?.blog_title || 'Untitled'}
                                         desc={blog?.blog_description?.[0]?.children?.[0]?.text}
                                         img={blog?.blog_image?.[0]?.url}
                                     />
-                                </div>
+                                </Link>
                             </SwiperSlide>
                         ))}
                     </Swiper>

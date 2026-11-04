@@ -168,9 +168,9 @@ export default function PaymentPage(props: { course: any }) {
             <div className="">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                    <div className=" md:col-span-2 panel">
+                    <div className=" md:col-span-2 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
 
-                        <h2 className="text-2xl font-bold text-dark mb-6 text-center">Payment Details</h2>
+                        <h2 className="tc-serif text-2xl font-black text-[#0b1b33] mb-6 text-center">Payment Details</h2>
                         <form onSubmit={handleSubmit(onSubmit, onError)}
                             className="space-y-5 ">
                             <div className="mb-6">
@@ -212,10 +212,10 @@ export default function PaymentPage(props: { course: any }) {
 
                             {/* ---------------- BANK ---------------- */}
                             {mode === "BANK_DEPOSIT" && (
-                                <div className="space-y-4 mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                                <div className="space-y-4 mb-6 p-4 bg-[#f3fbf6] border border-[#16c75f]/25 rounded-2xl">
                                     <div className="text-sm text-gray-800">
                                         <h3 className="font-semibold mb-3 flex items-center">
-                                            <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Bank Icon">
+                                            <svg className="w-5 h-5 mr-2 text-[#0e9f4a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Bank Icon">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                             </svg>
                                             Bank Details
@@ -273,9 +273,9 @@ export default function PaymentPage(props: { course: any }) {
 
                             {/* ---------------- DIGITAL ---------------- */}
                             {mode === "DIGITAL_PAYMENT" && (
-                                <div className="space-y-4 mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-center">
+                                <div className="space-y-4 mb-6 p-4 bg-[#f3fbf6] border border-[#16c75f]/25 rounded-2xl text-center">
                                     <h3 className="font-semibold mb-3 flex items-center justify-center text-gray-800">
-                                        <svg className="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="QR Icon">
+                                        <svg className="w-5 h-5 mr-2 text-[#0e9f4a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="QR Icon">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M12 15h4.01M12 21h4.01M12 12h4.01M12 15h4.01M12 21h4.01M12 12h4.01M12 15h4.01M12 21h4.01" />
                                         </svg>
                                         Scan QR Code
@@ -323,9 +323,9 @@ export default function PaymentPage(props: { course: any }) {
 
                             {/* ---------------- CASH ---------------- */}
                             {mode === "CASH" && (
-                                <div className="space-y-4 mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <div className="space-y-4 mb-6 p-4 bg-[#f3fbf6] border border-[#16c75f]/25 rounded-2xl">
                                     <div className="text-sm text-gray-800 flex items-center mb-4">
-                                        <svg className="w-5 h-5 mr-2 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Cash Icon">
+                                        <svg className="w-5 h-5 mr-2 text-[#0e9f4a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Cash Icon">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
                                         </svg>
                                         Pay cash at the office or upon delivery.
@@ -355,7 +355,7 @@ export default function PaymentPage(props: { course: any }) {
                                         Cancel
                                     </button>
                                 </Link> */}
-                                <button type="submit" disabled={(mode && !loading) ? false : true} className="btn btn-gradient disabled py-3  w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]">
+                                <button type="submit" disabled={(mode && !loading) ? false : true} className="w-full rounded-xl bg-[#0b1b33] py-3.5 font-semibold uppercase text-white shadow-lg shadow-slate-900/20 transition hover:bg-[#13284a] disabled:cursor-not-allowed disabled:opacity-50">
 
                                     {loading ?
                                         <> <IconLoader className="inline-block  shrink-0 animate-[spin_2s_linear_infinite] align-middle ltr:mr-2 rtl:ml-2" />Loading...</> :
@@ -369,12 +369,12 @@ export default function PaymentPage(props: { course: any }) {
                     </div>
 
                     {/* ---------------- RIGHT : ORDER SUMMARY ---------------- */}
-                    <div className="panel">
-                        <h3 className="text-blue-600 font-semibold text-lg border-b-2 border-blue-500 pb-2">
+                    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 self-start">
+                        <h3 className="text-[#0b1b33] font-bold text-lg border-b-2 border-[#16c75f] pb-2">
                             Order Summary
                         </h3>
 
-                        <div className="mt-6 space-y-4 text-gray-800 bg-gray-50 p-4 rounded-lg border">
+                        <div className="mt-6 space-y-4 text-gray-800 bg-[#f3fbf6] p-4 rounded-2xl border border-slate-200">
                             <p className="font-semibold text-lg">Your Items</p>
 
                             <div className="flex justify-between">
@@ -397,7 +397,7 @@ export default function PaymentPage(props: { course: any }) {
 
                             <div className="flex justify-between font-bold text-lg">
                                 <span>Total Amount:</span>
-                                <span className="text-green-600">Rs. {course?.course_price}</span>
+                                <span className="text-[#0e9f4a]">Rs. {course?.course_price}</span>
                             </div>
                         </div>
                     </div>

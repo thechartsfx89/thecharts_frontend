@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import HeaderLanding from "../dashboard/landing/headerLanding";
-import Footer from "@/components/pages/Footer/footer";
-import IconMail from "@/components/icon/icon-mail";
-import IconPhoneCall from "@/components/icon/icon-phone-call";
+import { ArrowRight, Mail, Phone } from "lucide-react";
+import { TcPage } from "@/components/pages/Landing/page-shell";
+
+const fieldClass =
+  "w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[#0b1b33] outline-none transition placeholder:text-slate-400 focus:border-[#16c75f] focus:bg-white focus:ring-2 focus:ring-[#16c75f]/25";
 
 interface FormDataType {
   name: string;
@@ -86,129 +87,134 @@ export default function ContactPage() {
   };
 
   return (
-    <>
-      <HeaderLanding />
+    <TcPage>
+      <section className="tc-page-hero relative overflow-hidden px-4 py-14 sm:px-6 sm:py-20">
+        <div className="tc-page-hero-grid absolute inset-0" aria-hidden="true" />
 
-      <div className="flex justify-center items-center px-4 py-10 sm:py-14">
-        <div className="bg-white grid grid-cols-1 md:grid-cols-2 max-w-5xl w-full overflow-hidden rounded-2xl shadow-lg">
+        <div className="tc-rise relative mx-auto grid max-w-6xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-900/10 lg:grid-cols-5">
 
           {/* LEFT CONTENT */}
-          <div className="bg-gray-50 p-6 sm:p-8 md:p-10 flex flex-col justify-center">
-            <h4 className="text-xs sm:text-sm text-gray-500 uppercase font-semibold mb-2">
-              We’re here to help you
-            </h4>
+          <div className="tc-grid-bg relative flex flex-col justify-center overflow-hidden bg-[#0b1b33] p-8 text-white sm:p-12 lg:col-span-2">
+            <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#16c75f]/25 blur-3xl" />
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 leading-snug mb-4">
-              Discuss Your Learning Goals
-            </h1>
+            <div className="relative">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#16c75f]">
+                We’re here to help you
+              </h4>
 
-            <p className="text-sm sm:text-base text-gray-600 mb-8">
-              Reach out to us — we’re here to guide you every step.
-            </p>
+              <h1 className="tc-serif mt-4 text-3xl font-black leading-tight sm:text-4xl">
+                Discuss Your Learning Goals
+              </h1>
 
-            <div className="space-y-5">
-              <div className="flex items-start gap-4">
-                <div className="bg-blue-100 p-3 rounded-full shrink-0">
-                  <IconMail />
+              <p className="mt-4 leading-relaxed text-white/70">
+                Reach out to us — we’re here to guide you every step.
+              </p>
+
+              <div className="mt-10 space-y-6">
+                <div className="flex items-center gap-4">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#16c75f]/15 text-[#16c75f]">
+                    <Mail className="h-5 w-5" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm text-white/50">E-mail</p>
+                    <a href="mailto:thechartsfx89@gmail.com" className="break-all font-medium text-white transition hover:text-[#16c75f]">
+                      thechartsfx89@gmail.com
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-gray-500 text-sm">E-mail</p>
-                  <p className="font-medium text-gray-800">
-                    thechartsfx89@gmail.com
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex items-start gap-4">
-                <div className="bg-blue-100 p-3 rounded-full shrink-0">
-                  <IconPhoneCall />
-                </div>
-                <div>
-                  <p className="text-gray-500 text-sm">Phone</p>
-                  <p className="font-medium text-gray-800">
-                    01354510719
-                  </p>
+                <div className="flex items-center gap-4">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#16c75f]/15 text-[#16c75f]">
+                    <Phone className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm text-white/50">Phone</p>
+                    <a href="tel:01354510719" className="font-medium text-white transition hover:text-[#16c75f]">
+                      01354510719
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* RIGHT FORM */}
-          <div className="p-6 sm:p-8 md:p-10 bg-white">
+          <div className="p-6 sm:p-10 lg:col-span-3 lg:p-12">
             {success && (
-              <p className="text-green-600 mb-4 font-medium">
+              <p role="status" className="mb-5 rounded-xl border border-[#16c75f]/30 bg-[#e9f8ef] px-4 py-3 font-medium text-[#0e9f4a]">
                 Enquiry submitted successfully!
               </p>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3"
-                required
-              />
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  aria-label="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={fieldClass}
+                  required
+                />
 
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3"
-                required
-              />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  aria-label="Email Address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={fieldClass}
+                  required
+                />
 
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3"
-                required
-              />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number"
+                  aria-label="Phone Number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={fieldClass}
+                  required
+                />
 
-              <input
-                type="text"
-                name="course_type"
-                placeholder="Course Type (Forex, Crypto, etc.)"
-                value={formData.course_type}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3"
-                required
-              />
+                <input
+                  type="text"
+                  name="course_type"
+                  placeholder="Course Type (Forex, Crypto, etc.)"
+                  aria-label="Course Type"
+                  value={formData.course_type}
+                  onChange={handleChange}
+                  className={fieldClass}
+                  required
+                />
+              </div>
 
               <textarea
                 name="message"
                 placeholder="Type your message..."
+                aria-label="Message"
                 value={formData.message}
                 onChange={handleChange}
-                rows={4}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3"
+                rows={6}
+                className={fieldClass}
                 required
               />
 
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full text-white font-semibold rounded-lg px-8 py-3 transition ${
-                  loading
-                    ? "bg-blue-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
-                }`}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0b1b33] px-8 py-4 font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-[#13284a] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
               >
-                {loading ? "Sending..." : "Get a Solution"}
+                {loading ? "Sending..." : "Get a Solution"} <ArrowRight className="h-4 w-4" />
               </button>
             </form>
           </div>
         </div>
-      </div>
-
-      <Footer />
-    </>
+      </section>
+    </TcPage>
   );
 }

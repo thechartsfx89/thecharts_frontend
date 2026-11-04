@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
+import { Clock, Trash2 } from "lucide-react";
+import NoDataComponent from "@/utils/common/noDataComponent";
 import { useCart } from "@/app/context/cart-context";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
@@ -54,108 +55,75 @@ export default function CartPage() {
   const [openModal, setOpenModal] = useState<"login" | "signup" | "forgot" | null>(null);
 
   return (
-    <div className="lg:py-12 py-2.5 xl:px-10 lg:px-2.5 px-2.5  container mx-auto">
-      <AuthModals openModal={openModal} onClose={() => setOpenModal(null)} isMobile={true} />
+    <section className="bg-gradient-to-b from-white to-[#f3fbf6]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <AuthModals openModal={openModal} onClose={() => setOpenModal(null)} isMobile={true} />
 
-      <h1 className="lg:text-3xl text-2xl font-michroma lg:mb-16 mb-5">Shopping Cart</h1>
+        <h1 className="tc-serif mb-10 text-4xl font-black text-[#0b1b33] sm:text-5xl">Shopping Cart</h1>
 
-      <div className="grid lg:grid-cols-3 grid-cols-1 gap-6 ">
-        {/* Cart Items */}
-        <div className="col-span-2 space-y-4">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
+          {/* Cart Items */}
+          <div className="space-y-4 lg:col-span-2">
 
-          {Array.isArray(cartItems) && cartItems.length > 0 ? (
-            cartItems.map((item: any) => (
-              <div
-                key={item.id}
-                className="flex flex-wrap gap-4 p-5 border rounded-2xl shadow-sm relative panel"
-              >
-                <img
-                  src={getImageUrl(item?.course_thumbnail?.url)}
-                  alt={item?.name}
-                  className="lg:w-40 w-32 lg:h-40 h-32 rounded-lg object-cover"
-                />
+            {Array.isArray(cartItems) && cartItems.length > 0 ? (
+              cartItems.map((item: any) => (
+                <div key={item.id} className="relative flex flex-col gap-5 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:flex-row">
+                  <img
+                    src={getImageUrl(item?.course_thumbnail?.url)}
+                    alt={item?.name}
+                    className="h-44 w-full rounded-2xl object-cover sm:h-36 sm:w-48"
+                  />
 
-                <div className="flex-1 w-full">
-                  <h2 className="lg:text-xl text-lg font-[500] mb-2">{item.course_title}</h2>
-                  <p className="text-gray-500 flex-grow font-[400] text-[14px] line-clamp-2">{item.course_desc}</p>
+                  <div className="min-w-0 flex-1 sm:pr-10">
+                    <h2 className="text-lg font-bold text-[#0b1b33]">{item.course_title}</h2>
+                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-slate-600">{item.course_desc}</p>
 
-                  <div className="flex items-center justify-start gap-2 mt-3">
-                    <span className="lg:text-lg text-sm">🕒 {item.hours} Total Hours</span>
+                    <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+                      <span className="inline-flex items-center gap-1.5 text-slate-500">
+                        <Clock className="h-4 w-4" /> {item.hours} Total Hours
+                      </span>
+                      <span className="rounded-full bg-[#0b1b33] px-2.5 py-0.5 text-xs font-semibold text-white">Bestseller</span>
+                      <span className="rounded-full bg-[#e9f8ef] px-2.5 py-0.5 text-xs font-semibold text-[#0e9f4a]">Premium</span>
+                    </div>
 
-                    <span className="text-white text-sm bg-[#E31E24] px-2 py-[2px] rounded font-[500] cursor-pointer">
-                      Bestseller
-                    </span>
-                    <span className="text-sm bg-[#62C76F] px-2 py-[2px] rounded font-[500] cursor-pointer">
-                      Premium
-                    </span>
+                    <p className="tc-serif mt-3 text-xl font-black text-[#0b1b33]">
+                      ₹ {Number(item.course_price || 0).toLocaleString()}
+                    </p>
                   </div>
 
-                  <p className="lg:text-lg text-sm font-michroma mt-2">
-                    ₹ {Number(item.course_price || 0).toLocaleString()}
-                  </p>
+                  <button
+                    type="button"
+                    aria-label={`Remove ${item.course_title} from cart`}
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                    className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-400 shadow-sm transition hover:bg-red-50 hover:text-red-500"
+                  >
+                    <Trash2 size={18} />
+                  </button>
                 </div>
-
-                <button
-                  onClick={() => dispatch(removeFromCart(item.id))}
-                  className="text-black hover:text-red-500 lg:relative absolute top-6 right-3"
-                >
-                  <Trash2 size={22} />
-                </button>
+              ))
+            ) : (
+              <div className="rounded-3xl border border-slate-200 bg-white">
+                <NoDataComponent />
               </div>
-            ))
-          ) : (
-            <div className="flex flex-col items-center justify-center py-8 border rounded-2xl shadow-sm">
-              <div className="flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 animate-pulse">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-10 w-10 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 17v-2H5V7h14v8h-4v2m-4 4h4v-4H9v4z"
-                  />
-                </svg>
-              </div>
-              <p className="text-gray-600 mt-4 font-medium">No data found</p>
-              <p className="text-sm text-gray-400">Please check your search or filters</p>
-            </div>
-          )}
+            )}
 
-        </div>
+          </div>
 
-        {/* Cart Summary */}
-        <div className="col-span-1 p-6 border rounded-2xl shadow-sm panel ">
-          <h2 className="lg:text-xl text-lg font-bold mb-2 font-michroma">Total</h2>
-          <p className="lg:text-lg text-sm font-semibold mb-4 font-michroma">
-            ₹ {totalAmount.toLocaleString("en-IN")}
-          </p>
-          {/* <Link href="/checkout"> */}
-          {/* <button
-              className="w-full text-left hover:text-green-600"
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenModal(null);
-                setTimeout(() => setOpenModal("login"), 10);
-              }}
-            >
-
-              <IconLogin className="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
-              Login
-            </button> */}
-          <button onClick={handlePaymentSuccess} className="w-full bg-[#92DD84] text-black py-3 lg:text-lg  text-sm rounded-xl font-semibold  shadow hover:bg-green-500 transition">
-            Proceed to Checkout
-          </button>
-          {/* </Link> */}
-          <button className="w-full bg-gray-200 mt-3 py-3 rounded-xl lg:text-lg text-sm font-semibold shadow hover:bg-gray-300 transition">
-            Apply Coupon
-          </button>
+          {/* Cart Summary */}
+          <div className="rounded-3xl bg-[#0b1b33] p-7 text-white shadow-2xl shadow-slate-900/20 lg:sticky lg:top-24">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-white/60">Total</h2>
+            <p className="tc-serif mt-2 text-4xl font-black">
+              ₹ {totalAmount.toLocaleString("en-IN")}
+            </p>
+            <button onClick={handlePaymentSuccess} className="mt-6 w-full rounded-xl bg-[#16c75f] py-3.5 font-semibold text-[#0b1b33] transition hover:bg-[#2fe079]">
+              Proceed to Checkout
+            </button>
+            <button className="mt-3 w-full rounded-xl border border-white/20 py-3.5 font-semibold text-white transition hover:bg-white/10">
+              Apply Coupon
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,21 +1,21 @@
-import BlogsGrid from '@/components/pages/Blog/bloggrid'
-import BlogSection from '@/components/pages/Blog/heroblog'
-import Footer from '@/components/pages/Footer/footer'
-import Header from '@/components/pages/Header/header'
 import React from 'react'
-import HeaderLanding from '../dashboard/landing/headerLanding';
 import Testimonials from '@/components/pages/Home/testimonials'
-
-
+import { PageHero, TcPage } from '@/components/pages/Landing/page-shell';
 
 const testimonialsPage = () => {
   return (
-    <>
-    <HeaderLanding />
-   <Testimonials />
-    <Footer />
-    
-    </>
+    <TcPage>
+      <PageHero
+        eyebrow="Testimonials"
+        title={
+          <>
+            Our <span className="text-[#16c75f]">Testimonials</span>
+          </>
+        }
+        sub="The strategies actually work. Finally seeing consistent results!"
+      />
+      <Testimonials />
+    </TcPage>
   )
 }
 

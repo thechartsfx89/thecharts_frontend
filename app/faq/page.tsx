@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Faq from "react-faq-component";
-import HeaderLanding from "../dashboard/landing/headerLanding";
-import Footer from "@/components/pages/Footer/footer";
+import { Plus } from "lucide-react";
+import { PageHero, TcPage } from "@/components/pages/Landing/page-shell";
+import NoDataComponent from "@/utils/common/noDataComponent";
 
 type FaqRow = {
   title: string;
@@ -12,22 +12,7 @@ type FaqRow = {
 
 export default function FAQPage() {
   const [rows, setRows] = useState<FaqRow[]>([]);
-
-  const styles = {
-    bgColor: "white",
-    titleTextColor: "#2b2b2b",
-    rowTitleColor: "#0d9488",
-    rowContentColor: "#475569",
-    arrowColor: "#0d9488",
-    rowContentPaddingBottom: "15px",
-  };
-
-  const config = {
-    animate: true,
-    tabFocus: true,
-    expandIcon: "+",
-    collapseIcon: "-",
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchFAQs() {
@@ -49,30 +34,50 @@ export default function FAQPage() {
         }
       } catch (error) {
         console.error("FAQ Fetch Error:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchFAQs();
   }, []);
 
-  // Pass rows directly (no title)
-  const data = { rows };
-
   return (
-    <>
-      <HeaderLanding />
-      <div className="min-h-screen bg-gray-50 py-16 px-6 flex flex-col items-center">
-        <div className="max-w-3xl w-full bg-white panel p-8">
+    <TcPage>
+      <PageHero
+        eyebrow="FAQ"
+        title={
+          <>
+            Frequently Asked <span className="text-[#16c75f]">Questions</span>
+          </>
+        }
+      />
 
-          {/* Only custom H1 */}
-          <h1 className="text-3xl font-bold text-center text-green-700 mb-6">
-            Frequently Asked Questions
-          </h1>
-
-          <Faq data={data} styles={styles} config={config} />
-        </div>
-      </div>
-      <Footer />
-    </>
+      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
+        {loading ? (
+          <div className="space-y-4">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="h-16 animate-pulse rounded-2xl bg-slate-100" />
+            ))}
+          </div>
+        ) : rows.length > 0 ? (
+          <div className="space-y-4">
+            {rows.map((row, index) => (
+              <details key={index} className="group rounded-2xl border border-slate-200 bg-white transition open:border-[#16c75f]/50 open:shadow-xl open:shadow-slate-900/5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-[#0b1b33] [&::-webkit-details-marker]:hidden">
+                  {row.title}
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition group-open:rotate-45 group-open:bg-[#0b1b33] group-open:text-[#16c75f]">
+                    <Plus className="h-4 w-4" />
+                  </span>
+                </summary>
+                <p className="px-6 pb-6 leading-relaxed text-slate-600">{row.content}</p>
+              </details>
+            ))}
+          </div>
+        ) : (
+          <NoDataComponent />
+        )}
+      </section>
+    </TcPage>
   );
 }

@@ -1,19 +1,12 @@
-import Header from "@/app/dashboard/landing/headerLanding";
-import Footer from "@/components/pages/Footer/footer";
+import { PageHero, TcPage } from "@/components/pages/Landing/page-shell";
 
 export default function BuybackRefundExchangePolicy() {
   return (
-    <>
-      <Header />
+    <TcPage>
+      <PageHero eyebrow="Legal" title="Buyback Refund & Exchange Policy" />
 
-      <section className="bg-[#f8faf5] py-8 sm:py-10 lg:py-12 px-3 sm:px-6 lg:px-10">
-        <div className="max-w-6xl mx-auto bg-white shadow-md rounded-2xl px-5 sm:px-8 lg:px-12 py-8 sm:py-10">
-          
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-center text-green-700 mb-8 sm:mb-10">
-            Buyback Refund & Exchange Policy
-          </h1>
-
-          <div className="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed">
+      <section className="px-4 py-14 sm:px-6 sm:py-20">
+        <div className="tc-prose mx-auto max-w-3xl">
             
             <p>
               At <b>M/s The Charts</b> (hereinafter referred to as <b>“The Charts”</b>), it’s our
@@ -23,7 +16,6 @@ export default function BuybackRefundExchangePolicy() {
               us within one week of purchase either by calling us or emailing us at{" "}
               <a
                 href="mailto:thechartsfx89@gmail.com"
-                className="text-green-600 underline"
               >
                 thechartsfx89@gmail.com
               </a>.
@@ -35,7 +27,7 @@ export default function BuybackRefundExchangePolicy() {
               Intentionally damaged or misused products are not eligible for return.
             </p>
 
-            <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
+            <h4>
               Refund / Returns Policy
             </h4>
             <ul>
@@ -54,7 +46,7 @@ export default function BuybackRefundExchangePolicy() {
               **<b>Unmarketable</b> means opened or seal-broken products.
             </p>
 
-            <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
+            <h4>
               Exchange Policy
             </h4>
             <p>
@@ -68,7 +60,7 @@ export default function BuybackRefundExchangePolicy() {
               <li>Replacement product of equal or higher value</li>
             </ul>
 
-            <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
+            <h4>
               Refunds
             </h4>
             <p>
@@ -76,7 +68,7 @@ export default function BuybackRefundExchangePolicy() {
               original payment method. <b>No cash refunds</b> will be issued.
             </p>
 
-            <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
+            <h4>
               Shipping Cost
             </h4>
             <p>
@@ -84,7 +76,7 @@ export default function BuybackRefundExchangePolicy() {
               otherwise decided by The Charts.
             </p>
 
-            <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
+            <h4>
               Cancellation of Orders
             </h4>
             <p>
@@ -96,7 +88,7 @@ export default function BuybackRefundExchangePolicy() {
               cancellation is not allowed.
             </p>
 
-            <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6 mb-2">
+            <h4>
               Reference Notes
             </h4>
             <ul>
@@ -108,25 +100,19 @@ export default function BuybackRefundExchangePolicy() {
                 For details visit{" "}
                 <a
                   href="https://www.thechartsfx.com"
-                  className="text-green-600 underline"
                 >
                   www.thechartsfx.com
                 </a>{" "}
                 or email{" "}
                 <a
                   href="mailto:thechartsfx89@gmail.com"
-                  className="text-green-600 underline"
                 >
                   thechartsfx89@gmail.com
                 </a>
               </li>
             </ul>
-
-          </div>
         </div>
       </section>
-
-      <Footer />
-    </>
+    </TcPage>
   );
 }

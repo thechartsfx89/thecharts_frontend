@@ -1,37 +1,30 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 const HeroAbout = () => {
     return (
-        <section className="lg:py-16 md:py-10 py-2.5 xl:px-10 lg:px-2.5 px-2.5">
-            <div className="container  mx-auto text-center lg:h-[700px]">
-                <div className="flex relative  w-full items-center justify-center h-full">
-                    <Image src="/assets/landing/about/1.png" alt="aboutus " fill className="object-fill lg:block hidden" />
+        <section className="tc-page-hero relative overflow-hidden border-b border-slate-200/60">
+            <div className="tc-page-hero-grid absolute inset-0" aria-hidden="true" />
+            <div className="relative mx-auto flex max-w-7xl items-center justify-center px-4 py-16 sm:px-6 sm:py-20 lg:h-[680px] lg:px-8 lg:py-0">
+                {/* Photo collage, leaves the centre open for the text */}
+                <Image src="/assets/landing/about/1.png" alt="" fill sizes="(min-width: 1280px) 1280px, 100vw" className="hidden object-contain lg:block" priority />
 
-                    {/* Text Content */}
-                    <div className=" relative  ">
-                        <span className=" lg:text-5xl font-semibold text-2xl">Welcome To </span>
-                        <h2
-                            className="lg:mt-11 mt-2 lg:text-[84px] text-3xl font-extrabold [text-shadow:5px_13px_4px_rgba(0,153,69,0.22)] font-michroma  text-[#009945]"
-                        >
-                            THE CHARTS
-                        </h2>
-                        <p className="lg:mt-9 mt-3 max-w-2xl lg:text-lg text-sm  mx-auto">
-                            Stay updated with the latest trends, expert analysis, and market-moving news. Your daily dose of clarity and confidence in the ever-changing world of trading.
-                        </p>
-                        <div className="w-full flex justify-center">
-                            <Link href={"/contact"}>
-                                <button className="flex lg:mt-11 mt-4  items-center gap-2 bg-white text-black lg:px-5 px-3 lg:py-3 py-1 rounded-full shadow-[2px_4px_9px_5px_rgba(0,0,0,0.25)] hover:bg-gray-100 transition lg:text-xl text-sm">
-                                    Contact Us
-                                    <span className="bg-red-500 text-white p-1 rounded-full">
-                                        <ArrowUpRight className="w-5 h-5" />
-                                    </span>
-                                </button>
-                            </Link>
-                        </div>
-                    </div>
+                <div className="tc-rise relative max-w-xl text-center lg:mt-24">
+                    <h1 className="tc-serif text-4xl font-black leading-[1.15] text-[#0b1b33] sm:text-5xl lg:text-6xl">
+                        Welcome To <br />
+                        <span className="text-[#16c75f]">The Charts</span>
+                    </h1>
+                    <p className="mx-auto mt-6 text-base leading-relaxed text-slate-600 sm:text-lg">
+                        Stay updated with the latest trends, expert analysis, and market-moving news. Your daily dose of clarity and confidence in the ever-changing world of trading.
+                    </p>
+                    <Link
+                        href="/contact"
+                        className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#0b1b33] px-7 py-3.5 font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-[#13284a]"
+                    >
+                        Contact Us <ArrowRight className="h-4 w-4" />
+                    </Link>
                 </div>
             </div>
         </section>

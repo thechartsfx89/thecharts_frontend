@@ -4,8 +4,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
-import Header from '@/app/dashboard/landing/headerLanding';
-import Footer from '@/components/pages/Footer/footer';
+import { HeroPill, TcPage } from '@/components/pages/Landing/page-shell';
 import RelatedBlogs from '../related-blogs';
 import SocialShare from '@/app/socialshare';
 import { getImageUrl } from '@/utils/common/common';
@@ -36,50 +35,69 @@ export default function SingleBlogPost() {
     }, [id]);
 
     if (loading) {
-        return <div className="text-center py-10">Loading blog...</div>;
+        return (
+            <TcPage>
+                <div className="mx-auto max-w-3xl animate-pulse space-y-5 px-4 py-16 sm:px-6">
+                    <div className="h-10 w-3/4 rounded-xl bg-slate-100" />
+                    <div className="aspect-video rounded-3xl bg-slate-100" />
+                    <div className="h-4 rounded bg-slate-100" />
+                    <div className="h-4 w-5/6 rounded bg-slate-100" />
+                </div>
+            </TcPage>
+        );
     }
 
     if (!blog) {
-        return <div className="text-center py-10">Blog not found.</div>;
+        return (
+            <TcPage>
+                <div className="px-4 py-24 text-center text-lg font-semibold text-[#0b1b33]">Blog not found.</div>
+            </TcPage>
+        );
     }
 
     const blogUrl = `https://educandle.com/blogs/${id}`;
     const blogTitle = blog?.title || 'Blog Article';
 
     return (
-        <>
-            <Header />
-            <div className="bg-[#f5f9e5] lg:p-5 p-0 ">
-                <div className="container mx-auto lg:p-10 md:p-5 p-2.5 bg-white shadow-sm rounded-2xl ">
+        <TcPage>
+            <article>
+                {/* Title + Meta */}
+                <header className="tc-page-hero relative overflow-hidden">
+                    <div className="tc-page-hero-grid absolute inset-0" aria-hidden="true" />
+                    <div className="relative mx-auto max-w-3xl px-4 pb-10 pt-14 text-center sm:px-6 sm:pt-20">
+                        {blog?.blog_category?.categoryName && (
+                            <span className="capitalize">
+                                <HeroPill>{blog.blog_category.categoryName}</HeroPill>
+                            </span>
+                        )}
+                        <h1 className="tc-serif mt-6 text-3xl font-black leading-tight text-[#0b1b33] sm:text-4xl lg:text-5xl">{blog?.blog_title}</h1>
+                        <p className="mt-5 text-sm text-slate-500">
+                            By <b className="font-semibold text-[#0b1b33]">{blog?.author || 'Admin'}</b> · {new Date(blog.publishedAt).toLocaleDateString()}
+                        </p>
+                    </div>
+                </header>
+
+                <div className="mx-auto max-w-4xl px-4 sm:px-6">
                     {/* Featured Image */}
                     {blog?.blog_image && (
-                        <div className="w-full lg:h-[600px] md:h-[400px] h-[200px]  relative rounded-xl overflow-hidden">
-                            <Image src={getImageUrl(blog.blog_image?.[0]?.url)} alt={blog.title} fill className="object-cover" />
+                        <div className="relative mt-4 aspect-video overflow-hidden rounded-3xl shadow-2xl shadow-slate-900/15">
+                            <Image src={getImageUrl(blog.blog_image?.[0]?.url)} alt={blog?.blog_title || 'Blog'} fill sizes="(min-width: 896px) 896px, 100vw" className="object-cover" />
                         </div>
                     )}
-                    {/* Title + Meta */}
-                    <div className="mt-6">
-                        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">{blog?.blog_title}</h1>
-                        <div className="mt-3 flex flex-wrap justify-between items-center text-sm text-gray-500">
-                            <span>
-                                By <b>{blog?.author || 'Admin'}</b> · {new Date(blog.publishedAt).toLocaleDateString()}
-                            </span>
-                            <div className="flex gap-3">
-                                <SocialShare url={blogUrl} title={blogTitle} />
-                            </div>
-                        </div>
-                    </div>
+
                     {/* Blog Content */}
-                    <div className="text-sm md:text-base max-w-none mt-3 text-gray-700">
+                    <div className="tc-prose mx-auto mt-10 max-w-3xl text-lg">
                         {blog.blog_description?.map((block:any, index:any) => <p key={index}>{block.children?.map((child:any, childIndex:any): any => <span key={childIndex}>{child.text}</span>)}</p>)}
                     </div>
-                    {/* Related Blogs */}
-                    <div className="mt-12">
-                        <RelatedBlogs category={blog?.blog_category?.categoryName}/>
+
+                    <div className="mx-auto mt-10 flex max-w-3xl justify-center border-t border-slate-200 pt-8">
+                        <SocialShare url={blogUrl} title={blogTitle} />
                     </div>
                 </div>
-            </div>
-            <Footer />
-        </>
+            </article>
+
+            {/* Related Blogs */}
+            <RelatedBlogs category={blog?.blog_category?.categoryName}/>
+        </TcPage>
     );
 }

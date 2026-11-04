@@ -1,13 +1,18 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { Inter } from 'next/font/google';
 import { signOut, useSession } from 'next-auth/react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import AuthModals from '@/component/auth/authModal';
 import TheChartsLogo from './logo';
 
 type AuthKind = 'login' | 'signup';
+
+// Set here because this header also renders on pages outside the landing's .tc-root font scope
+const inter = Inter({ subsets: ['latin'] });
 
 const NAV = [
     { label: 'Home', href: '/' },
@@ -23,6 +28,7 @@ const dashboardHref = (role?: string) => (role === 'mentor' ? '/dash/mentor' : r
 
 export default function Header() {
     const { data: session } = useSession<any>();
+    const pathname = usePathname();
     const [mobileOpen, setMobileOpen] = useState(false);
     const [authModal, setAuthModal] = useState<AuthKind | null>(null);
 
@@ -33,8 +39,10 @@ export default function Header() {
         setTimeout(() => setAuthModal(kind), 10);
     };
 
+    const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`));
+
     return (
-        <header className="sticky top-0 z-40 border-b border-slate-200/60 bg-white/75 backdrop-blur-xl">
+        <header className={`${inter.className} sticky top-0 z-40 border-b border-slate-200/60 bg-white/75 backdrop-blur-xl`}>
             <AuthModals openModal={authModal} onClose={() => setAuthModal(null)} isMobile={true} />
 
             <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -43,7 +51,7 @@ export default function Header() {
                 </Link>
 
                 <nav className="hidden items-center gap-1 rounded-full border border-slate-200/70 bg-white/70 p-1 xl:flex">
-                    {NAV.map((item, i) =>
+                    {NAV.map((item) =>
                         item.external ? (
                             <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="rounded-full px-3.5 py-1.5 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-[#0b1b33]">
                                 {item.label}
@@ -52,7 +60,7 @@ export default function Header() {
                             <Link
                                 key={item.label}
                                 href={item.href}
-                                className={`rounded-full px-3.5 py-1.5 text-sm transition ${i === 0 ? 'bg-slate-100 font-semibold text-[#0b1b33]' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0b1b33]'}`}
+                                className={`rounded-full px-3.5 py-1.5 text-sm transition ${isActive(item.href) ? 'bg-slate-100 font-semibold text-[#0b1b33]' : 'text-slate-600 hover:bg-slate-100 hover:text-[#0b1b33]'}`}
                             >
                                 {item.label}
                             </Link>

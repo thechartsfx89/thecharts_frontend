@@ -220,9 +220,9 @@ export default function CourseDetails(props: { price?: number; title?: string; d
 
     if (loading) {
         return (
-            <div className="container mx-auto lg:py-24 py-5 lg:px-0 px-2.5">
-                <div className="animate-pulse h-8 w-2/3 bg-gray-100 rounded mb-6" />
-                <div className="aspect-video bg-gray-100 rounded-xl" />
+            <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+                <div className="mb-6 h-10 w-2/3 animate-pulse rounded-xl bg-slate-100" />
+                <div className="aspect-video animate-pulse rounded-3xl bg-slate-100" />
             </div>
         );
     }
@@ -275,306 +275,225 @@ export default function CourseDetails(props: { price?: number; title?: string; d
         ) || 0;
 
     return (
-        <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen py-8 md:py-12">
+        <div className="bg-white">
             <AuthModals openModal={openModal} onClose={() => setOpenModal(null)} isMobile={true} />
 
-            <div className="container mx-auto px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
-
-                {/* LEFT SIDE */}
-                <div className="lg:col-span-2 space-y-6 md:space-y-8">
-
-                    {/* Header Section */}
-                    <div className="panel rounded-2xl md:rounded-3xl shadow-lg p-6 md:p-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="bg-purple-100 text-purple-600 px-3 md:px-4 py-2 rounded-full text-sm font-medium">
-                                {category}
-                            </span>
-                        </div>
-                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">{title}</h1>
+            {/* Header Section */}
+            <section className="tc-grid-bg relative overflow-hidden bg-[#0b1b33] text-white">
+                <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#16c75f]/20 blur-3xl" />
+                <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:pb-24">
+                    <div className="lg:w-2/3 lg:pr-8">
+                        <span className="inline-block rounded-full bg-[#16c75f]/15 px-3 py-1 text-sm font-semibold capitalize text-[#16c75f]">{category}</span>
+                        <h1 className="tc-serif mt-5 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">{title}</h1>
 
                         {/* Rating and Stats */}
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 mb-6">
+                        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/75">
                             <div className="flex items-center gap-2">
-                                <div className="flex text-yellow-400">
-                                    {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
+                                <div className="flex text-amber-400">
+                                    {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
                                 </div>
-                                <span className="text-gray-600 font-medium text-sm md:text-base">4.8 (2,500 reviews)</span>
+                                <span className="font-medium">4.8 (2,500 reviews)</span>
                             </div>
-                            <div className="flex items-center gap-2 text-gray-600">
-                                <Users size={18} />
-                                <span className="text-sm md:text-base">5,000+ Enrolled</span>
+                            <div className="flex items-center gap-2">
+                                <Users size={16} />
+                                <span>5,000+ Enrolled</span>
                             </div>
                         </div>
 
                         {/* Instructor */}
-                        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                            <div className="w-14 md:w-14 h-14 md:h-14 border border-2 rounded-full flex items-center justify-center text-white font-bold text-lg md:text-xl ">
-
-                                <TheChartsMark className="h-9 w-9" />
-
-                            </div>
+                        <div className="mt-8 flex items-center gap-3">
+                            <TheChartsMark className="h-11 w-11" dark />
                             <div>
-                                <p className="font-semibold text-gray-900 text-sm md:text-base">The Charts</p>
-                                <p className="text-gray-600 text-xs md:text-sm">Vision To reality</p>
+                                <p className="font-semibold">The Charts</p>
+                                <p className="text-sm text-white/60">Vision To reality</p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-10 sm:px-6 lg:grid-cols-3 lg:gap-12 lg:px-8 lg:py-14">
+
+                {/* LEFT SIDE */}
+                <div className="min-w-0 lg:col-span-2">
 
                     {/* Tabs */}
-                    <div className="panel rounded-2xl md:rounded-3xl shadow-lg p-6 md:p-8">
-                        <div className="flex gap-4 md:gap-8 border-b border-gray-200 mb-6 overflow-x-auto">
+                    <div className="flex gap-1 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-50 p-1.5" role="tablist">
+                        {([
+                            { id: 'about', label: 'About', icon: BookOpen },
+                            { id: 'lessons', label: 'Lessons', icon: Play },
+                            { id: 'reviews', label: 'Reviews', icon: MessageSquare },
+                        ] as const).map((tab) => (
                             <button
-                                onClick={() => setActiveTab('about')}
-                                className={`pb-3 font-semibold text-base md:text-lg whitespace-nowrap transition-colors ${activeTab === 'about' ? 'border-b-2 border-purple-600 text-purple-600' : 'text-gray-500 hover:text-gray-700'
-                                    }`}
+                                key={tab.id}
+                                type="button"
+                                role="tab"
+                                aria-selected={activeTab === tab.id}
+                                onClick={() => setActiveTab(tab.id)}
+                                className={`flex flex-1 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-5 py-3 text-sm font-semibold transition sm:text-base ${activeTab === tab.id ? 'bg-[#0b1b33] text-white shadow-lg shadow-slate-900/20' : 'text-slate-600 hover:bg-white hover:text-[#0b1b33]'}`}
                             >
-                                <BookOpen className="inline mr-2" size={18} />
-                                About
+                                <tab.icon size={17} className={activeTab === tab.id ? 'text-[#16c75f]' : ''} />
+                                {tab.label}
                             </button>
-                            <button
-                                onClick={() => setActiveTab('lessons')}
-                                className={`pb-3 font-semibold text-base md:text-lg whitespace-nowrap transition-colors ${activeTab === 'lessons' ? 'border-b-2 border-purple-600 text-purple-600' : 'text-gray-500 hover:text-gray-700'
-                                    }`}
-                            >
-                                <Play className="inline mr-2" size={18} />
-                                Lessons
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('reviews')}
-                                className={`pb-3 font-semibold text-base md:text-lg whitespace-nowrap transition-colors ${activeTab === 'reviews' ? 'border-b-2 border-purple-600 text-purple-600' : 'text-gray-500 hover:text-gray-700'
-                                    }`}
-                            >
-                                <MessageSquare className="inline mr-2" size={18} />
-                                Reviews
-                            </button>
-                        </div>
-
-                        {/* Tab Content */}
-                        <div className="space-y-6">
-                            {activeTab === 'about' && (
-                                <>
-                                    <div>
-                                        <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Course Overview</h3>
-                                        <p className="text-gray-700 leading-relaxed text-base md:text-lg">{desc}</p>
-                                    </div>
-
-
-                                </>
-                            )}
-
-
-
-                            {activeTab === 'lessons' && (
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
-                                        Course Curriculum
-                                    </h3>
-
-                                    <div className="space-y-4">
-                                        {course?.course_modules?.length ? (
-                                            course.course_modules
-                                                .sort((a, b) => a.order - b.order)
-                                                .map((module) => {
-                                                    const totalDuration =
-                                                        module.playlist?.rows?.reduce(
-                                                            (sum, lesson) => sum + lesson.length,
-                                                            0
-                                                        ) || 0;
-
-                                                    return (
-                                                        <details
-                                                            key={module.id}
-                                                            className="group rounded-xl border border-gray-200 bg-white"
-                                                        >
-                                                            {/* MODULE HEADER */}
-                                                            <summary className="flex cursor-pointer list-none items-start lg:items-center justify-between p-4 flex-col lg:flex-row ">
-                                                                <div className="flex items-start gap-3">
-                                                                    <ChevronDown
-                                                                        size={18}
-                                                                        className="mt-1 text-gray-500 transition-transform group-open:rotate-180"
-                                                                    />
-
-                                                                    <div>
-                                                                        <h4 className="text-base lg:text-lg font-semibold text-gray-900">
-                                                                            {module.title}
-                                                                        </h4>
-
-                                                                        {module.description && (
-                                                                            <p className="text-xs lg:text-sm text-gray-500 mt-1">
-                                                                                {module.description}
-                                                                            </p>
-                                                                        )}
-
-
-                                                                    </div>
-                                                                </div>
-                                                                <p className="text-xs lg:text-sm text-dark mt-1 ml-7 lg:ml-0  font-semibold">
-                                                                    {module.playlist?.count || 0} lessons {" "}
-                                                                    {/* {formatDuration(totalDuration)} */}
-                                                                </p>
-                                                            </summary>
-
-                                                            {/* LESSON LIST */}
-                                                            <div className="border-t border-gray-100">
-                                                                {module.playlist?.rows?.length ? (
-                                                                    module.playlist.rows.map((lesson, index) => (
-                                                                        <div
-                                                                            key={lesson.id}
-                                                                            className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition"
-                                                                        >
-                                                                            <div className="flex items-center gap-3">
-                                                                                <Play size={16} className="text-purple-600" />
-                                                                                <span className="text-gray-900 font-medium">
-                                                                                    {index + 1}. {lesson.title}
-                                                                                </span>
-                                                                            </div>
-
-                                                                            <span className="text-sm text-gray-500">
-                                                                                {formatDuration(lesson.length)}
-                                                                            </span>
-                                                                        </div>
-                                                                    ))
-                                                                ) : (
-                                                                    <p className="px-4 py-3 text-sm text-gray-500">
-                                                                        No lessons available in this module.
-                                                                    </p>
-                                                                )}
-                                                            </div>
-                                                        </details>
-                                                    );
-                                                })
-                                        ) : (
-                                            <p className="text-gray-500">No modules available.</p>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-
-
-
-
-
-                            {activeTab === 'reviews' && (
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Student Reviews</h3>
-                                    <div className="space-y-6">
-                                        {/* Placeholder reviews - replace with actual data if available */}
-                                        {[
-                                            { name: "Tushant Bhoi", rating: 5, comment: "Excellent course! Learned a lot.", date: "2 weeks ago" },
-                                            { name: "Yashoda Chauhan", rating: 4, comment: "Great content, but could use more examples.", date: "1 month ago" },
-                                            { name: "Yash Jain", rating: 5, comment: "Highly recommend for beginners.", date: "3 weeks ago" },
-                                        ].map((review, index) => (
-                                            <div key={index} className="p-4 bg-gray-50 rounded-xl">
-                                                <div className="flex items-center gap-3 mb-2">
-                                                    <div className="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center text-purple-600 font-bold">
-                                                        {review.name.charAt(0)}
-                                                    </div>
-                                                    <div>
-                                                        <p className="font-semibold text-gray-900">{review.name}</p>
-                                                        <div className="flex items-center gap-1">
-                                                            {[...Array(review.rating)].map((_, i) => <Star key={i} size={14} fill="currentColor" className="text-yellow-400" />)}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p className="text-gray-700 mb-2">{review.comment}</p>
-                                                <p className="text-gray-500 text-sm">{review.date}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                        ))}
                     </div>
 
+                    {/* Tab Content */}
+                    <div className="mt-8">
+                        {activeTab === 'about' && (
+                            <div>
+                                <h3 className="tc-serif text-2xl font-black text-[#0b1b33]">Course Overview</h3>
+                                <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg">{desc}</p>
+                            </div>
+                        )}
 
+                        {activeTab === 'lessons' && (
+                            <div>
+                                <h3 className="tc-serif mb-6 text-2xl font-black text-[#0b1b33]">
+                                    Course Curriculum
+                                </h3>
+
+                                <div className="space-y-3">
+                                    {course?.course_modules?.length ? (
+                                        course.course_modules
+                                            .sort((a, b) => a.order - b.order)
+                                            .map((module) => {
+                                                return (
+                                                    <details
+                                                        key={module.id}
+                                                        className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition open:border-[#16c75f]/50 open:shadow-lg open:shadow-slate-900/5"
+                                                    >
+                                                        {/* MODULE HEADER */}
+                                                        <summary className="flex cursor-pointer list-none flex-col items-start justify-between gap-2 p-5 lg:flex-row lg:items-center [&::-webkit-details-marker]:hidden">
+                                                            <div className="flex items-start gap-3">
+                                                                <ChevronDown
+                                                                    size={18}
+                                                                    className="mt-1 shrink-0 text-slate-400 transition-transform group-open:rotate-180"
+                                                                />
+
+                                                                <div>
+                                                                    <h4 className="font-bold text-[#0b1b33] lg:text-lg">
+                                                                        {module.title}
+                                                                    </h4>
+
+                                                                    {module.description && (
+                                                                        <p className="mt-1 text-sm text-slate-500">
+                                                                            {module.description}
+                                                                        </p>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                            <p className="ml-7 shrink-0 rounded-full bg-[#e9f8ef] px-3 py-1 text-xs font-semibold text-[#0e9f4a] lg:ml-0">
+                                                                {module.playlist?.count || 0} lessons
+                                                            </p>
+                                                        </summary>
+
+                                                        {/* LESSON LIST */}
+                                                        <div className="border-t border-slate-100">
+                                                            {module.playlist?.rows?.length ? (
+                                                                module.playlist.rows.map((lesson, index) => (
+                                                                    <div
+                                                                        key={lesson.id}
+                                                                        className="flex items-center justify-between gap-4 px-5 py-3 transition hover:bg-slate-50"
+                                                                    >
+                                                                        <div className="flex items-center gap-3">
+                                                                            <Play size={15} className="shrink-0 text-[#0e9f4a]" />
+                                                                            <span className="font-medium text-[#0b1b33]">
+                                                                                {index + 1}. {lesson.title}
+                                                                            </span>
+                                                                        </div>
+
+                                                                        <span className="shrink-0 text-sm text-slate-500">
+                                                                            {formatDuration(lesson.length)}
+                                                                        </span>
+                                                                    </div>
+                                                                ))
+                                                            ) : (
+                                                                <p className="px-5 py-3 text-sm text-slate-500">
+                                                                    No lessons available in this module.
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                    </details>
+                                                );
+                                            })
+                                    ) : (
+                                        <p className="text-slate-500">No modules available.</p>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'reviews' && (
+                            <div>
+                                <h3 className="tc-serif mb-6 text-2xl font-black text-[#0b1b33]">Student Reviews</h3>
+                                <div className="space-y-4">
+                                    {/* Placeholder reviews - replace with actual data if available */}
+                                    {[
+                                        { name: "Tushant Bhoi", rating: 5, comment: "Excellent course! Learned a lot.", date: "2 weeks ago" },
+                                        { name: "Yashoda Chauhan", rating: 4, comment: "Great content, but could use more examples.", date: "1 month ago" },
+                                        { name: "Yash Jain", rating: 5, comment: "Highly recommend for beginners.", date: "3 weeks ago" },
+                                    ].map((review, index) => (
+                                        <div key={index} className="rounded-2xl border border-slate-200 bg-white p-5">
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0b1b33] font-bold text-[#16c75f]">
+                                                    {review.name.charAt(0)}
+                                                </div>
+                                                <div>
+                                                    <p className="font-semibold text-[#0b1b33]">{review.name}</p>
+                                                    <div className="flex items-center gap-0.5">
+                                                        {[...Array(review.rating)].map((_, i) => <Star key={i} size={14} fill="currentColor" className="text-amber-400" />)}
+                                                    </div>
+                                                </div>
+                                                <p className="ml-auto text-sm text-slate-400">{review.date}</p>
+                                            </div>
+                                            <p className="mt-3 leading-relaxed text-slate-600">{review.comment}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
-                {/* RIGHT SIDEBAR */}
-                <div className="lg:col-span-1">
-                    <div className="sticky top-8 bg-white rounded-2xl md:rounded-3xl shadow-lg p-6 md:p-8 space-y-6">
+                {/* RIGHT SIDEBAR: lifts into the navy band on desktop, sits above the tabs on mobile */}
+                <div className="relative z-10 order-first lg:order-none lg:-mt-64">
+                    <div className="space-y-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-900/15 lg:sticky lg:top-24">
 
                         {/* Thumbnail */}
-                        <div className="relative">
-                            <Image
-                                src={img}
-                                alt={title}
-                                width={500}
-                                height={300}
-                                className="rounded-xl md:rounded-2xl w-full object-cover shadow-md"
-                            />
-
-                        </div>
-
-                        {/* Course Features */}
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-3">
-                                <Clock className="text-purple-600 flex-shrink-0" size={18} />
-                                <span className="text-gray-700 text-sm md:text-base">
-                                    {moduleCount ?? 0} {" "}
-                                    Modules </span>
-
-                                <span className="text-gray-700 text-sm md:text-base">
-                                    {lectureCount ?? 0} {" "}
-                                    Lecture </span>
-
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Award className="text-purple-600 flex-shrink-0" size={18} />
-                                <span className="text-gray-700 text-sm md:text-base">Certificate of Completion</span>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <Users className="text-purple-600 flex-shrink-0" size={18} />
-                                <span className="text-gray-700 text-sm md:text-base">Lifetime Access</span>
-                            </div>
-                        </div>
+                        <Image
+                            src={img}
+                            alt={title}
+                            width={500}
+                            height={300}
+                            className="aspect-[16/10] w-full rounded-2xl object-cover"
+                        />
 
                         {/* Price */}
-                        <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl md:rounded-2xl p-4 md:p-6 text-center">
-                            <p className="text-gray-600 text-xs md:text-sm uppercase tracking-wide">Course Price</p>
-                            <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600 mt-2">{priceText}</p>
-                            <p className="text-gray-500 text-xs md:text-sm mt-1">One-time payment</p>
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Course Price</p>
+                            <p className="tc-serif mt-1 text-4xl font-black text-[#0b1b33]">{priceText}</p>
+                            <p className="mt-1 text-sm text-slate-500">One-time payment</p>
                         </div>
 
                         {/* Buttons */}
                         <div className="space-y-3">
-                            {/* <button
-                                onClick={() => {
-                                    // dispatch(addToCart(course as any));
-
-                                    if (status === "unauthenticated") {
-                                        setOpenModal(null);
-                                        setTimeout(() => setOpenModal("login"), 10);
-                                    } else {
-                                        if (!documentId) {
-                                            return showToast("error", "Something Went Wrong")
-                                        }
-                                        onSubmit();
-                                    }
-                                }}
-
-                                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 md:py-4 rounded-xl md:rounded-2xl font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm md:text-base"
-                            >
-                                {loading ?
-                                    <> <IconLoader className="inline-block shrink-0 animate-[spin_2s_linear_infinite] align-middle ltr:mr-2 rtl:ml-2" />Loading...</> :
-                                    "Enroll Now"
-                                }
-
-                            </button> */}
-                            {isPurchased &&<div>
-                                <span className='text-sm'>Click here: </span>
-                            <span className="text-purple-600">
+                            {isPurchased && <div>
+                                <span className="text-sm text-slate-600">Click here: </span>
                                 <button
-                                className='text-sm font-medium underline'
-                                 onClick={() => {
-                                    if (status === "unauthenticated") {
-                                        setOpenModal(null);
-                                        setTimeout(() => setOpenModal("login"), 10);
-                                    } else {
-                                        router.push('/dash/student/billing');
-                                    }
-                                }}> View Payment Status</button></span>
+                                    type="button"
+                                    className="text-sm font-semibold text-[#0e9f4a] underline"
+                                    onClick={() => {
+                                        if (status === "unauthenticated") {
+                                            setOpenModal(null);
+                                            setTimeout(() => setOpenModal("login"), 10);
+                                        } else {
+                                            router.push('/dash/student/billing');
+                                        }
+                                    }}> View Payment Status</button>
                             </div>}
                             <button
+                                type="button"
                                 disabled={loading || checkingPurchase || isPurchased}
                                 onClick={() => {
                                     if (status === "unauthenticated") {
@@ -587,10 +506,9 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                                         onSubmit();
                                     }
                                 }}
-                                className={`w-full py-3 md:py-4 rounded-xl md:rounded-2xl font-semibold transition-all duration-300 text-sm md:text-base transform 
-        ${isPurchased
-                                        ? "bg-gray-400 text-white cursor-not-allowed shadow-none"
-                                        : "bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-700 hover:to-purple-800 shadow-lg hover:shadow-xl hover:-translate-y-1"
+                                className={`w-full rounded-xl py-4 font-semibold transition ${isPurchased
+                                    ? "cursor-not-allowed bg-slate-300 text-white"
+                                    : "bg-[#16c75f] text-[#0b1b33] shadow-lg shadow-[#16c75f]/25 hover:-translate-y-0.5 hover:bg-[#2fe079]"
                                     }`}
                             >
                                 {loading || checkingPurchase ? (
@@ -604,12 +522,25 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                                     "Enroll Now"
                                 )}
                             </button>
+                            <p className="text-center text-sm text-slate-500">30-day money-back guarantee</p>
                         </div>
 
-                        {/* Guarantee */}
-                        <div className="text-center text-gray-600 text-xs md:text-sm">
-                            <p>30-day money-back guarantee</p>
-                        </div>
+                        {/* Course Features */}
+                        <ul className="space-y-3 border-t border-slate-100 pt-5 text-sm text-slate-700">
+                            <li className="flex items-center gap-3">
+                                <Clock className="shrink-0 text-[#0e9f4a]" size={18} />
+                                <span>{moduleCount ?? 0} Modules</span>
+                                <span>{lectureCount ?? 0} Lecture</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <Award className="shrink-0 text-[#0e9f4a]" size={18} />
+                                <span>Certificate of Completion</span>
+                            </li>
+                            <li className="flex items-center gap-3">
+                                <Users className="shrink-0 text-[#0e9f4a]" size={18} />
+                                <span>Lifetime Access</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

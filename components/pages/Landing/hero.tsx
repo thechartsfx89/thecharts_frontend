@@ -39,9 +39,9 @@ export default function Hero() {
                 </span>
 
                 <h1 className="tc-serif tc-rise mx-auto mt-6 max-w-4xl text-4xl font-black leading-[1.1] tracking-tight text-[#0b1b33] sm:text-5xl lg:text-[64px]" style={{ animationDelay: '0.1s' }}>
-                    Learn the Markets.
+                    Read the Charts.
                     <br />
-                    Read <span className="text-[#16c75f]">The Charts.</span>
+                    Master <span className="text-[#16c75f]">the Markets</span>
                 </h1>
 
                 <p className="tc-rise mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg" style={{ animationDelay: '0.2s' }}>

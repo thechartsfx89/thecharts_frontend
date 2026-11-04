@@ -2,71 +2,69 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+import { SectionHeading } from '@/components/pages/Landing/sections';
 
 export default function UniqueAccordion() {
-    const [openIndex, setOpenIndex] = useState(0);
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     const items = [
         {
             title: 'Premium Community',
             content:
                 "Trading is a lonely business where traders have to overcome day-to-day challenges like losses, downfall, etc . Our community helps to brush up your knowledge.",
-            color: 'bg-[#FF985E]',
         },
         {
             title: 'Psychology',
             content:
                 "Technicals & fundamentals are just 10% – 20% . 80% – 90% is psychology & mindset . We at The Charts help you to build that profitable trader mindset through real-time market experience . Activities of personalized mind image perception and weekly journal analysis",
-            color: 'bg-[#FF985E]',
         },
         {
             title: 'Daily Doubt & Dual Learning',
             content:
                 "We guide you through recorded videos and live doubt sessions (webinars).You watch the videos on your own will, make notes, and take down your doubts.During night doubt sessions, mentors resolve your doubts themselves.",
-            color: 'bg-[#FF985E]',
         },
         {
             title: 'Career Oriented Courses:',
             content:
                 "We not just helps you to navigate financial market, but also helps you to make a standout career.We will guide you to have certification (NISM) & FRM, but so many other opportunities like mentorship program.",
-            color: 'bg-[#FF985E]',
         },
     ];
 
-    const toggle = (index:any) => {
+    const toggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
     return (
-        <section className="bg-[#B5D2F0] lg:pt-20 pt-5 xl:px-10 lg:px-2.5 px-2.5 md:px-5 lg:mb-28 mb-5 lg:mt-0 mt-5 ">
-            <div className="container mx-auto lg:pb-0 pb-5">
-                <h2 className="lg:text-5xl text-2xl md:text-3xl font-extrabold text-gray-900 lg:mb-6 mb-0">
-                    What Makes <span className="italic font-light font-mrs-saint lg:text-[88px] text-4xl mr-6">The Charts</span>
-                    <span className="font-extrabold">Unique?</span>
-                </h2>
+        <section className="bg-gradient-to-b from-white to-[#f3fbf6] pt-20 sm:pt-24">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <SectionHeading
+                    eyebrow="About"
+                    title={
+                        <>
+                            What Makes <span className="text-[#16c75f]">The Charts</span> Unique?
+                        </>
+                    }
+                />
 
-                <div className=" grid md:grid-cols-1 lg:grid-cols-2 lg:gap-1 items-end  ">
-                    {/* Left Side */}
-                    <div>
-                        <Image src="/assets/landing/about/2.png" alt="Thinking Woman" width={992} height={661} className=" lg:block hidden" />
-                    </div>
+                <div className="mt-12 grid items-end gap-10 lg:grid-cols-2">
+                    <Image src="/assets/landing/about/2.png" alt="Thinking Woman" width={992} height={661} className="hidden lg:block" />
 
-                    {/* Right Side (Accordion) */}
-                    <div className="space-y-4 lg:pb-5">
-                        {items.map((item, index) => (
-                            <div key={index} className="bg-white rounded-2xl shadow-md overflow-hidden">
-                                <button onClick={() => toggle(index)} className="flex items-center w-full px-6 py-4 text-left">
-                                    
-                                    <span className={`w-2 h-20 rounded-full mr-4 ${item.color}`}></span>
-                                    <div>
-                                        <span className="flex-1 font-medium text-lg">{item.title}</span>
-                                        <span className={`ml-2 transform transition-transform ${openIndex === index ? 'rotate-180' : ''}`}>▼</span>
-                                    </div>
-                                </button>
+                    <div className="space-y-4 pb-16 lg:pb-20">
+                        {items.map((item, index) => {
+                            const open = openIndex === index;
+                            return (
+                                <div key={item.title} className={`overflow-hidden rounded-2xl border bg-white transition ${open ? 'border-[#16c75f]/50 shadow-xl shadow-slate-900/5' : 'border-slate-200 hover:border-slate-300'}`}>
+                                    <button type="button" aria-expanded={open} onClick={() => toggle(index)} className="flex w-full items-center gap-4 px-6 py-5 text-left">
+                                        <span className={`tc-serif flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-black ${open ? 'bg-[#0b1b33] text-[#16c75f]' : 'bg-slate-100 text-slate-500'}`}>0{index + 1}</span>
+                                        <span className="flex-1 text-lg font-bold text-[#0b1b33]">{item.title}</span>
+                                        <ChevronDown className={`h-5 w-5 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`} />
+                                    </button>
 
-                                {openIndex === index && item.content && <div className="px-6 pb-4 text-gray-600">{item.content}</div>}
-                            </div>
-                        ))}
+                                    {open && <div className="px-6 pb-6 leading-relaxed text-slate-600 sm:pl-20">{item.content}</div>}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

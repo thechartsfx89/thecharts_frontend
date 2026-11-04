@@ -24,8 +24,8 @@ export default function PaymentSuccess() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-  <div className="panel text-center w-full max-w-7xl mx-auto bg-white/50 dark:bg-white/5 backdrop-blur-sm">
-<h1 className="text-xl lg:text-2xl font-bold text-green-700 mt-4 text-gradient">
+  <div className="w-full max-w-3xl mx-auto rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm sm:p-12">
+<h1 className="tc-serif text-2xl lg:text-3xl font-black text-[#0b1b33]">
       Thank You for Your Payment!
     </h1>
     {animationData ? (
@@ -50,8 +50,8 @@ export default function PaymentSuccess() {
       <strong> 24 hours</strong>.
     </p> */}
 
-    <div className="mt-4 inline-block rounded-xl p-[2px] bg-gradient-to-r from-red-500 via-green-500 to-blue-500 animate-spin-slow">
-  <p className="bg-white text-gray-700 leading-relaxed font-semibold rounded-[10px] px-6 py-4">
+    <div className="mt-4 inline-block rounded-2xl border border-[#16c75f]/30 bg-[#f3fbf6]">
+  <p className="text-slate-700 leading-relaxed font-medium px-6 py-4">
     Our team is currently verifying the transaction. This process may take up to
     <strong> 24 hours</strong>.
   </p>
@@ -68,7 +68,7 @@ export default function PaymentSuccess() {
     <Link
       href="/dash/student"
       // className="inline-block mt-6 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition"
-      className="btn btn-gradient text-xs lg:text-sm py-3 inline-block border-0 mt-4 shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]"
+      className="mt-6 inline-block rounded-xl bg-[#0b1b33] px-7 py-3.5 font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-[#13284a]"
     >
       Go to Dashboard
     </Link>

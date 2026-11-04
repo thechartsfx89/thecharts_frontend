@@ -1,22 +1,14 @@
-import Header from "@/app/dashboard/landing/headerLanding";
-import Footer from "@/components/pages/Footer/footer";
+import { PageHero, TcPage } from "@/components/pages/Landing/page-shell";
 
 export default function PrivacyPolicy() {
   return (
-    <>
-      <Header />
+    <TcPage>
+      <PageHero eyebrow="Legal" title="Privacy & Policy" />
 
-      <section className="bg-[#f8faf5] py-6 sm:py-8 lg:py-12 px-3 sm:px-6 lg:px-10">
-        <div className="container mx-auto max-w-6xl">
-          <div className="bg-white shadow-md rounded-xl sm:rounded-2xl p-5 sm:p-7 lg:p-10">
-            
-            {/* Title */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-center text-green-700 mb-6 sm:mb-8 lg:mb-10">
-              Privacy & Policy
-            </h1>
+      <section className="px-4 py-14 sm:px-6 sm:py-20">
+        <div className="tc-prose mx-auto max-w-3xl">
 
             {/* Content */}
-            <div className="text-sm sm:text-base text-gray-700 leading-relaxed space-y-4">
               <p>
                 This Privacy Policy describes how <b>M/s The Charts</b> (hereinafter
                 referred to as <b>“The Charts”</b>) collects, uses, and protects
@@ -24,7 +16,7 @@ export default function PrivacyPolicy() {
                 (SBO Partners) and New Registered Customers (NRCs).
               </p>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 How We May Collect or Receive Personal Data from You
               </h4>
               <p><b>Registration:</b> The Charts collects your personal data through the registration form completed and submitted via paper or electronically through the The Charts website.</p>
@@ -32,10 +24,10 @@ export default function PrivacyPolicy() {
               <p><b>Contacting Us:</b> You may submit personal data through our communication channels listed on the “Contact Us” page.</p>
               <p><b>Cookies:</b> If you are logged in, we may use cookies to collect Website usage data. You can disable cookies in your browser settings, but some website features may not work properly.</p>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 The Types of Personal Data We May Collect
               </h4>
-              <ul className="list-disc pl-5 sm:pl-6 space-y-1">
+              <ul>
                 <li>Contact information (name, address, email, phone number)</li>
                 <li>Gender, age, nationality, date and place of birth</li>
                 <li>Marital Status</li>
@@ -45,18 +37,18 @@ export default function PrivacyPolicy() {
                 <li>Website usage data such as IP address, browser type, etc.</li>
               </ul>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 The Types of Sensitive Personal Data We May Collect
               </h4>
-              <ul className="list-disc pl-5 sm:pl-6 space-y-1">
+              <ul>
                 <li>Passwords for accessing our site</li>
                 <li>Payment information such as bank account or credit card numbers</li>
               </ul>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 How We Use the Personal and Sensitive Data We Collect
               </h4>
-              <ul className="list-disc pl-5 sm:pl-6 space-y-1">
+              <ul>
                 <li>To manage your registration and account</li>
                 <li>To process product or service orders</li>
                 <li>To communicate with you regarding updates or services</li>
@@ -73,69 +65,62 @@ export default function PrivacyPolicy() {
                 contract.
               </p>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 How We May Share Personal and Sensitive Data
               </h4>
-              <ul className="list-disc pl-5 sm:pl-6 space-y-1">
+              <ul>
                 <li>Entities within The Charts for operations</li>
                 <li>Government authorities as required by law</li>
                 <li>SBO Partners in your upline or downline</li>
                 <li>Servicing Distributors for NRCs</li>
               </ul>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 How We Protect Personal Data
               </h4>
               <p>We maintain technical and organizational safeguards to protect your data.</p>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 How Long We Retain Personal Data
               </h4>
               <p>We retain personal data only as long as necessary or required by law.</p>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 Updates to this Privacy Policy
               </h4>
               <p>
                 Updates will be published on{" "}
                 <a
                   href="https://www.thechartsfx.com"
-                  className="text-green-600 underline break-all"
                 >
                   www.thechartsfx.com
                 </a>
               </p>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 Acceptance of this Privacy Policy
               </h4>
               <p>By signing the contract, you accept this Privacy Policy.</p>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 Your Rights
               </h4>
               <p>You have the right to access and correct your data.</p>
 
-              <h4 className="text-lg sm:text-xl font-bold text-green-700 mt-6">
+              <h4>
                 How to Contact Us
               </h4>
-              <p className="font-semibold">
+              <p>
                 Mr. Johnny Walkar <br />
                 📧 Email:{" "}
                 <a
                   href="mailto:thechartsfx89@gmail.com"
-                  className="text-green-600 underline break-all"
                 >
                   thechartsfx89@gmail.com
                 </a>
               </p>
-
-            </div>
-          </div>
         </div>
       </section>
-
-      <Footer />
-    </>
+    </TcPage>
   );
 }
