@@ -76,7 +76,7 @@ const TransactionHistory = () => {
               accessor: 'createdAt',
               title: 'Date',
               sortable: true,
-              render: ({ createdAt }) => `${formatDateTime(createdAt)}`,
+              render: ({ createdAt, paidAt }) => `${formatDateTime(paidAt || createdAt)}`,
             },
             // {
             //   accessor: 'type',

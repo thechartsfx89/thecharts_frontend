@@ -24,6 +24,10 @@ export async function GET(req: NextRequest) {
       sort,
       "populate[sourceUser][fields][0]": "username",
       "populate[earner][fields][0]": "username",
+      // Credited ledger only: held and cancelled commission never reached the wallet
+      "filters[$or][0][transaction_status][$notIn][0]": "PENDING",
+      "filters[$or][0][transaction_status][$notIn][1]": "CANCELLED",
+      "filters[$or][1][transaction_status][$null]": true,
     };
 
     // 3. Logic: Determine who we are filtering for

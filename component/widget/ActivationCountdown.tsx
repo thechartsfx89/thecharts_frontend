@@ -206,6 +206,15 @@ const ActivationCountdown: React.FC<ActivationCountdownProps> = () => {
     const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
     const [isExpired, setIsExpired] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [paidDirects, setPaidDirects] = useState(0);
+
+    // 7 direct referrals with a verified course payment make the user eligible without buying a course
+    useEffect(() => {
+        fetch('/api/dash/affiliate/direct-referral/count', { credentials: 'include' })
+            .then((res) => (res.ok ? res.json() : null))
+            .then((data) => setPaidDirects(data?.count ?? 0))
+            .catch((err) => console.error('Data fetch failed:', err));
+    }, []);
 
     useEffect(() => {
         if (session?.confirm_affiliate_payment) {
@@ -245,6 +254,15 @@ const ActivationCountdown: React.FC<ActivationCountdownProps> = () => {
 
         return () => clearInterval(timer);
     }, [session]);
+
+    if (paidDirects >= 7) {
+        return (
+            <div className="panel text-center border-t-4 border-success">
+                <h5 className="text-lg lg:text-2xl font-bold text-green-700">🎉 You're Eligible to Earn Commission</h5>
+                <p className="text-sm text-gray-600 mt-2 font-medium">You have 7 direct referrals with a verified course payment, so no course purchase is needed.</p>
+            </div>
+        );
+    }
 
     if (loading) {
         return (

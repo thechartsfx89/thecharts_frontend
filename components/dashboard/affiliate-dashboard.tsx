@@ -8,6 +8,7 @@ import { getImageUrl, getRandomColor, getTextColor } from '@/utils/common/common
 import { formatDateUTC } from '@/utils/dateFormatter';
 import { DashCard, DashEmpty } from '@/components/layouts/dash-ui';
 import { AffiliatePageHeader, TransactionRow, inr } from '@/components/layouts/affiliate/affiliate-ui';
+import HeldCommissions from '@/component/E-wallet-manager/held-commissions';
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -184,6 +185,8 @@ export default function AffiliateDashboard() {
                 <StatCard title="Level Income" value={inr(LEVEL_INCOME?.net)} icon={Layers} loading={loading} href="/dash/affiliate/level-report" />
                 <StatCard title="Club Income" value={inr(CLUB_INCOME?.net)} icon={Trophy} loading={loading} href="/dash/affiliate/club-report" />
             </div>
+
+            <HeldCommissions />
 
             <div className="grid gap-6 xl:grid-cols-3">
                 {/* Commission */}

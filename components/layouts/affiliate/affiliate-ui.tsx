@@ -16,7 +16,7 @@ export function TransactionRow({ item, datePrefix = '' }: { item: any; datePrefi
                 <div className="text-sm font-medium text-[#0b1b33]">
                     {item?.remark ? item?.remark?.replace('<b>', '').replace('</b>', '') : `${item?.type == 'LEVEL' ? '' : item?.type} Commission by ${item?.sourceUser?.username} at ${item?.level ? `(Level${item?.level})` : ''}`}
                 </div>
-                <div className="mt-0.5 text-xs text-slate-500">{`${datePrefix}${item?.createdAt ? formatDateAndTime(item?.createdAt) : ''}`}</div>
+                <div className="mt-0.5 text-xs text-slate-500">{`${datePrefix}${item?.paidAt || item?.createdAt ? formatDateAndTime(item?.paidAt || item?.createdAt) : ''}`}</div>
             </div>
             {item?.credit > 0 && <div className="shrink-0 text-sm font-bold text-[#0e9f4a]">+ {inr(item?.credit)}</div>}
             {item?.debit > 0 && <div className="shrink-0 text-sm font-bold text-red-600">- {inr(item?.debit)}</div>}

@@ -433,6 +433,7 @@ const saveStatus = async () => {
                 { value: 'SUCCESS', label: '✅ Success' },
                 { value: 'REJECTED', label: '❌ Rejected' },
                 { value: 'FAILED', label: '❌ Failed' },
+                { value: 'REFUNDED', label: '↩️ Refunded' },
             ]}
             styles={(theme) => ({
                 input: { color: '#000000', fontWeight: 500 },
