@@ -6,6 +6,7 @@ import { AboutMission, HowItWorks, Plans, StatsRow, Testimonials, TopicsStrip } 
 import FeaturedCourses from '@/components/pages/Landing/featured-courses';
 import DemoCTA from '@/components/pages/Landing/demo-cta';
 import Footer from '@/components/pages/Landing/footer';
+import DiwaliOffer from '@/components/pages/Landing/diwali-offer';
 import '@/components/pages/Landing/landing.css';
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ const Landing = () => {
                 <DemoCTA />
             </main>
             <Footer />
+            <DiwaliOffer />
         </div>
     );
 };
