@@ -1,5 +1,5 @@
 'use client';
-import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
+import { TheChartsMark, TheChartsThemedLogo } from '@/components/pages/Landing/logo';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
@@ -137,11 +137,12 @@ const StudentHeader = () => {
 
     return (
         <header className={`z-40 ${themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''}`}>
-            <div className="shadow-sm">
-                <div className="relative flex w-full items-center bg-white px-5 py-2.5 dark:bg-black">
+            <div className="border-b border-slate-200">
+                <div className="relative flex min-h-[72px] w-full items-center bg-white px-5 py-2.5 dark:bg-black">
                     <div className="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
                         <Link href="/" className="main-logo flex shrink-0 items-center">
-                            <div className=" flex items-center">
+                            <TheChartsMark className="h-9 w-9 sm:hidden" />
+                            <div className="hidden items-center sm:flex">
                                 <TheChartsThemedLogo className="h-10" />
                             </div>
                         </Link>
@@ -156,7 +157,7 @@ const StudentHeader = () => {
 
                     <div className="hidden ltr:mr-2 rtl:ml-2 sm:block">
                         <ul className="flex items-center space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
-                            <div className='text-lg font-bold text-dark'>Student Panel</div>
+                            <div className='text-base font-semibold text-[#0b1b33]'>Student Panel</div>
                         </ul>
                     </div>
                     <div className="flex items-center space-x-1.5 ltr:ml-auto rtl:mr-auto rtl:space-x-reverse dark:text-[#d0d2d6] sm:flex-1 ltr:sm:ml-0 sm:rtl:mr-0 lg:space-x-2">
@@ -166,31 +167,15 @@ const StudentHeader = () => {
                             {/* <button type="button" className="btn-success hover:bg-green-600 text-white px-6 py-2 rounded-[15px] font-[600] font-bold">
                                 Affiliate
                             </button> */}
-                            <button
-                                type="button"
-                                className="
-      relative inline-flex items-center justify-center
-      px-6 py-2 rounded-xl font-semibold
-      text-slate-900 bg-white
-      shadow-md
-      overflow-hidden
-      transition-transform duration-300
-      hover:-translate-y-[1px]
-    "
-                            >
-                                {/* moving border */}
-                                <span className="absolute inset-0 rounded-xl animate-spin-slow bg-gradient-to-r from-red-500 via-green-500 to-blue-500 p-[2px]">
-                                    <span className="block w-full h-full rounded-[10px] bg-white"></span>
-                                </span>
-
-                                <span className="relative z-10 text-xs lg:text-sm">Affiliate</span>
-                            </button>
+                            <span className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-5 py-2 text-xs font-semibold text-[#0b1b33] transition hover:border-[#16c75f] hover:text-[#0e9f4a] lg:text-sm">
+                                Affiliate
+                            </span>
                         </Link>
                         <div className="dropdown shrink-0">
                             <Dropdown
                                 offset={[0, 8]}
                                 placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                btnClassName="relative block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60"
+                                btnClassName="relative block rounded-xl border border-slate-200 p-2 text-slate-600 transition hover:border-[#16c75f] hover:text-[#0e9f4a] dark:bg-dark/40"
                                 button={
                                     <span>
                                         <IconBellBing />

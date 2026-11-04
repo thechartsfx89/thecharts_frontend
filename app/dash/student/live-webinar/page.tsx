@@ -1,8 +1,8 @@
 
 "use client";
 import IconDownload from '@/components/icon/icon-download'
-import IconMenuComponents from '@/components/icon/menu/icon-menu-components'
-import IconMenuDashboard from '@/components/icon/menu/icon-menu-dashboard'
+import { Video } from 'lucide-react'
+import { DashPageHeader } from '@/components/layouts/student/dash-ui'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
@@ -89,26 +89,9 @@ export default function page() {
         className="w-full h-[80vh] rounded-2xl shadow-lg"
       /> */}
 
-      <ol className="flex items-center flex-wrap text-gray-500 font-semibold dark:text-white-dark gap-y-4">
-        <li>
-          <button className="p-2.5 border border-gray-500/20 rounded-md shadow flex items-center justify-center dark:border-0 dark:bg-[#191e3a] hover:text-gray-500/70 dark:hover:text-white-dark/70 bg-white">
-            <IconMenuDashboard className="shrink-0 group-hover:!text-primary" />
-          </button>
-        </li>
-        <li className="flex items-center before:w-1 before:h-1 before:rounded-full before:bg-primary before:inline-block before:relative before:-top-0.5 before:mx-4 bg-white">
-          <button className="p-2.5 border border-gray-500/20 rounded-md shadow flex items-center justify-center text-primary dark:border-0 dark:bg-[#191e3a] gap-2">
-            <IconMenuComponents />
-            Live Webinar
-          </button>
-        </li>
-        {/* <li className="flex items-center before:w-1 before:h-1 before:rounded-full before:bg-primary before:inline-block before:relative before:-top-0.5 before:mx-4 bg-white">
-                    <button className="p-2.5 border border-gray-500/20 rounded-md shadow flex items-center justify-center text-primary dark:border-0 dark:bg-[#191e3a] gap-2">
-                        Details
-                    </button>
-                </li> */}
-      </ol>
-      <div className="panel grid grid-cols-1 lg:grid-cols-6 gap-6 p-6 mt-4 ">
-        <div className="lg:col-span-5">
+      <DashPageHeader title="Live Webinar" icon={Video} parents={[{ label: "Your Webinar", href: "/dash/student/live-webinar/list" }]} />
+      <div className="rounded-2xl border border-slate-200 bg-white p-4">
+        <div>
           <ZohoMeetingEmbed
             startLink="https://meeting.zoho.in/meeting/meeting-start?key=1347172408&x-meeting-org=60053833905"
             orgId="60053833905"

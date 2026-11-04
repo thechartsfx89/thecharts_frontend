@@ -21,6 +21,8 @@ import Swal from 'sweetalert2';
 import IconBell from '@/components/icon/icon-bell';
 import Link from 'next/link';
 import { array } from 'yup';
+import { ArrowRight, CalendarDays, Clock, Video } from 'lucide-react';
+import { DashEmpty, DashPageHeader } from '@/components/layouts/student/dash-ui';
 
 export default function Page() {
     const [webinarList, setWebinarList] = useState<any>([]);
@@ -316,182 +318,95 @@ export default function Page() {
 // Output: "09 Mar, 2026 at 12:00 am"
     return (
         <React.Fragment>
-            <div className="panel flex items-center overflow-x-auto whitespace-nowrap p-3 text-primary mb-3">
-                <div className="rounded-full bg-primary p-1.5 text-white ring-2 ring-primary/30 ltr:mr-3 rtl:ml-3">
-                    <IconBell />
-                </div>
-                <span className="ltr:mr-3 rtl:ml-3 font-bold">Your Webinar</span>
-            </div>
+            <DashPageHeader title="Your Webinar" icon={Video} />
+
             {loading ? (
-    <div className="min-h-[400px] sm:min-h-[300px] animate-pulse">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <div key={i} className="panel pb-12 bg-gray-100 dark:bg-gray-800 border-none shadow-none">
-                    <div className="min-h-[142px]">
-                        <div className="flex items-center gap-3">
-                            <div className="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                            <div className="space-y-2">
-                                <div className="h-4 w-24 rounded bg-gray-300 dark:bg-gray-700"></div>
-                                <div className="h-3 w-16 rounded bg-gray-200 dark:bg-gray-600"></div>
-                            </div>
-                        </div>
-                        <div className="mt-6 space-y-3">
-                            <div className="h-5 w-3/4 rounded bg-gray-300 dark:bg-gray-700"></div>
-                            <div className="h-3 w-full rounded bg-gray-200 dark:bg-gray-600"></div>
-                            <div className="h-3 w-5/6 rounded bg-gray-200 dark:bg-gray-600"></div>
-                        </div>
-                    </div>
-                    <div className="absolute bottom-5 left-5 right-5 flex justify-between">
-                        <div className="h-6 w-12 rounded bg-gray-300 dark:bg-gray-700"></div>
-                        <div className="h-8 w-24 rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                    </div>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                    {[...Array(8)].map((_, i) => (
+                        <div key={i} className="h-[260px] animate-pulse rounded-2xl bg-slate-200/60" />
+                    ))}
                 </div>
-            ))}
-        </div>
-    </div>
-) : webinarList?.length > 0 ? (<>
-            {Array.isArray(webinarList) && webinarList?.length > 0 ? (
-                <div className="min-h-[400px] sm:min-h-[300px]">
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-                        {webinarList?.map((note: any, index:any) => {
-                            
-                            return (
-                                <div
-                                    className={`panel pb-12 ${"personal" === 'personal'
-                                        ? 'bg-primary-light shadow-primary'
-                                        : note.tag === 'work'
-                                            ? 'bg-warning-light shadow-warning'
-                                            : note.tag === 'social'
-                                                ? 'bg-info-light shadow-info'
-                                                : note.tag === 'important'
-                                                    ? 'bg-danger-light shadow-danger'
-                                                    : 'dark:shadow-dark'
-                                        }`}
-                                    key={note.id}
-                                >
-                                    <div className="min-h-[142px]">
-                                        <div className="flex justify-between">
-                                            <div className="flex w-max items-center">
-                                                <div className="flex-none">
-                                                    {note.thumb && (
-                                                        <div className="rounded-full bg-gray-300 p-0.5 dark:bg-gray-700">
-                                                            <img className="h-8 w-8 rounded-full object-cover" alt="img" src={`/assets/images/${note.thumb}`} />
-                                                        </div>
-                                                    )}
-
-                                                    {!note.thumb && note.user && (
-                                                        <div className="grid h-8 w-8 place-content-center rounded-full bg-gray-300 text-sm font-semibold dark:bg-gray-700">
-                                                            {note.webinar_by.name?.charAt(0) + '' + note.user.charAt(note.user.indexOf('') + 1)}
-                                                        </div>
-                                                    )}
-                                                    {!note.thumb && !note.user && (
-                                                        <div className="rounded-full bg-gray-300 p-2 dark:bg-gray-700">
-                                                            <IconUser className="h-4.5 w-4.5" />
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                <div className="ltr:ml-2 rtl:mr-2">
-                                                    <div className="font-semibold">{note?.webinar_by?.name}</div>
-                                                    <div className="text-xs text-white-dark">{note.designation ?? "Mentor"}</div>
-                                                </div>
-                                            </div>
-                                            <div className="dropdown">
-                                                <Dropdown
-                                                    offset={[0, 5]}
-                                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                                    btnClassName="text-primary"
-                                                    button={<IconHorizontalDots className="rotate-90 opacity-70 hover:opacity-100" />}
-                                                >
-                                                    <ul className="text-sm font-medium">
-                                                        <li>
-                                                            <button type="button" onClick={() => viewNote(note)}>
-                                                                <IconEye className="h-4.5 w-4.5 shrink-0 ltr:mr-3 rtl:ml-3" />
-                                                                View
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button type="button" >
-                                                                <IconPencil className="h-4 w-4 shrink-0 ltr:mr-3 rtl:ml-3" />
-                                                                Details
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </Dropdown>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h4 className="mt-4 font-semibold text-base">{note.title}</h4>
-                                            <p className="mt-2 text-white-dark text-xs">{note.description}</p>
-                                            <h5 className="mt-4 mb-2 font-semibold "><span className='font-normal'>Date: </span>{formatWebinarDate(note?.start_time)}</h5>
-                                            <h5 className="mt-2 mb-6 font-semibold "><span className='font-normal'>Duration: </span>{note?.duration ? `${note?.duration} Min` : "Unknown"}</h5>
-
+            ) : Array.isArray(webinarList) && webinarList?.length > 0 ? (
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                    {webinarList?.map((note: any, index: any) => {
+                        const isLive = index == 0 || index == 6;
+                        return (
+                            <div className={`flex flex-col rounded-2xl border bg-white p-5 transition hover:shadow-lg ${isLive ? 'border-[#16c75f]/50' : 'border-slate-200'}`} key={note.id}>
+                                <div className="flex items-start justify-between gap-3">
+                                    <div className="flex min-w-0 items-center gap-3">
+                                        {note.thumb ? (
+                                            <img className="h-10 w-10 shrink-0 rounded-full object-cover" alt="" src={`/assets/images/${note.thumb}`} />
+                                        ) : (
+                                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0b1b33] text-sm font-bold text-[#16c75f]">
+                                                {note?.webinar_by?.name?.charAt(0) ?? <IconUser className="h-4.5 w-4.5" />}
+                                            </span>
+                                        )}
+                                        <div className="min-w-0">
+                                            <div className="truncate text-sm font-semibold text-[#0b1b33]">{note?.webinar_by?.name}</div>
+                                            <div className="text-xs text-slate-500">{note.designation ?? "Mentor"}</div>
                                         </div>
                                     </div>
-                                    <div className="absolute bottom-5 left-0 w-full px-5">
-                                        <div className="mt-2 flex items-center justify-between">
-                                            <div className="dropdown">
-                                                <div className="dropdown">
-                                                    <span>
-                                                        {/* <IconSquareRotated
-                                                            className={
-                                                                note.tag === 'personal'
-                                                                    ? 'fill-primary'
-                                                                    : note.tag === 'work'
-                                                                        ? 'fill-warning'
-                                                                        : note.tag === 'social'
-                                                                            ? 'fill-info'
-                                                                            : note.tag === 'important'
-                                                                                ? 'fill-danger'
-                                                                                : ''
-                                                            }
-                                                        /> */}
-                                                        <div className="relative flex items-center gap-2">
-
-                                                           {( index == 0  || index == 6) &&<span className="text-xs font-bold badge bg-danger">Live
-                                                                {/* <span className="absolute top-0 flex h-3 w-3 ltr:right-0 rtl:left-0">
-                                                                        <span className="absolute -top-[3px] inline-flex h-full w-full animate-ping rounded-full bg-danger/50 opacity-75 ltr:-left-[3px] rtl:-right-[3px]"></span>
-                                                                        <span className="relative inline-flex h-[6px] w-[6px] rounded-full bg-white"></span>
-                                                                    </span> */}
-                                                            </span>}
-
-
-                                                        </div>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            {/* <Link href="/dash/student/live-webinar"> */}
-                                            <Link href={note?.url ?? "/dash/student/live-webinar"}>
-
-                                            <div className="flex items-center relative">
-                                                 {( index == 0  || index == 6) && <span
-                                                    className={`badge rounded-full capitalize hover:top-0 hover:text-white 
-                                                         font-bold   badge-outline-success hover:bg-success px-6 py-2 cursor-pointer
-                                                        }`}
-                                                >Join Now
-                                                  <span className="absolute top-0 flex h-3 w-3 ltr:right-0 rtl:left-0">
-                                                        <span className="absolute -top-[3px] inline-flex h-full w-full animate-ping rounded-full bg-danger/50 opacity-75 ltr:-left-[3px] rtl:-right-[3px]"></span>
-                                                        <span className="relative inline-flex h-[6px] w-[6px] rounded-full bg-danger"></span>
-                                                    </span>
-                                                    </span>}
-                                                {/* <button type="button" className="text-danger" onClick={() => deleteNoteConfirm(note)}>
-                                                    <IconTrashLines />
-                                                </button>
-                                                <button type="button" className="group text-warning ltr:ml-2 rtl:mr-2" onClick={() => setFav(note)}>
-                                                    <IconStar className={`h-4.5 w-4.5 group-hover:fill-warning ${note.isFav && 'fill-warning'}`} />
-                                                </button> */}
-                                            </div>
-                                            </Link>
-                                        </div>
+                                    <div className="dropdown shrink-0">
+                                        <Dropdown
+                                            offset={[0, 5]}
+                                            placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
+                                            btnClassName="text-slate-400 hover:text-[#0b1b33]"
+                                            button={<IconHorizontalDots className="rotate-90" />}
+                                        >
+                                            <ul className="text-sm font-medium">
+                                                <li>
+                                                    <button type="button" onClick={() => viewNote(note)}>
+                                                        <IconEye className="h-4.5 w-4.5 shrink-0 ltr:mr-3 rtl:ml-3" />
+                                                        View
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button">
+                                                        <IconPencil className="h-4 w-4 shrink-0 ltr:mr-3 rtl:ml-3" />
+                                                        Details
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </Dropdown>
                                     </div>
                                 </div>
-                            );
-                        })}
-                    </div>
+
+                                <h2 className="mt-4 font-bold leading-snug text-[#0b1b33]">{note.title}</h2>
+                                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-slate-600">{note.description}</p>
+
+                                <dl className="mt-4 space-y-2 text-sm">
+                                    <div className="flex items-center gap-2 text-slate-500">
+                                        <CalendarDays className="h-4 w-4 shrink-0 text-[#0e9f4a]" />
+                                        <dt>Date:</dt>
+                                        <dd className="font-medium text-[#0b1b33]">{formatWebinarDate(note?.start_time)}</dd>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-slate-500">
+                                        <Clock className="h-4 w-4 shrink-0 text-[#0e9f4a]" />
+                                        <dt>Duration:</dt>
+                                        <dd className="font-medium text-[#0b1b33]">{note?.duration ? `${note?.duration} Min` : "Unknown"}</dd>
+                                    </div>
+                                </dl>
+
+                                {isLive && (
+                                    <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+                                        <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-600">
+                                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
+                                            Live
+                                        </span>
+                                        <Link href={note?.url ?? "/dash/student/live-webinar"} className="inline-flex items-center gap-1.5 rounded-xl bg-[#16c75f] px-4 py-2 text-sm font-semibold text-[#0b1b33] transition hover:bg-[#2fe079]">
+                                            Join Now <ArrowRight className="h-4 w-4" />
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             ) : (
-                <div className="flex h-full min-h-[400px] items-center justify-center text-base font-semibold sm:min-h-[300px]">No data available</div>
+                <div className="rounded-2xl border border-slate-200 bg-white">
+                    <DashEmpty icon={Video} title="No data available" />
+                </div>
             )}
-                                          </>          ): null}
 
             <Transition appear show={addContactModal} as={Fragment}>
                 <Dialog as="div" open={addContactModal} onClose={() => setAddContactModal(false)} className="relative z-50">

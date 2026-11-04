@@ -9,11 +9,14 @@ import IconTwitter from '@/components/icon/icon-twitter';
 import Link from 'next/link';
 import { head } from 'lodash';
 import { getImageUrl } from '@/utils/common/common';
+import { MessageCircle, UserRoundCheck } from 'lucide-react';
+import { DashEmpty, DashPageHeader } from '@/components/layouts/student/dash-ui';
 
 const ComponentsDragndropSortable = () => {
     const [modal19, setModal19] = useState(false);
     const [mentorList, setMentorList] = useState([]);
     const [mentorDatabyId, setMentorDatabyId] = useState<any>({});
+    const [loadingMentors, setLoadingMentors] = useState(true);
 
     console.log("Mentor List State:", mentorList, mentorDatabyId);
 
@@ -29,6 +32,8 @@ const ComponentsDragndropSortable = () => {
             console.log("Fetched mentor list:", data.data.data);
         } catch (error) {
             console.error('Error fetching mentor list:', error);
+        } finally {
+            setLoadingMentors(false);
         }
     };
     useEffect(() => {
@@ -52,48 +57,38 @@ const ComponentsDragndropSortable = () => {
     };
 
     return (
-        <div className="panel">
-            <div className="mb-5 text-lg font-semibold">All Mentors</div>
-            <div className="grid grid-cols-1 gap-x-12 sm:grid-cols-2">
-                <div>
-                    <ul id="example1">
-                        {mentorList?.length > 0 && mentorList.map((item) => {
-                            return (
-                                <li key={item.id} className="mb-2.5 cursor-grab">
-                                    <div className="items-md-center flex flex-col rounded-md border border-white-light bg-white px-6 py-3.5 text-center dark:border-dark dark:bg-[#1b2e4b] md:flex-row ltr:md:text-left rtl:md:text-right">
-                                        <div className="ltr:sm:mr-4 rtl:sm:ml-4">
-                                            <img
-                                                src={
-                                                     getImageUrl(item?.profile_image?.url)
-                                                        
-                                                }
-                                                alt="profile"
-                                                className="mx-auto h-11 w-11 rounded-full"
-                                            />
-                                            {/* <img alt="avatar" src={`/assets/images/profile-${item.profile_image.url}.jpeg`} className="mx-auto h-11 w-11 rounded-full" /> */}
-                                        </div>
-                                        <div className="flex flex-1 flex-col items-center justify-between md:flex-row">
-                                            <div className="my-3 font-semibold md:my-0">
-                                                <div className="text-base text-dark dark:text-[#bfc9d4]">{item?.mentor_expertise}</div>
-                                                <div className="text-xs text-white-dark">{`${item?.firstName ?? ""} ${item?.lastName ?? ""} `}</div>
-                                            </div>
-                                            <div className='flex gap-2'>
-
-                                                <Link href={`/dash/student/mentor/chat?mentorId=${item?.id}`} >
-                                                    <button type="button" className="btn btn-success btn-sm px-5 py-2">
-                                                        Chat
-                                                    </button>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            );
-                        })}
-                    </ul>
+        <div>
+            <DashPageHeader title="All Mentors" icon={UserRoundCheck} />
+            {loadingMentors ? (
+                <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                    {[...Array(3)].map((_, i) => (
+                        <div key={i} className="h-[92px] animate-pulse rounded-2xl bg-slate-200/60" />
+                    ))}
                 </div>
-
-            </div>
+            ) : mentorList?.length > 0 ? (
+                <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                    {mentorList.map((item: any) => (
+                        <li key={item.id} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition hover:shadow-lg">
+                            <img src={getImageUrl(item?.profile_image?.url)} alt="" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-[#e9f8ef]" />
+                            <div className="min-w-0 flex-1">
+                                <div className="truncate font-bold text-[#0b1b33]">{`${item?.firstName ?? ""} ${item?.lastName ?? ""} `}</div>
+                                <div className="truncate text-sm text-slate-500">{item?.mentor_expertise}</div>
+                            </div>
+                            <Link
+                                href={`/dash/student/mentor/chat?mentorId=${item?.id}`}
+                                className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-[#0b1b33] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#13284a]"
+                            >
+                                <MessageCircle className="h-4 w-4 text-[#16c75f]" />
+                                Chat
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <div className="rounded-2xl border border-slate-200 bg-white">
+                    <DashEmpty icon={UserRoundCheck} title="No data available" />
+                </div>
+            )}
             <div>
 
                 <Transition appear show={modal19} as={Fragment}>

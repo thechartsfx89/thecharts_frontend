@@ -88,9 +88,9 @@ const BillingHistoryList = () => {
     }, [sortStatus]);
 
     return (
-        <div className="panel mt-6">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-5">
             <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
-                <h5 className="text-lg font-semibold dark:text-white-light">
+                <h5 className="font-bold text-[#0b1b33]">
                     Billing History List
                 </h5>
 
@@ -128,7 +128,7 @@ const BillingHistoryList = () => {
                         title: "Username",
                         sortable: true,
                         render: ({ user }) => (
-                            <span className="badge bg-dark">
+                            <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-[#0b1b33]">
                                 {user?.username ?? ""}
                             </span>
                         ),
@@ -147,7 +147,7 @@ const BillingHistoryList = () => {
                         title: "Price",
                         sortable: true,
                         render: ({ total_amount, purchased_course }) => (
-                            <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
+                            <span className="font-semibold text-[#0b1b33]">
                                 ₹{total_amount ?? purchased_course?.course?.course_price}
                             </span>
                         ),
@@ -176,7 +176,7 @@ const BillingHistoryList = () => {
                                         alt="Payment receipt"
                                         className="h-8 w-8 object-cover rounded "
                                     />
-                                    <IconEye className="text-primary pl-4" />
+                                    <IconEye className="pl-4 text-[#0e9f4a]" />
                                 </a>
                             ) : (
                                 <span className="text-gray-400">—</span>
@@ -192,20 +192,20 @@ const BillingHistoryList = () => {
                             const status = record.payment_status;
 
                             const statusMap = {
-                                PENDING: "bg-warning text-white",
-                                SUCCESS: "bg-success text-white",
-                                VERIFIED: "bg-success text-white",
-                                FAILED: "bg-danger text-white",
-                                REJECTED: "bg-danger text-white",
-                                UNDER_VERIFICATION: "bg-warning text-white"
+                                PENDING: "bg-amber-50 text-amber-700",
+                                SUCCESS: "bg-[#e9f8ef] text-[#0e9f4a]",
+                                VERIFIED: "bg-[#e9f8ef] text-[#0e9f4a]",
+                                FAILED: "bg-red-50 text-red-600",
+                                REJECTED: "bg-red-50 text-red-600",
+                                UNDER_VERIFICATION: "bg-amber-50 text-amber-700"
                             };
 
                             return (
                                 <span
-                                    className={`px-3 py-1 rounded text-xs font-medium ${statusMap[status] || "bg-gray-400 text-white"
+                                    className={`rounded-full px-2.5 py-1 text-xs font-semibold ${statusMap[status] || "bg-slate-100 text-slate-600"
                                         }`}
                                 >
-                                    {status}
+                                    {status?.replace(/_/g, " ")}
                                 </span>
                             );
                         },
@@ -219,7 +219,7 @@ const BillingHistoryList = () => {
                             <a
                                 href={`/dash/student/billing/invoice?id=${record.documentId}`}
                                 rel="noopener noreferrer"
-                                className="btn btn-sm bg-primary/10 text-primary shadow-md hover:bg-primary/20 hover:underline"
+                                className="inline-flex rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-[#0b1b33] transition hover:border-[#16c75f] hover:text-[#0e9f4a]"
                             >
                                 View/Download
                             </a>

@@ -1,5 +1,5 @@
 'use client';
-import { TheChartsThemedLogo } from '@/components/pages/Landing/logo';
+import TheChartsLogo from '@/components/pages/Landing/logo';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
@@ -7,288 +7,119 @@ import { toggleSidebar } from '@/store/themeConfigSlice';
 import AnimateHeight from 'react-animate-height';
 import { IRootState } from '@/store';
 import { useState, useEffect } from 'react';
-import IconCaretsDown from '@/components/icon/icon-carets-down';
-import IconMenuDashboard from '@/components/icon/menu/icon-menu-dashboard';
-import IconCaretDown from '@/components/icon/icon-caret-down';
-import IconMinus from '@/components/icon/icon-minus';
-import IconMenuChat from '@/components/icon/menu/icon-menu-chat';
-import IconMenuMailbox from '@/components/icon/menu/icon-menu-mailbox';
-import IconMenuTodo from '@/components/icon/menu/icon-menu-todo';
-import IconMenuNotes from '@/components/icon/menu/icon-menu-notes';
-import IconMenuScrumboard from '@/components/icon/menu/icon-menu-scrumboard';
-import IconMenuContacts from '@/components/icon/menu/icon-menu-contacts';
-import IconMenuInvoice from '@/components/icon/menu/icon-menu-invoice';
-import IconMenuCalendar from '@/components/icon/menu/icon-menu-calendar';
-import IconMenuComponents from '@/components/icon/menu/icon-menu-components';
-import IconMenuElements from '@/components/icon/menu/icon-menu-elements';
-import IconMenuCharts from '@/components/icon/menu/icon-menu-charts';
-import IconMenuWidgets from '@/components/icon/menu/icon-menu-widgets';
-import IconMenuFontIcons from '@/components/icon/menu/icon-menu-font-icons';
-import IconMenuDragAndDrop from '@/components/icon/menu/icon-menu-drag-and-drop';
-import IconMenuTables from '@/components/icon/menu/icon-menu-tables';
-import IconMenuDatatables from '@/components/icon/menu/icon-menu-datatables';
-import IconMenuForms from '@/components/icon/menu/icon-menu-forms';
-import IconMenuUsers from '@/components/icon/menu/icon-menu-users';
-import IconMenuPages from '@/components/icon/menu/icon-menu-pages';
-import IconMenuAuthentication from '@/components/icon/menu/icon-menu-authentication';
-import IconMenuDocumentation from '@/components/icon/menu/icon-menu-documentation';
 import { usePathname } from 'next/navigation';
 import { getTranslation } from '@/i18n';
-import IconVideo from '../../icon/icon-video';
-import IconUsersGroup from '../../icon/icon-users-group';
-import Image from 'next/image';
-import { FileQuestion } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import { BookOpen, ChevronDown, ChevronsLeft, GraduationCap, LayoutDashboard, LucideIcon, MessagesSquare, ReceiptText, Share2, UserRoundCheck, Users, Video } from 'lucide-react';
+
+const itemClass = (active: boolean) =>
+    `group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${active ? 'bg-white/10 text-white' : 'text-white/65 hover:bg-white/5 hover:text-white'}`;
+
+const iconClass = (active: boolean) => `h-5 w-5 shrink-0 transition ${active ? 'text-[#16c75f]' : 'text-white/50 group-hover:text-white/80'}`;
+
+function NavLink({ href, label, icon: Icon, active }: { href: string; label: string; icon: LucideIcon; active: boolean }) {
+    return (
+        <li>
+            <Link href={href} aria-current={active ? 'page' : undefined} className={itemClass(active)}>
+                {active && <span className="absolute inset-y-2 left-0 w-1 rounded-r-full bg-[#16c75f]" />}
+                <Icon className={iconClass(active)} />
+                <span>{label}</span>
+            </Link>
+        </li>
+    );
+}
+
+function GroupLabel({ children }: { children: React.ReactNode }) {
+    return <h2 className="px-3 pb-2 pt-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">{children}</h2>;
+}
 
 const StudentSidebar = () => {
     const dispatch = useDispatch();
     const { t } = getTranslation();
     const pathname = usePathname();
-    const [currentMenu, setCurrentMenu] = useState<string>('');
-    const [errorSubMenu, setErrorSubMenu] = useState(false);
     const themeConfig = useSelector((state: IRootState) => state.themeConfig);
-    const semidark = useSelector((state: IRootState) => state.themeConfig.semidark);
-    const toggleMenu = (value: string) => {
-        setCurrentMenu((oldValue) => {
-            return oldValue === value ? '' : value;
-        });
-    };
-    console.log({ themeConfig });
-    useEffect(() => {
-        const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]');
-        if (selector) {
-            selector.classList.add('active');
-            const ul: any = selector.closest('ul.sub-menu');
-            if (ul) {
-                let ele: any = ul.closest('li.menu').querySelectorAll('.nav-link') || [];
-                if (ele.length) {
-                    ele = ele[0];
-                    setTimeout(() => {
-                        ele.click();
-                    });
-                }
-            }
-        }
-    }, []);
+    const { data: session } = useSession<any>();
+    const role = session?.user?.role;
+
+    const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+    const coursesActive = isActive('/dash/student/enroll-course');
+    const [coursesOpen, setCoursesOpen] = useState(coursesActive);
 
     useEffect(() => {
-        setActiveRoute();
+        if (coursesActive) setCoursesOpen(true);
+    }, [coursesActive]);
+
+    useEffect(() => {
         if (window.innerWidth < 1024 && themeConfig.sidebar) {
             dispatch(toggleSidebar());
         }
     }, [pathname]);
 
-    const setActiveRoute = () => {
-        let allLinks = document.querySelectorAll('.sidebar ul a.active');
-        for (let i = 0; i < allLinks.length; i++) {
-            const element = allLinks[i];
-            element?.classList.remove('active');
-        }
-        const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]');
-        selector?.classList.add('active');
-    };
-    const { data: session, status } = useSession<any>();
+    const dashboardHref = role == 'mentor' ? `/dash/mentor` : role == 'student' ? `/dash/student` : '#';
 
     return (
-        <div className={semidark ? 'dark' : ''}>
-            <nav
-                className={`sidebar fixed bottom-0 top-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}
-            >
+        <nav aria-label="Student panel" className="sidebar fixed bottom-0 top-0 z-50 h-full min-h-screen w-[260px] bg-[#0b1b33] transition-all duration-300">
+            <div className="flex h-[72px] items-center justify-between border-b border-white/10 px-4">
+                <Link href="/" className="main-logo flex shrink-0 items-center" aria-label="The Charts home">
+                    <TheChartsLogo className="h-10" onDark />
+                </Link>
 
+                <button
+                    type="button"
+                    aria-label="Collapse menu"
+                    className="collapse-icon flex h-8 w-8 items-center justify-center rounded-lg text-white/60 transition hover:bg-white/10 hover:text-white rtl:rotate-180"
+                    onClick={() => dispatch(toggleSidebar())}
+                >
+                    <ChevronsLeft className="h-5 w-5" />
+                </button>
+            </div>
 
-<div className=' p-2.5 ' style={{
-  backgroundImage: "url('/assets/images/sidebar-bg-4.jpg')",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-}}>
+            <PerfectScrollbar className="relative h-[calc(100vh-72px)]">
+                <div className="px-3 pb-6 pt-4">
+                    <ul className="space-y-1">
+                        <NavLink href={dashboardHref} label={t('Dashboard')} icon={LayoutDashboard} active={pathname === dashboardHref} />
+                    </ul>
 
-                <div className="h-full backdrop-blur
-    bg-white/70 rounded-2xl">
-                    <div className="flex items-center justify-between px-4 py-3">
-                        <Link href="/" className="main-logo flex shrink-0 items-center width-10 hh">
-                            {/* {themeConfig?.menu == "collapsible-vertical" ? 
-                            <img className="inline w-8 ltr:-ml-1 rtl:-mr-1" src="/assets/images/auth/logo-mob.png" alt="logo" style={{ width: "3rem" }} />
-                        : 
-                        <img className="ml-[5px] w-8 flex-none" src="https://kooqxit.com/wp-content/uploads/2025/08/logo-removebg-preview.png" alt="logo" style={{ width: "8.7rem" }} />
-                        
-                        }
-                            <span className="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">The Charts</span> */}
-                            <div className="flex items-center">
-                                <TheChartsThemedLogo className="h-10" />
-                            </div>
-                        </Link>
+                    <GroupLabel>{t('Explore')}</GroupLabel>
+                    <ul className="space-y-1">
+                        <li>
+                            <button type="button" aria-expanded={coursesOpen} className={itemClass(coursesActive)} onClick={() => setCoursesOpen((open) => !open)}>
+                                {coursesActive && <span className="absolute inset-y-2 left-0 w-1 rounded-r-full bg-[#16c75f]" />}
+                                <BookOpen className={iconClass(coursesActive)} />
+                                <span className="flex-1 text-left">{t('Courses')}</span>
+                                <ChevronDown className={`h-4 w-4 text-white/50 transition-transform ${coursesOpen ? 'rotate-180' : ''}`} />
+                            </button>
 
-                        <button
-                            type="button"
-                            className="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
-                            onClick={() => dispatch(toggleSidebar())}
-                        >
-                            <IconCaretsDown className="m-auto rotate-90" />
-                        </button>
-                    </div>
-                    <PerfectScrollbar className="relative h-[calc(100vh-80px)]">
-                        <ul className="relative space-y-0.5 p-4 py-0 font-semibold">
-                            {/* <li className="menu nav-item">
-                                <button type="button" className={`${currentMenu === 'dashboard' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('dashboard')}>
-                                    <div className="flex items-center">
-                                        <IconMenuDashboard className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('dashboard')}</span>
-                                    </div>
-
-                                    <div className={currentMenu !== 'dashboard' ? '-rotate-90 rtl:rotate-90' : ''}>
-                                        <IconCaretDown />
-                                    </div>
-                                </button>
-                               
-                                <AnimateHeight duration={300} height={currentMenu === 'dashboard' ? 'auto' : 0}>
-                                    <ul className="sub-menu text-gray-500">
-                                        <li>
-                                            <Link href="/sales">{t('sales')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/analytics">{t('analytics')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/finance">{t('finance')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/crypto">{t('crypto')}</Link>
-                                        </li>
-                                    </ul>
-                                </AnimateHeight>
-                            </li> */}
-                            <li className="nav-item">
-                                <Link href={session?.user?.role == "mentor" ? `/dash/mentor` : session?.user?.role == "student" ? `/dash/student` : "#"} className="group">
-                                    <div className="flex items-center">
-                                        <IconMenuDashboard className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Dashboard')}</span>
-                                    </div>
-                                </Link>
-                            </li>
-                            <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
-                                <IconMinus className="hidden h-5 w-4 flex-none" />
-                                <span>{t('Explore')}</span>
-                            </h2>
-                            <li className="menu nav-item">
-                                <button type="button" className={`${currentMenu === 'invoice' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('invoice')}>
-                                    <div className="flex items-center">
-                                        <IconMenuScrumboard className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Courses')}</span>
-                                    </div>
-
-                                    <div className={currentMenu !== 'invoice' ? '-rotate-90 rtl:rotate-90' : ''}>
-                                        <IconCaretDown />
-                                    </div>
-                                </button>
-
-                                <AnimateHeight duration={300} height={currentMenu === 'invoice' ? 'auto' : 0}>
-                                    <ul className="sub-menu text-gray-500">
-                                        <li>
-                                            <Link href="/dash/student/enroll-course">{t('Enroll course')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/courses">{t('All Courses')}</Link>
-                                        </li>
-                                        {/* <li>
-                                            <Link href="#">{t('Pro Trade')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="#">{t('Option Selling')}</Link>
-                                        </li> */}
-                                    </ul>
-                                </AnimateHeight>
-                            </li>
-                            <li className="nav-item">
-                                <ul>
-                                    <li className="nav-item">
-                                        <Link href="/dash/student/live-webinar/list" className="group">
-                                            <div className="flex items-center">
-                                                <IconVideo className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Live Webinar')}</span>
-                                            </div>
+                            <AnimateHeight duration={300} height={coursesOpen ? 'auto' : 0}>
+                                <ul className="ml-[22px] mt-1 space-y-1 border-l border-white/10 pl-3">
+                                    <li>
+                                        <Link href="/dash/student/enroll-course" className={`block rounded-lg px-3 py-2 text-sm transition ${coursesActive ? 'font-medium text-[#16c75f]' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}>
+                                            {t('Enroll course')}
                                         </Link>
                                     </li>
-                                    <li className="nav-item">
-                                        <Link href="/dash/student/oneToOneTeaching" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuChat className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('One to One Teaching')}</span>
-                                            </div>
+                                    <li>
+                                        <Link href="/courses" className="block rounded-lg px-3 py-2 text-sm text-white/60 transition hover:bg-white/5 hover:text-white">
+                                            {t('All Courses')}
                                         </Link>
                                     </li>
-                                    {session?.user?.role == "student" && <li className="nav-item">
-                                        <Link href="/dash/student/mentor" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuTodo className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Mentor Panel')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>}
-                                    {session?.user?.role == "mentor" && <li className="nav-item">
-                                        <Link href="/dash/student/student" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuTodo className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Mentor Panel')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>}
-                                    <li className="nav-item">
-                                        <Link href="/dash/student/billing" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuNotes className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Billing History')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link href="/dash/student/share-earn" className="group">
-                                            <div className="flex items-center">
-                                                <IconMenuInvoice className="shrink-0 group-hover:!text-primary" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Share / Earn')}</span>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    {/* <li className="nav-item">
-                                        <Link href="/dash/dashboard/quiz" className="group">
-                                            <div className="flex items-center">
-                                                <FileQuestion className="shrink-0 h-5 w-5 group-hover:text-primary text-black/70 dark:text-[#506690]" />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Quiz')}</span>
-                                            </div>
-                                        </Link>
-                                    </li> */}
                                 </ul>
-                            </li>
-                            <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 px-7 py-3 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
-                                <IconMinus className="hidden h-5 w-4 flex-none" />
-                                <span>{t('supports')}</span>
-                            </h2>
+                            </AnimateHeight>
+                        </li>
+                        <NavLink href="/dash/student/live-webinar/list" label={t('Live Webinar')} icon={Video} active={isActive('/dash/student/live-webinar')} />
+                        <NavLink href="/dash/student/oneToOneTeaching" label={t('One to One Teaching')} icon={GraduationCap} active={isActive('/dash/student/oneToOneTeaching')} />
+                        {role == 'student' && <NavLink href="/dash/student/mentor" label={t('Mentor Panel')} icon={UserRoundCheck} active={isActive('/dash/student/mentor')} />}
+                        {role == 'mentor' && <NavLink href="/dash/student/student" label={t('Mentor Panel')} icon={UserRoundCheck} active={isActive('/dash/student/student')} />}
+                        <NavLink href="/dash/student/billing" label={t('Billing History')} icon={ReceiptText} active={isActive('/dash/student/billing')} />
+                        <NavLink href="/dash/student/share-earn" label={t('Share / Earn')} icon={Share2} active={isActive('/dash/student/share-earn')} />
+                    </ul>
 
-                            {/* <li className="menu nav-item">
-                                <Link href="/dash/dashboard/refund" className="nav-link group">
-                                    <div className="flex items-center">
-                                        <IconMenuDocumentation className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Refund')}</span>
-                                    </div>
-                                </Link>
-                            </li> */}
-                            <li className="menu nav-item">
-                                <Link href="/dash/student/community" className="nav-link group">
-                                    <div className="flex items-center">
-                                        <IconUsersGroup className="shrink-0 group-hover:!text-primary" />
-                                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{t('Community Support')}</span>
-                                    </div>
-                                </Link>
-                            </li>
-
-
-
-                        </ul>
-                    </PerfectScrollbar>
+                    <GroupLabel>{t('supports')}</GroupLabel>
+                    <ul className="space-y-1">
+                        <NavLink href="/dash/student/community" label={t('Community Support')} icon={MessagesSquare} active={isActive('/dash/student/community')} />
+                    </ul>
                 </div>
-                </div>
-            </nav>
-        </div>
+            </PerfectScrollbar>
+        </nav>
     );
 };
 

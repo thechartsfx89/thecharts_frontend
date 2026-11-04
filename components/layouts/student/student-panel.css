@@ -1,0 +1,110 @@
+/* The Charts – student panel theme. Scoped so mentor, affiliate and admin panels are untouched. */
+.tc-dash {
+    --tc-ink: #0b1b33;
+    --tc-green: #16c75f;
+    --tc-green-dark: #0e9f4a;
+    --tc-mist: #e9f8ef;
+    --tc-line: #e2e8f0;
+    font-family: var(--font-tc-sans), system-ui, sans-serif;
+    color: var(--tc-ink);
+}
+
+.tc-dash .main-content {
+    background: #f6f8fb;
+}
+
+/* Shared template classes, restyled for pages built on them (course player, quiz, profile, refund, chat) */
+.tc-dash .panel {
+    border: 1px solid var(--tc-line);
+    border-radius: 1rem;
+    box-shadow: none;
+}
+
+.tc-dash .text-primary,
+.tc-dash .text-success,
+.tc-dash .hover\:text-primary:hover {
+    color: var(--tc-green-dark);
+}
+
+.tc-dash .bg-primary {
+    background-color: var(--tc-ink);
+}
+
+.tc-dash .bg-success {
+    background-color: var(--tc-green-dark);
+}
+
+.tc-dash .bg-primary-light,
+.tc-dash .bg-success-light,
+.tc-dash .hover\:bg-primary-light:hover {
+    background-color: var(--tc-mist);
+}
+
+.tc-dash .btn {
+    border-radius: 0.75rem;
+    box-shadow: none;
+}
+
+.tc-dash .btn-primary,
+.tc-dash .btn-gradient {
+    border-color: var(--tc-ink);
+    background: var(--tc-ink);
+    color: #ffffff;
+}
+
+.tc-dash .btn-primary:hover,
+.tc-dash .btn-gradient:hover {
+    border-color: #13284a;
+    background: #13284a;
+}
+
+.tc-dash .btn-outline-primary {
+    border-color: var(--tc-ink);
+    color: var(--tc-ink);
+}
+
+.tc-dash .btn-outline-primary:hover {
+    background: var(--tc-ink);
+    color: #ffffff;
+}
+
+.tc-dash .btn-success {
+    border-color: var(--tc-green);
+    background: var(--tc-green);
+    color: var(--tc-ink);
+}
+
+.tc-dash .form-input,
+.tc-dash .form-select,
+.tc-dash .form-textarea {
+    border-color: var(--tc-line);
+    border-radius: 0.75rem;
+}
+
+.tc-dash .form-input:focus,
+.tc-dash .form-select:focus,
+.tc-dash .form-textarea:focus {
+    border-color: var(--tc-green);
+}
+
+/* !important to beat the template's own !important rules in datatables.css */
+.tc-dash .mantine-Pagination-item[data-active],
+.tc-dash .mantine-Pagination-item:hover {
+    border-color: var(--tc-ink);
+    background: var(--tc-ink) !important;
+    color: #ffffff !important;
+}
+
+.tc-dash table thead th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tc-dash table tbody td {
+    color: #334155;
+    font-size: 0.875rem;
+}

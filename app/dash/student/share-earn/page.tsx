@@ -8,14 +8,16 @@ import IconMail from '@/components/icon/icon-mail';
 import IconMailDot from '@/components/icon/icon-mail-dot';
 import IconTwitter from '@/components/icon/icon-twitter';
 import IconWhatsapp from '@/components/icon/icon-whatsapp';
-import IconMenuComponents from '@/components/icon/menu/icon-menu-components';
-import IconMenuDashboard from '@/components/icon/menu/icon-menu-dashboard';
+import { Share2 } from 'lucide-react';
+import { DashPageHeader } from '@/components/layouts/student/dash-ui';
 import { useAuth } from '@/context/useAuth';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Swal from 'sweetalert2';
+
+const socialClass = "inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white transition hover:bg-[#16c75f] hover:text-[#0b1b33]";
 
 export default function page() {
    const { data: session } = useSession();
@@ -46,103 +48,56 @@ const registerUrl = `${APP_URL}/auth/register?refId=${encodeURIComponent(session
   };
   return (
     <>
-      <ol className="flex items-center flex-wrap text-gray-500 font-semibold dark:text-white-dark gap-y-4">
-        <li>
-          <button className="p-2.5 border border-gray-500/20 rounded-md shadow flex items-center justify-center dark:border-0 dark:bg-[#191e3a] hover:text-gray-500/70 dark:hover:text-white-dark/70 bg-white">
-            <IconMenuDashboard className="shrink-0 group-hover:!text-primary" />
-          </button>
-        </li>
-        <li className="flex items-center before:w-1 before:h-1 before:rounded-full before:bg-primary before:inline-block before:relative before:-top-0.5 before:mx-4 bg-white">
-          <button className="p-2.5 border border-gray-500/20 rounded-md shadow flex items-center justify-center text-primary dark:border-0 dark:bg-[#191e3a] gap-2">
-            <IconMenuComponents />
-            share and Earn
-          </button>
-        </li>
-      
-      </ol>
-      <div className='panel mt-4'>
-        <div className='mb-3 font-bold'>Student Link</div>
-        <div className="bg-[#f1f2f3] p-6 panel">
-  <p className="mb-3 font-semibold relative break-all"> {/* 👈 break long words */}
-    <span>{'Link -> '}</span>
-    <span id="copyLink" className="break-all">
-      {registerUrl}
-    </span>
-  </p>
+      <DashPageHeader title="Share and Earn" icon={Share2} />
 
-  <div className="sm:flex space-y-2 sm:space-y-0 sm:space-x-2 rtl:space-x-reverse mt-5">
-    <CopyToClipboard
-      text={
-        registerUrl
-      }
-      onCopy={(text, result) => {
-        if (result) {
-          showMessage();
-        }
-      }}
-    >
-      <button type="button" className="btn btn-primary">
-        <IconCopy className="mr-2" />
-        Copy Link
-      </button>
-    </CopyToClipboard>
-  </div>
-</div>
+      <div className="tc-grid-bg relative overflow-hidden rounded-2xl bg-[#0b1b33] p-6 text-white sm:p-8">
+        <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[#16c75f]/20 blur-3xl" />
+        <div className="relative">
+          <h2 className="tc-serif text-xl font-black">Student Link</h2>
 
-        <div className="my-3">
-          <ul className="flex justify-start gap-3.5 text-white">
-            {/* Instagram */}
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <p id="copyLink" className="min-w-0 flex-1 break-all rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-medium text-white/90">
+              {registerUrl}
+            </p>
+            <CopyToClipboard
+              text={registerUrl}
+              onCopy={(text, result) => {
+                if (result) {
+                  showMessage();
+                }
+              }}
+            >
+              <button type="button" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#16c75f] px-6 py-3 font-semibold text-[#0b1b33] transition hover:bg-[#2fe079]">
+                <IconCopy />
+                Copy Link
+              </button>
+            </CopyToClipboard>
+          </div>
+
+          <ul className="mt-6 flex gap-3">
             <li>
-              <Link
-                href="https://instagram.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-md p-0 transition hover:scale-110"
-                style={{ background: 'black' }}
-              >
+              <Link href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={socialClass}>
                 <IconInstagram />
               </Link>
             </li>
-
-            {/* Facebook */}
             <li>
-              <Link
-                href="https://facebook.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-md p-0 transition hover:scale-110"
-                style={{ background: 'black' }}
-              >
+              <Link href="https://facebook.com/yourusername" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={socialClass}>
                 <IconFacebookCircle />
               </Link>
             </li>
-
-            {/* WhatsApp */}
             <li>
-              <Link
-                href="https://wa.me/919876543210" // 👈 Replace with your number (international format, no + or leading 0)
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-md p-0 transition hover:scale-110"
-                style={{ background: 'black' }}
-              >
+              {/* 👇 Replace with your number (international format, no + or leading 0) */}
+              <Link href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className={socialClass}>
                 <IconWhatsapp />
               </Link>
             </li>
-
-            {/* Email */}
             <li>
-              <Link
-                href="mailto:youremail@example.com" // 👈 Opens email client
-                className="inline-flex h-8 w-8 items-center justify-center rounded-md p-0 transition hover:scale-110"
-                style={{ background: 'black' }}
-              >
+              <Link href="mailto:youremail@example.com" aria-label="Email" className={socialClass}>
                 <IconMailDot />
               </Link>
             </li>
           </ul>
         </div>
-
       </div>
     </>
   )
