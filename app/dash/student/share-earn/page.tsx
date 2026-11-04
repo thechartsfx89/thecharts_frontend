@@ -9,7 +9,7 @@ import IconMailDot from '@/components/icon/icon-mail-dot';
 import IconTwitter from '@/components/icon/icon-twitter';
 import IconWhatsapp from '@/components/icon/icon-whatsapp';
 import { Share2 } from 'lucide-react';
-import { DashPageHeader } from '@/components/layouts/student/dash-ui';
+import { DashPageHeader } from '@/components/layouts/dash-ui';
 import { useAuth } from '@/context/useAuth';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';

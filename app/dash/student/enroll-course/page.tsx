@@ -4,7 +4,7 @@ import { BookOpen, PlayCircle } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { DashEmpty, DashPageHeader } from '@/components/layouts/student/dash-ui'
+import { DashEmpty, DashPageHeader } from '@/components/layouts/dash-ui'
 
 export default function Page() {
     const [CourseData, setCourseData] = useState<any>(null);

@@ -1,7 +1,8 @@
 import ComponentsaffiliateAccountSettingsTabs from '@/components/users/account-settings/components-affiliate-account-settings-tabs';
 import ComponentsUsersAccountSettingsTabs from '@/components/users/account-settings/components-users-account-settings-tabs';
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { Settings } from 'lucide-react';
+import { AffiliatePageHeader } from '@/components/layouts/affiliate/affiliate-ui';
 import React from 'react';
 
 export const metadata: Metadata = {
@@ -11,16 +12,7 @@ export const metadata: Metadata = {
 const UserAccountSettings = () => {
     return (
         <div>
-            <ul className="flex space-x-2 rtl:space-x-reverse">
-                <li>
-                    <Link href="#" className="text-primary hover:underline">
-                        Users
-                    </Link>
-                </li>
-                <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-                    <span>Account Settings</span>
-                </li>
-            </ul>
+            <AffiliatePageHeader title="Account Settings" icon={Settings} parents={[{ label: "View Profile", href: "/dash/affiliate/profile" }]} />
             <ComponentsaffiliateAccountSettingsTabs/>
         </div>
     );

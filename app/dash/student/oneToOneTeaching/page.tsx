@@ -1,7 +1,7 @@
 "use client";
 
 import { GraduationCap } from "lucide-react";
-import { DashPageHeader } from "@/components/layouts/student/dash-ui";
+import { DashPageHeader } from "@/components/layouts/dash-ui";
 
 export default function page() {
   return (

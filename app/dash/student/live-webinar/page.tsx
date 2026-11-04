@@ -2,7 +2,7 @@
 "use client";
 import IconDownload from '@/components/icon/icon-download'
 import { Video } from 'lucide-react'
-import { DashPageHeader } from '@/components/layouts/student/dash-ui'
+import { DashPageHeader } from '@/components/layouts/dash-ui'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'

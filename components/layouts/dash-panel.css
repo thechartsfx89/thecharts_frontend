@@ -1,4 +1,4 @@
-/* The Charts – student panel theme. Scoped so mentor, affiliate and admin panels are untouched. */
+/* The Charts – student and affiliate panel theme. Scoped so the mentor and admin panels are untouched. */
 .tc-dash {
     --tc-ink: #0b1b33;
     --tc-green: #16c75f;
@@ -68,6 +68,16 @@
     color: #ffffff;
 }
 
+.tc-dash .btn-secondary {
+    border-color: var(--tc-line);
+    background: #ffffff;
+    color: var(--tc-ink);
+}
+
+.tc-dash .btn-secondary:hover {
+    border-color: var(--tc-ink);
+}
+
 .tc-dash .btn-success {
     border-color: var(--tc-green);
     background: var(--tc-green);
@@ -93,6 +103,50 @@
     border-color: var(--tc-ink);
     background: var(--tc-ink) !important;
     color: #ffffff !important;
+}
+
+/* List components shared with the admin panel: same data, this panel's look */
+.tc-dash .panel.mt-6 {
+    margin-top: 0;
+}
+
+.tc-dash table .badge,
+.tc-dash table .bg-green-600,
+.tc-dash table .bg-red-500,
+.tc-dash table span.bg-warning,
+.tc-dash table span.bg-success,
+.tc-dash table span.bg-danger {
+    border-radius: 9999px;
+    box-shadow: none;
+    font-weight: 600;
+}
+
+.tc-dash table .badge.bg-dark,
+.tc-dash table .badge.bg-secondary-light {
+    background: #f1f5f9;
+    color: var(--tc-ink);
+}
+
+.tc-dash table .badge[style] {
+    background: #e8edf5 !important;
+    color: var(--tc-ink) !important;
+}
+
+.tc-dash table span.bg-success,
+.tc-dash table .bg-green-600 {
+    background: var(--tc-mist);
+    color: var(--tc-green-dark);
+}
+
+.tc-dash table span.bg-warning {
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.tc-dash table span.bg-danger,
+.tc-dash table .bg-red-500 {
+    background: #fef2f2;
+    color: #dc2626;
 }
 
 .tc-dash table thead th {

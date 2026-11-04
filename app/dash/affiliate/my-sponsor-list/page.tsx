@@ -1,7 +1,8 @@
 "use client"
 
 import MySponsorList from '@/component/my-network/my-sponsor-list';
-import IconBell from '@/components/icon/icon-bell';
+import { UserPlus } from 'lucide-react';
+import { AffiliatePageHeader } from '@/components/layouts/affiliate/affiliate-ui';
 import { Metadata } from 'next';
 import React from 'react';
 
@@ -9,13 +10,7 @@ import React from 'react';
 const MySponsorListPage = () => {
     return (
         <div>
-            <div className="panel flex items-center overflow-x-auto whitespace-nowrap p-3 text-primary">
-                <div className="rounded-full bg-primary p-1.5 text-white ring-2 ring-primary/30 ltr:mr-3 rtl:ml-3">
-                    <IconBell />
-                </div>
-                <span className="ltr:mr-3 rtl:ml-3 font-bold">Direct Referral List </span>
-               
-            </div>
+            <AffiliatePageHeader title="Direct Referral List" icon={UserPlus} />
             <MySponsorList />
         </div>
     );

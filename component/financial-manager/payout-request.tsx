@@ -1,6 +1,6 @@
 "use client";
 
-import IconBell from "@/components/icon/icon-bell";
+import { Banknote } from "lucide-react";
 import IconInfoTriangle from "@/components/icon/icon-info-triangle";
 import { showToast } from "@/utils/toast";
 import Link from "next/link";
@@ -112,19 +112,21 @@ export default function PayoutForm() {
     };
 
     return (
-        <div className="panel mt-2">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+            {/* Header */}
+            <header className="flex items-center gap-3 border-b border-slate-100 px-5 py-4">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#e9f8ef] text-[#0e9f4a]">
+                    <Banknote className="h-5 w-5" />
+                </span>
+                <h2 className="font-bold text-[#0b1b33]">Payout Request</h2>
+            </header>
             {!loading && (!kycData || kycData?.kyc_status !== "APPROVED") &&
-                <div className="px-0 lg:px-8 ">
-                    <div
-                        className={`relative mb-2 flex items-center p-3.5 rounded 
-                          text-danger border-danger bg-danger-light
-                            ltr:border-l-[64px] rtl:border-r-[64px]`}
-                    >
-                        <span className="absolute ltr:-left-11 rtl:-right-11 inset-y-0 text-white w-6 h-6 m-auto flex items-center justify-center">
+                <div className="px-5 pt-5">
+                    <div className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 p-3.5 text-red-700">
+                        <span className="shrink-0">
                             <IconInfoTriangle />
                         </span>
-
-                        <span className="ltr:pr-2 rtl:pl-2">
+                        <span>
                             <Link href="/dash/affiliate/kyc-details">
                                 <strong className="ltr:mr-1 rtl:ml-1 text-xs lg:text-sm  hover:underline cursor-pointer">
                                     {kycData?.kyc_status === "PENDING"
@@ -137,92 +139,86 @@ export default function PayoutForm() {
                         </span>
                     </div>
                 </div>}
-            {/* Header */}
-            <div className="bg-indigo-900 text-white px-0 lg:px-6 py-4 rounded-t-xl flex justify-between items-center">
-                <h2 className="text-xl font-semibold flex items-center gap-2">
-                    <span className="text-lg lg:text-xl text-black">💰 Payout Request</span>
-                </h2>
-
-            </div>
+            
 
             {!loading ? (<form onSubmit={handleSubmit(onSubmit)}>
                 {/* Form Body */}
-                <div className="px-0 lg:px-8 py-4 grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+                <div className="grid grid-cols-1 gap-5 p-5 md:grid-cols-2 xl:grid-cols-3">
                     {/* Current Balance */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1">Current Balance</label>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">Current Balance</label>
                         <div className="flex">
-                            <span className="px-3 bg-gray-100 border border-gray-300 rounded-l-lg flex items-center text-gray-600">
+                            <span className="flex items-center rounded-l-xl border border-r-0 border-slate-200 bg-slate-100 px-3 text-sm font-medium text-slate-500">
                                 Rs.
                             </span>
                             <input
                                 type="text"
                                 readOnly
                                 value={walletData?.grand_total?.wallet_balance}
-                                className="w-full border border-gray-300 rounded-r-lg px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-600"
+                                className="w-full cursor-not-allowed rounded-r-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-600 outline-none"
                             />
                         </div>
                     </div>
 
                     {/* First Name */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1 flex items-center gap-2">
-                            First Name <span className="text-red-500 text-xl">!</span>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">
+                            First Name
                         </label>
                         <input
                             type="text"
                             value={kycData?.user.firstName}
                             readOnly
-                            className="border border-gray-300 rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+                            className="cursor-not-allowed rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-600 outline-none"
                         />
                     </div>
 
                     {/* Last Name */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1 flex items-center gap-2">
-                            Last Name <span className="text-red-500 text-xl">!</span>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">
+                            Last Name
                         </label>
                         <input
                             type="text"
                             value={kycData?.user.lastName}
                             readOnly
-                            className="border border-gray-300 rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+                            className="cursor-not-allowed rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-600 outline-none"
                         />
                     </div>
 
                     {/* Account Number */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1">Account No.</label>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">Account No.</label>
                         <input
                             type="text"
                             value={kycData?.account_number}
                             readOnly
-                            className="border border-gray-300 rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+                            className="cursor-not-allowed rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-600 outline-none"
                         />
                     </div>
 
                     {/* IFSC Code */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1">IFSC Code</label>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">IFSC Code</label>
                         <input
                             type="text"
                             value={kycData?.ifsc_code}
                             readOnly
-                            className="border border-gray-300 rounded-lg px-3 py-2 bg-gray-100 cursor-not-allowed"
+                            className="cursor-not-allowed rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-600 outline-none"
                         />
                     </div>
 
                     {/* Amount */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1">Withdraw Amount<span className="text-danger">*</span></label>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">Withdraw Amount<span className="text-danger">*</span></label>
                         <div className="flex w-full">
-                            <span className="px-3 bg-gray-100 border border-gray-300 rounded-l-lg flex items-center text-gray-600">
+                            <span className="flex items-center rounded-l-xl border border-r-0 border-slate-200 bg-slate-100 px-3 text-sm font-medium text-slate-500">
                                 Rs.
                             </span>
                             <input
                                 type="number"
                                 placeholder="Enter Amount"
-                                className="w-full border border-gray-300 rounded-r-lg px-3 py-2"
+                                className="w-full rounded-r-xl border border-slate-200 px-3 py-2.5 text-sm text-[#0b1b33] outline-none focus:border-[#16c75f]"
                                 {...register("withdraw_amount", {
                                     required: "Amount is required",
                                     min: { value: 1, message: "Amount must be greater than 0" },
@@ -238,9 +234,9 @@ export default function PayoutForm() {
 
                     {/* TDS */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1">TDS (5%)</label>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">TDS (5%)</label>
                         <div className="flex">
-                            <span className="px-3 bg-gray-100 border border-gray-300 rounded-l-lg flex items-center text-gray-600">
+                            <span className="flex items-center rounded-l-xl border border-r-0 border-slate-200 bg-slate-100 px-3 text-sm font-medium text-slate-500">
                                 Rs.
                             </span>
                             <input
@@ -248,16 +244,16 @@ export default function PayoutForm() {
                                 readOnly
                                 value={tds.toFixed(2)}
                                 {...register("tds_charges")}
-                                className="w-full border border-gray-300 rounded-r-lg px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-600"
+                                className="w-full cursor-not-allowed rounded-r-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-600 outline-none"
                             />
                         </div>
                     </div>
 
                     {/* Admin Charges */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1">Admin Charges (5%)</label>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">Admin Charges (5%)</label>
                         <div className="flex">
-                            <span className="px-3 bg-gray-100 border border-gray-300 rounded-l-lg flex items-center text-gray-600">
+                            <span className="flex items-center rounded-l-xl border border-r-0 border-slate-200 bg-slate-100 px-3 text-sm font-medium text-slate-500">
                                 Rs.
                             </span>
                             <input
@@ -265,16 +261,16 @@ export default function PayoutForm() {
                                 readOnly
                                 value={adminCharges.toFixed(2)}
                                 {...register("admin_charges")}
-                                className="w-full border border-gray-300 rounded-r-lg px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-600"
+                                className="w-full cursor-not-allowed rounded-r-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-600 outline-none"
                             />
                         </div>
                     </div>
 
                     {/* Net Amount */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700 font-medium mb-1">Net Payable Amount</label>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">Net Payable Amount</label>
                         <div className="flex">
-                            <span className="px-3 bg-gray-100 border border-gray-300 rounded-l-lg flex items-center text-gray-600">
+                            <span className="flex items-center rounded-l-xl border border-r-0 border-slate-200 bg-slate-100 px-3 text-sm font-medium text-slate-500">
                                 Rs.
                             </span>
                             <input
@@ -282,18 +278,18 @@ export default function PayoutForm() {
                                 readOnly
                                 value={netAmount.toFixed(2)}
                                 {...register("net_payable_amount")}
-                                className="w-full border border-gray-300 rounded-r-lg px-3 py-2 bg-gray-100 cursor-not-allowed text-gray-600"
+                                className="w-full cursor-not-allowed rounded-r-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-600 outline-none"
                             />
                         </div>
                     </div>
 
                     {/* Remark */}
                     <div className="flex flex-col md:col-span-2">
-                        <label className="text-gray-700 font-medium mb-1">Remark</label>
+                        <label className="mb-1.5 text-sm font-medium text-slate-600">Remark</label>
                         <textarea
                             rows={3}
                             placeholder="Enter any remark"
-                            className="border border-gray-300 rounded-lg px-3 py-2"
+                            className="rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-[#0b1b33] outline-none focus:border-[#16c75f]"
                             {...register("remark", {
                                 //   required: "Remark is required",
                                 minLength: {
@@ -311,11 +307,11 @@ export default function PayoutForm() {
                 </div>
 
                 {/* Buttons */}
-                <div className="px-8 pb-8 flex gap-4">
+                <div className="flex gap-3 border-t border-slate-100 p-5">
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="bg-green-600 hover:bg-green-700 text-white px-8 py-2 rounded-lg text-sm lg:text-base font-medium shadow disabled:opacity-60"
+                        className="rounded-xl bg-[#16c75f] px-8 py-3 text-sm font-semibold text-[#0b1b33] transition hover:bg-[#2fe079] disabled:opacity-60"
                     >
                         {isSubmitting ? "Submitting..." : "Submit"}
                     </button>
@@ -323,7 +319,7 @@ export default function PayoutForm() {
                     <button
                         type="button"
                         onClick={() => reset()}
-                        className="bg-dark hover:bg-gray-800 text-white px-8 py-2 rounded-lg text-sm lg:text-base font-medium shadow"
+                        className="rounded-xl border border-slate-200 px-8 py-3 text-sm font-semibold text-[#0b1b33] transition hover:border-[#0b1b33]"
                     >
                         Cancel
                     </button>

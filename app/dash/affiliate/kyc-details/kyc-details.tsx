@@ -5,7 +5,6 @@ import IconEye from "@/components/icon/icon-eye";
 import { useSession } from "next-auth/react";
 import IconLoader from "@/components/icon/icon-loader";
 import { getImageUrl } from "@/utils/common/common";
-import { KycTableSkeleton } from "./kycPulse";
 import { showToast } from "@/utils/toast";
 import IconInfoTriangle from "@/components/icon/icon-info-triangle";
 import IconChecks from "@/components/icon/icon-checks";
@@ -170,117 +169,64 @@ export default function KYCUploadDocument() {
   const status = KYC_STATUS_CONFIG[statusKey];
 
   return (
-    <>
+    <div className="space-y-6">
       {status &&
         (loading ? (
-          <div className="panel mt-2 animate-pulse">
-            <div className="h-4 w-40 bg-gray-300 rounded mb-3"></div>
-            <div className="relative mb-2 flex items-center p-3.5 rounded border border-gray-200">
-              <div className="flex flex-col gap-2 w-full">
-                <div className="h-3 w-32 bg-gray-300 rounded"></div>
-                <div className="h-3 w-full bg-gray-200 rounded"></div>
-              </div>
-            </div>
-          </div>
+          <div className="h-24 animate-pulse rounded-2xl bg-slate-200/60" />
         ) : (
-          <div className="panel mt-2">
-            <div className="font-bold text-dark text-base mb-2">
-              KYC Status: <span className={`${status?.text}`}>{status?.label}</span>
-            </div>
-            <div className={`relative mb-2 flex items-center p-3.5 rounded ${status?.text} ${status?.lightBg} ${status?.border} ltr:border-l-[64px] rtl:border-r-[64px]`}>
-              <span className="absolute ltr:-left-11 rtl:-right-11 inset-y-0 text-white w-6 h-6 m-auto flex items-center justify-center">{status?.icon}</span>
-              <span className="ltr:pr-2 rtl:pl-2">
-                <strong className="ltr:mr-1 rtl:ml-1">Admin Remarks:</strong>
-                <span className="text-dark">{kycData?.admin_remarks || "No remarks available"}</span>
-              </span>
+          <div className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5">
+            <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${status?.lightBg} ${status?.text}`}>{status?.icon}</span>
+            <div className="min-w-0">
+              <div className="font-bold text-[#0b1b33]">
+                KYC Status: <span className={`${status?.text}`}>{status?.label}</span>
+              </div>
+              <p className="mt-1 text-sm text-slate-600">
+                <strong className="font-semibold text-[#0b1b33]">Admin Remarks: </strong>
+                {kycData?.admin_remarks || "No remarks available"}
+              </p>
             </div>
           </div>
         ))}
 
-      <div className="panel mt-4">
-        <div className="overflow-x-auto scrollbar-thin mt-1">
-          <table className="w-full min-w-[900px] border rounded-lg">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-4 py-3 border">Document</th>
-                <th className="px-4 py-3 border">Document No</th>
-                <th className="px-4 py-3 border">Upload</th>
-                <th className="px-4 py-3 border">View</th>
-                <th className="px-4 py-3 border">Upload Status</th>
-              </tr>
-            </thead>
-            {loading ? (
-              <KycTableSkeleton />
-            ) : (
-              <tbody className="text-sm">
-                <tr className="border">
-                  <td className="px-4 py-3 font-medium">PAN Card <span className="text-danger">*</span></td>
-                  <td className="px-4 py-3">
-                    <input value={panNumber?.toUpperCase()} onChange={(e) => setPanNumber(e.target.value.toUpperCase())} placeholder="PAN Number" className="w-full border px-3 py-2 rounded" />
-                  </td>
-                  <td className="px-4 py-3">
-                    <input type="file" onChange={(e) => setPanDoc(e.target.files?.[0] || null)} className="cursor-pointer" />
-                  </td>
-                  <td className="text-center">{panDocPreview ? <button onClick={() => openPreview(panDocPreview)} className="text-blue-600 hover:text-blue-800"><IconEye /></button> : "-"}</td>
-                  <td className="text-center">
-                    <span className={`badge ${panDocPreview ? "bg-success" : "bg-warning"}`}>{panDocPreview ? "Uploaded" : "Pending"}</span>
-                  </td>
-                </tr>
-                <tr className="border">
-                  <td className="px-4 py-3 font-medium">Aadhaar/ID Card <span className="text-danger">*</span></td>
-                  <td className="px-4 py-3">
-                    <input value={aadharNumber} onChange={(e) => setAadharNumber(e.target.value)} placeholder="Aadhar Number" className="w-full border px-3 py-2 rounded" />
-                  </td>
-                  <td className="px-4 py-3">
-                    <input type="file" onChange={(e) => setAadharDoc(e.target.files?.[0] || null)} className="cursor-pointer" />
-                  </td>
-                  <td className="text-center">{aadharDocPreview ? <button onClick={() => openPreview(aadharDocPreview)} className="text-blue-600 hover:text-blue-800"><IconEye /></button> : "-"}</td>
-                  <td className="text-center">
-                    <span className={`badge ${aadharDocPreview ? "bg-success" : "bg-warning"}`}>{aadharDocPreview ? "Uploaded" : "Pending"}</span>
-                  </td>
-                </tr>
-                <tr className="border">
-                  <td className="px-4 py-3 font-medium">Address Proof</td>
-                  <td></td>
-                  <td className="px-4 py-3">
-                    <input type="file" onChange={(e) => setAddressDoc(e.target.files?.[0] || null)} />
-                  </td>
-                  <td className="text-center">{addressDocPreview ? <button onClick={() => openPreview(addressDocPreview)} className="text-blue-600 hover:text-blue-800"><IconEye /></button> : "-"}</td>
-                  <td className="text-center">
-                    <span className={`badge ${addressDocPreview ? "bg-success" : "bg-warning"}`}>{addressDocPreview ? "Uploaded" : "Pending"}</span>
-                  </td>
-                </tr>
-                <tr className="border">
-                  <td className="px-4 py-3 font-medium">Passbook <span className="text-danger">*</span></td>
-                  <td className="px-4 py-3">
-                    <div className="flex flex-col md:flex-row gap-2">
-                      <input value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} placeholder="Account No" className="w-full min-w-[150px] border px-3 py-2 rounded" />
-                      <input value={ifscCode?.toUpperCase()} onChange={(e) => setIfscCode(e.target.value)} placeholder="IFSC" className="w-full min-w-[150px] border px-3 py-2 rounded" />
-                      <input value={bankName} onChange={(e) => setBankName(e.target.value)} placeholder="Bank Name" className="w-full min-w-[150px] border px-3 py-2 rounded" />
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <input type="file" onChange={(e) => setPassbookDoc(e.target.files?.[0] || null)} />
-                  </td>
-                  <td className="text-center">{passbookDocpreview ? <button onClick={() => openPreview(passbookDocpreview)} className="text-blue-600 hover:text-blue-800"><IconEye /></button> : "-"}</td>
-                  <td className="text-center">
-                    <span className={`badge ${passbookDocpreview ? "bg-success" : "bg-warning"}`}>{passbookDocpreview ? "Uploaded" : "Pending"}</span>
-                  </td>
-                </tr>
-                <tr className="border">
-                  <td className="px-4 py-3 font-medium">UPI ID (Optional)</td>
-                  <td className="px-4 py-3">
-                    <div className="flex flex-col md:flex-row gap-2">
-                      <input value={upiId} onChange={(e) => setUpiId(e.target.value)} placeholder="Enter UPI Id" className="w-full min-w-[150px] border px-3 py-2 rounded" />
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            )}
-          </table>
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+        <div className={`hidden border-b border-slate-100 bg-slate-50 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 lg:grid ${rowGrid}`}>
+          <span>Document</span>
+          <span>Document No</span>
+          <span>Upload</span>
+          <span className="text-center">View</span>
+          <span className="text-center">Upload Status</span>
         </div>
-        <div className="flex justify-end mt-6">
-          <button onClick={handleSubmit} disabled={loading} className="bg-dark text-white px-6 py-2 rounded" type="submit">
+
+        {loading ? (
+          <div className="space-y-3 p-5">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="h-14 animate-pulse rounded-xl bg-slate-100" />
+            ))}
+          </div>
+        ) : (
+          <div className="divide-y divide-slate-100">
+            <DocRow title="PAN Card" required onFile={setPanDoc} preview={panDocPreview} onView={openPreview}>
+              <input value={panNumber?.toUpperCase()} onChange={(e) => setPanNumber(e.target.value.toUpperCase())} placeholder="PAN Number" aria-label="PAN Number" className={inputClass} />
+            </DocRow>
+            <DocRow title="Aadhaar/ID Card" required onFile={setAadharDoc} preview={aadharDocPreview} onView={openPreview}>
+              <input value={aadharNumber} onChange={(e) => setAadharNumber(e.target.value)} placeholder="Aadhar Number" aria-label="Aadhar Number" className={inputClass} />
+            </DocRow>
+            <DocRow title="Address Proof" onFile={setAddressDoc} preview={addressDocPreview} onView={openPreview} />
+            <DocRow title="Passbook" required onFile={setPassbookDoc} preview={passbookDocpreview} onView={openPreview}>
+              <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+                <input value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} placeholder="Account No" aria-label="Account No" className={inputClass} />
+                <input value={ifscCode?.toUpperCase()} onChange={(e) => setIfscCode(e.target.value)} placeholder="IFSC" aria-label="IFSC" className={inputClass} />
+                <input value={bankName} onChange={(e) => setBankName(e.target.value)} placeholder="Bank Name" aria-label="Bank Name" className={inputClass} />
+              </div>
+            </DocRow>
+            <DocRow title="UPI ID (Optional)" upload={false}>
+              <input value={upiId} onChange={(e) => setUpiId(e.target.value)} placeholder="Enter UPI Id" aria-label="UPI ID" className={inputClass} />
+            </DocRow>
+          </div>
+        )}
+
+        <div className="flex justify-end border-t border-slate-100 p-5">
+          <button onClick={handleSubmit} disabled={loading || isSubmitting} className="rounded-xl bg-[#0b1b33] px-8 py-3 font-semibold text-white transition hover:bg-[#13284a] disabled:opacity-60" type="submit">
             {isSubmitting ? (
               <>
                 <IconLoader className="inline-block shrink-0 animate-[spin_2s_linear_infinite] align-middle ltr:mr-2 rtl:ml-2" />
@@ -292,6 +238,44 @@ export default function KYCUploadDocument() {
           </button>
         </div>
       </div>
-    </>
+    </div>
+  );
+}
+
+const rowGrid = "lg:grid-cols-[170px_minmax(0,1fr)_230px_60px_110px] lg:gap-4";
+const inputClass = "w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-[#0b1b33] outline-none transition placeholder:text-slate-400 focus:border-[#16c75f]";
+
+function DocRow({ title, required = false, upload = true, onFile, preview, onView, children }: { title: string; required?: boolean; upload?: boolean; onFile?: (file: File | null) => void; preview?: string | null; onView?: (url?: string) => void; children?: React.ReactNode }) {
+  return (
+    <div className={`grid items-center gap-3 px-5 py-4 ${rowGrid}`}>
+      <div className="text-sm font-semibold text-[#0b1b33]">
+        {title} {required && <span className="text-red-500">*</span>}
+      </div>
+      <div>{children}</div>
+      {upload && (
+        <>
+          <input
+            type="file"
+            aria-label={`Upload ${title}`}
+            onChange={(e) => onFile?.(e.target.files?.[0] || null)}
+            className="w-full cursor-pointer text-xs text-slate-500 file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-slate-100 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#0b1b33] hover:file:bg-slate-200"
+          />
+          <div className="flex items-center gap-3 lg:contents">
+            <div className="lg:text-center">
+              {preview ? (
+                <button type="button" aria-label={`View ${title}`} onClick={() => onView?.(preview)} className="text-[#0e9f4a] transition hover:text-[#0b1b33]">
+                  <IconEye />
+                </button>
+              ) : (
+                <span className="text-slate-400">-</span>
+              )}
+            </div>
+            <div className="lg:text-center">
+              <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${preview ? "bg-[#e9f8ef] text-[#0e9f4a]" : "bg-amber-50 text-amber-700"}`}>{preview ? "Uploaded" : "Pending"}</span>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 }

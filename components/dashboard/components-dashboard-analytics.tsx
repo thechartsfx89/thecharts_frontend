@@ -7,7 +7,7 @@ import ActivationLevelWindow from '@/component/widget/ActivationLevelWindow';
 import { useSession } from 'next-auth/react';
 import { ArrowRight, BookCheck, BookOpen, ChevronRight, Clock, GraduationCap, History, MessageCircle, Play, Users, Video } from 'lucide-react';
 import { TheChartsMark } from '@/components/pages/Landing/logo';
-import { DashCard, DashEmpty, DashPageHeader } from '@/components/layouts/student/dash-ui';
+import { DashCard, DashEmpty, DashPageHeader } from '@/components/layouts/dash-ui';
 
 const getTimeAgo = (dateString: string) => {
     const now = new Date();

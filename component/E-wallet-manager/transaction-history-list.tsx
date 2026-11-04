@@ -143,7 +143,7 @@ const TransactionHistory = () => {
               title: 'Credit (Rs.)',
               render: ({ credit }) => (
                  <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
-                 ₹{credit}
+                 { credit ? `₹${credit}` : '-'}
                 </span>
               ),
             },

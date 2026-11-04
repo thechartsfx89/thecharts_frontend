@@ -22,7 +22,7 @@ import IconBell from '@/components/icon/icon-bell';
 import Link from 'next/link';
 import { array } from 'yup';
 import { ArrowRight, CalendarDays, Clock, Video } from 'lucide-react';
-import { DashEmpty, DashPageHeader } from '@/components/layouts/student/dash-ui';
+import { DashEmpty, DashPageHeader } from '@/components/layouts/dash-ui';
 
 export default function Page() {
     const [webinarList, setWebinarList] = useState<any>([]);

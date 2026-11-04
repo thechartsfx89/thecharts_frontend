@@ -2,7 +2,7 @@
 
 "use client"
 import { BookOpen } from 'lucide-react'
-import { DashPageHeader } from '@/components/layouts/student/dash-ui'
+import { DashPageHeader } from '@/components/layouts/dash-ui'
 import IconLockDots from '@/components/icon/icon-lock-dots'
 import IconPlayCircle from '@/components/icon/icon-play-circle'
 import IconSquareCheck from '@/components/icon/icon-square-check'

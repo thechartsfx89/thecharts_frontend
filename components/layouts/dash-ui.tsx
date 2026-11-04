@@ -3,13 +3,14 @@ import { ChevronRight, LucideIcon } from 'lucide-react';
 
 type Crumb = { label: string; href: string };
 
-// Page title row shared by every student panel page
+// Page title row shared by the student and affiliate panels
 export function DashPageHeader({
     title,
     sub,
     icon: Icon,
     parents = [],
     crumbs = true,
+    home = '/dash/student',
     action,
 }: {
     title: React.ReactNode;
@@ -17,6 +18,7 @@ export function DashPageHeader({
     icon?: LucideIcon;
     parents?: Crumb[];
     crumbs?: boolean;
+    home?: string;
     action?: React.ReactNode;
 }) {
     return (
@@ -30,7 +32,7 @@ export function DashPageHeader({
                 <div className="min-w-0">
                     {crumbs && (
                         <nav aria-label="Breadcrumb" className="mb-1 flex flex-wrap items-center gap-1 text-xs font-medium text-slate-500">
-                            <Link href="/dash/student" className="transition hover:text-[#0e9f4a]">
+                            <Link href={home} className="transition hover:text-[#0e9f4a]">
                                 Dashboard
                             </Link>
                             {parents.map((p) => (
@@ -52,7 +54,7 @@ export function DashPageHeader({
     );
 }
 
-export function DashCard({ title, icon: Icon, children, className = '' }: { title?: React.ReactNode; icon?: LucideIcon; children: React.ReactNode; className?: string }) {
+export function DashCard({ title, icon: Icon, action, children, className = '' }: { title?: React.ReactNode; icon?: LucideIcon; action?: React.ReactNode; children: React.ReactNode; className?: string }) {
     return (
         <section className={`overflow-hidden rounded-2xl border border-slate-200 bg-white ${className}`}>
             {title && (
@@ -63,6 +65,7 @@ export function DashCard({ title, icon: Icon, children, className = '' }: { titl
                         </span>
                     )}
                     <h2 className="font-bold text-[#0b1b33]">{title}</h2>
+                    {action}
                 </header>
             )}
             {children}

@@ -12,12 +12,7 @@ import { Suspense } from 'react';
 // import SessionGuard from '@/components/auth/sessionGaurd';
 import { SessionProvider } from 'next-auth/react';
 import SessionGuard from '@/components/auth/sessionGaurd';
-import { Inter, Merriweather } from 'next/font/google';
-import '@/components/pages/Landing/landing.css';
-import '@/components/layouts/student/student-panel.css';
-
-const serif = Merriweather({ weight: ['700', '900'], subsets: ['latin'], variable: '--font-tc-serif' });
-const sans = Inter({ subsets: ['latin'], variable: '--font-tc-sans' });
+import { dashThemeClass } from '@/components/layouts/dash-theme';
 
 
 export default function DefaultLayout({ children }: { children: React.ReactNode}) {
@@ -38,7 +33,7 @@ export default function DefaultLayout({ children }: { children: React.ReactNode}
             {/* <SessionProvider refetchInterval={60}> */}
             {/* This invisible component handles the auto-redirect */}
             <SessionGuard />
-            <div className={`tc-dash relative ${serif.variable} ${sans.variable}`}>
+            <div className={`${dashThemeClass} relative`}>
                 <Overlay />
                 <ScrollToTop />
 

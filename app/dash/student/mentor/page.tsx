@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { head } from 'lodash';
 import { getImageUrl } from '@/utils/common/common';
 import { MessageCircle, UserRoundCheck } from 'lucide-react';
-import { DashEmpty, DashPageHeader } from '@/components/layouts/student/dash-ui';
+import { DashEmpty, DashPageHeader } from '@/components/layouts/dash-ui';
 
 const ComponentsDragndropSortable = () => {
     const [modal19, setModal19] = useState(false);

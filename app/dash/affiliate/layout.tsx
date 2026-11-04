@@ -9,6 +9,7 @@ import Overlay from '@/components/layouts/overlay';
 import ScrollToTop from '@/components/layouts/scroll-to-top';
 import Portals from '@/components/portals';
 import React, { Suspense } from 'react';
+import { dashThemeClass } from '@/components/layouts/dash-theme';
 
 export default function DefaultLayout({ children }: { children: React.ReactNode }) {
     // components/loaders/ChildFallbackLoader.tsx
@@ -34,7 +35,7 @@ function ChildFallbackLoader() {
         <>
             {/* BEGIN MAIN CONTAINER */}
             <SessionGuard />
-            <div className="relative" >
+            <div className={`${dashThemeClass} relative`}>
                 <Overlay />
                 <ScrollToTop />
 
