@@ -20,8 +20,6 @@ export type CatalogueEntry = {
     includes: string[];
     additionalBenefits?: string[];
     notIncluded?: string[];
-    // Shown instead of a benefits list when the programme's contents are not confirmed yet
-    pendingDetails?: string;
 };
 
 export const CATALOGUE: CatalogueEntry[] = [
@@ -80,8 +78,7 @@ export const CATALOGUE: CatalogueEntry[] = [
         tagline: 'Personal membership with one-to-one access',
         regularPrice: 199,
         price: 160,
-        includes: [],
-        pendingDetails: 'Full membership details will be published soon. Contact us if you would like to know more before enrolling.',
+        includes: ['6 one-to-one teaching sessions'],
     },
 ];
 
@@ -107,7 +104,7 @@ export type ComparisonRow = { label: string; values: Record<CatalogueKey, Compar
 
 export const COMPARISON_ROWS: ComparisonRow[] = [
     { label: 'Essential checklist and benefits', values: { foundation: true, advanced: true, premium: true, news_trading: true, one_to_one: null } },
-    { label: 'Duration', values: { foundation: '2 months', advanced: null, premium: null, news_trading: null, one_to_one: null } },
+    { label: 'Duration', values: { foundation: '2 months', advanced: '3 months', premium: '6 months', news_trading: '1 month', one_to_one: '6 sessions' } },
     { label: 'Classes', values: { foundation: '45 days', advanced: true, premium: true, news_trading: false, one_to_one: null } },
     { label: 'Doubt sessions', values: { foundation: '15 days', advanced: '60 days', premium: '60 days', news_trading: false, one_to_one: null } },
     { label: 'Psychology access', values: { foundation: false, advanced: true, premium: true, news_trading: false, one_to_one: null } },

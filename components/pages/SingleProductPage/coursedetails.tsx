@@ -358,10 +358,6 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                                 <h3 className="tc-serif text-2xl font-black text-[#0b1b33]">Course Overview</h3>
                                 <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg">{desc}</p>
 
-                                {catalogue?.pendingDetails && (
-                                    <p className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 leading-relaxed text-slate-600">{catalogue.pendingDetails}</p>
-                                )}
-
                                 {catalogue && catalogue.includes.length > 0 && (
                                     <div className="mt-10">
                                         <h3 className="tc-serif text-2xl font-black text-[#0b1b33]">What&apos;s included</h3>

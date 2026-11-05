@@ -162,18 +162,14 @@ function PlanCard({ plan }: { plan: CatalogueEntry }) {
                 Get Started <ArrowRight className="h-4 w-4" />
             </Link>
             <p className={`mt-8 text-xs font-semibold uppercase tracking-wider ${plan.featured ? 'text-white/50' : 'text-slate-400'}`}>What&apos;s included</p>
-            {plan.pendingDetails ? (
-                <p className="mt-4 text-sm leading-relaxed text-slate-600">{plan.pendingDetails}</p>
-            ) : (
-                <ul className="mt-4 space-y-3 text-sm">
-                    {benefits.map((f) => (
-                        <li key={f} className="flex items-start gap-3">
-                            <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#16c75f]" />
-                            <span className={plan.featured ? 'text-white/85' : 'text-slate-700'}>{f}</span>
-                        </li>
-                    ))}
-                </ul>
-            )}
+            <ul className="mt-4 space-y-3 text-sm">
+                {benefits.map((f) => (
+                    <li key={f} className="flex items-start gap-3">
+                        <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#16c75f]" />
+                        <span className={plan.featured ? 'text-white/85' : 'text-slate-700'}>{f}</span>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
