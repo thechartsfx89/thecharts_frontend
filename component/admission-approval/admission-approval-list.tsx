@@ -3,6 +3,7 @@
 import { DataTable, DataTableSortStatus } from 'mantine-datatable';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import sortBy from 'lodash/sortBy';
+import { formatRecordedAmount } from '@/utils/course-catalogue';
 // import { Modal, Button, Select } from '@mantine/core';
 import { formatDateAndTime, formatDateTime, formatDateTimeUTC } from '@/utils/dateFormatter';
 import { TransactionHistorySkeleton } from '../E-wallet-manager/transactionSkeleton';
@@ -261,7 +262,7 @@ const saveStatus = async () => {
                                 accessor: 'course',
                                 title: 'Course Price',
                                 titleClassName: 'text-black font-bold',
-                                render: ({ course, purchased_course }) => <span className="text-gray-700 font-medium">{course?.course_price ?? purchased_course?.course?.course_price ?? ""}</span>,
+                                render: ({ course, purchased_course, total_amount, currency }) => <span className="text-gray-700 font-medium">{formatRecordedAmount(total_amount ?? course?.course_price ?? purchased_course?.course?.course_price, currency)}</span>,
                             },
                             {
                                 accessor: 'paymentDate',
@@ -397,11 +398,11 @@ const saveStatus = async () => {
             <div className="p-3">
                 <div className="flex justify-between mb-2">
                     <span className="text-sm text-gray-600">Course:</span>
-                    <span className="text-sm font-bold text-black">{userAllData?.courseName ?? "Full Course"}</span>
+                    <span className="text-sm font-bold text-black">{userAllData?.courseName ?? userAllData?.purchased_course?.course?.course_title ?? "N/A"}</span>
                 </div>
                 <div className="flex justify-between mb-2">
                     <span className="text-sm text-gray-600">Amount:</span>
-                    <span className="text-sm font-bold text-green-700">₹ {userAllData?.course?.course_price ?? userAllData?.purchased_course?.course?.course_price ?? "0"}</span>
+                    <span className="text-sm font-bold text-green-700">{formatRecordedAmount(userAllData?.total_amount ?? userAllData?.course?.course_price ?? userAllData?.purchased_course?.course?.course_price, userAllData?.currency)}</span>
                 </div>
                 <div className="flex justify-between mb-2">
                     <span className="text-sm text-gray-600">Date:</span>

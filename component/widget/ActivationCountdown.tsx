@@ -202,7 +202,6 @@ interface TimeLeft {
 
 const ActivationCountdown: React.FC<ActivationCountdownProps> = () => {
     const { data: session } = useSession();
-    const COURSE_PRICE = 26550;
     const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
     const [isExpired, setIsExpired] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -296,7 +295,7 @@ const ActivationCountdown: React.FC<ActivationCountdownProps> = () => {
                         </li>
                         <li className="flex items-start">
                             <span className="mr-2">❌</span>
-                            <span>To become an affiliate and start earning commissions, please enroll in the affiliate course.</span>
+                            <span>To become an affiliate and start earning commissions, please enroll in the Advanced or Premium Course.</span>
                         </li>
                     </ul>
                 </div>
@@ -332,11 +331,11 @@ const ActivationCountdown: React.FC<ActivationCountdownProps> = () => {
                 ))}
             </div>
             <p className="text-xs lg:text-sm text-green-700 mb-2 font-medium">
-                *NOTE: Please activate your affiliate account by purchasing the ₹{COURSE_PRICE.toLocaleString()} course.
+                *NOTE: Please activate your affiliate account by purchasing the Advanced or Premium Course.
             </p>
             <p className="text-xs lg:text-sm text-dark mb-4">Unlock up to 10 levels of income potential before the timer expires.</p>
             <div className='flex justify-center'>
-                <Link href="/courses/course-details/yijrnm2mbfm4rxxm5mumf0gb">
+                <Link href="/#compare">
                     <button className="text-xs lg:text-sm btn bg-green-600 text-white hover:bg-green-700 font-bold px-10 py-2.5 rounded-full shadow-md transition-all">Become Affiliate</button>
                 </Link>
             </div>

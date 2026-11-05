@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 import downloadInvoice from './downloadInvoice';
 import InvoiceSkeleton from './invoiceSkeleton';
 import { useSession } from 'next-auth/react';
+import { formatRecordedAmount } from '@/utils/course-catalogue';
 
 const ComponentsAppsInvoicePreview = () => {
      const { data: session, status } = useSession();
@@ -240,8 +241,8 @@ const ComponentsAppsInvoicePreview = () => {
                                 <td>1</td>
                                 <td>{invoiceData?.purchased_course?.course?.course_title}</td>
                                 <td>1</td>
-                                <td className="ltr:text-right rtl:text-left">Rs {invoiceData?.base_price ?? invoiceData?.purchased_course?.course?.mrp}</td>
-                                <td className="ltr:text-right rtl:text-left">Rs {invoiceData?.base_price ?? invoiceData?.purchased_course?.course?.mrp}</td>
+                                <td className="ltr:text-right rtl:text-left">{formatRecordedAmount(invoiceData?.base_price ?? invoiceData?.purchased_course?.course?.mrp, invoiceData?.currency)}</td>
+                                <td className="ltr:text-right rtl:text-left">{formatRecordedAmount(invoiceData?.base_price ?? invoiceData?.purchased_course?.course?.mrp, invoiceData?.currency)}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -251,19 +252,19 @@ const ComponentsAppsInvoicePreview = () => {
                     <div className="space-y-2 ltr:text-right rtl:text-left">
                         <div className="flex items-center">
                             <div className="flex-1">Subtotal</div>
-                            <div className="w-[37%]">Rs {invoiceData?.base_price ?? invoiceData?.purchased_course?.course?.gst ? invoiceData?.purchased_course?.course?.mrp:invoiceData?.purchased_course?.course?.course_price}</div>
+                            <div className="w-[37%]">{formatRecordedAmount(invoiceData?.base_price ?? (invoiceData?.purchased_course?.course?.gst ? invoiceData?.purchased_course?.course?.mrp : invoiceData?.purchased_course?.course?.course_price), invoiceData?.currency)}</div>
                         </div>
                         <div className="flex items-center">
                             <div className="flex-1">GST</div>
-                            <div className="w-[37%]">Rs {invoiceData?.gst ?? invoiceData?.purchased_course?.course?.gst ?? "0"}</div>
+                            <div className="w-[37%]">{formatRecordedAmount(invoiceData?.gst ?? invoiceData?.purchased_course?.course?.gst ?? 0, invoiceData?.currency)}</div>
                         </div>
                         <div className="flex items-center">
                             <div className="flex-1">Discount</div>
-                            <div className="w-[37%]">Rs {invoiceData?.discount ?? "0"}</div>
+                            <div className="w-[37%]">{formatRecordedAmount(invoiceData?.discount ?? 0, invoiceData?.currency)}</div>
                         </div>
                         <div className="flex items-center text-lg font-semibold">
                             <div className="flex-1">Grand Total</div>
-                            <div className="w-[37%]">Rs {invoiceData?.total_amount ?? invoiceData?.purchased_course?.course?.course_price}</div>
+                            <div className="w-[37%]">{formatRecordedAmount(invoiceData?.total_amount ?? invoiceData?.purchased_course?.course?.course_price, invoiceData?.currency)}</div>
                         </div>
                     </div>
                 </div>

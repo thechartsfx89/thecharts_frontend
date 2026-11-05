@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import apiService from '@/lib/axios';
 import { API_ENDPOINTS } from '@/api-constant';
 import { getToken } from 'next-auth/jwt';
+import { sortByCatalogue } from '@/utils/course-catalogue';
 
 // Optional: define your endpoint key as API_ENDPOINTS.blogs
 // e.g. API_ENDPOINTS.blogs = '/blogs'
@@ -22,7 +23,9 @@ export async function GET(req: NextRequest) {
     //   params,
       // headers: cookie ? { cookie } : undefined,
     });
-    const { data, meta } = response.data ?? {};
+    const { meta } = response.data ?? {};
+    // The offline course stays in Strapi for its existing students but is no longer sold
+    const data = sortByCatalogue((response.data?.data ?? []).filter((course: any) => !course.offline_course));
 
     return NextResponse.json(
       { data, meta },

@@ -1,13 +1,13 @@
 // components/CourseCard.js
 'use client';
 
-import { RUPEE_HTML_CODE } from '@/api-constant';
+import { formatCoursePrice } from '@/utils/course-catalogue';
 import { getCourseUrl } from '@/utils/common/common';
 import { formatCourseLength } from '@/utils/dateFormatter';
 import { ArrowUpRight, Clock, Star } from 'lucide-react';
 import Image from 'next/image';
 
-export default function CourseCard({ price, title, desc, img, category, feedback, length, offline_course }: any) {
+export default function CourseCard({ price, regularPrice, catalogueKey, title, desc, img, category, feedback, length }: any) {
     return (
         <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-xl">
             <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
@@ -33,8 +33,9 @@ export default function CourseCard({ price, title, desc, img, category, feedback
 
                 <div className="mt-auto flex items-center justify-between gap-3 border-t border-slate-100 pt-5">
                     <div className="min-h-[3.25rem]">
-                        <span className="tc-serif text-2xl font-black text-[#0b1b33]" dangerouslySetInnerHTML={{ __html: `${RUPEE_HTML_CODE} ${Number(price || 0).toLocaleString('en-IN')}` }} />
-                        {!offline_course && (
+                        <span className="tc-serif text-2xl font-black text-[#0b1b33]">{formatCoursePrice({ catalogue_key: catalogueKey, course_price: price })}</span>
+                        {Number(regularPrice) > Number(price) && <span className="ml-2 text-sm text-slate-400 line-through">{formatCoursePrice({ catalogue_key: catalogueKey, course_price: regularPrice })}</span>}
+                        {length > 0 && (
                             <span className="mt-1 flex items-center gap-1.5 text-xs font-medium text-slate-500">
                                 <Clock className="h-3.5 w-3.5" />
                                 {formatCourseLength(length)}

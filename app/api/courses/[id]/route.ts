@@ -1,30 +1,37 @@
-// File: app/api/blogs/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import apiService from "@/lib/axios";
 import { API_ENDPOINTS } from "@/api-constant";
+import { entryForSlug } from "@/utils/course-catalogue";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string, documentId: string } }
-) {
+const POPULATE = "populate=course_modules&populate=course_thumbnail";
+
+// Accepts a Strapi documentId or a catalogue slug such as "premium"
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { documentId, id } = params;
- 
-console.log("Blog ID:", id, documentId);
-    // Forward cookies if authentication/session needed
+    const { id } = params;
     const cookie = req.headers.get("cookie") ?? "";
+    const headers = cookie ? { cookie } : undefined;
+    const entry = entryForSlug(id);
 
-    // Fetch blog details from Strapi (populate to get relations like image, author, etc.)
-    const response = await apiService.get(`${API_ENDPOINTS.coursedetails}/${id}?populate=course_modules&populate=course_thumbnail`, {
-      headers: cookie ? { cookie } : undefined,
-    });
-  //  console.log(response.data, '>>>>>>>> blog details');
-    const { data, meta } = response.data ?? {};
+    let course: any;
+    if (entry) {
+      const response = await apiService.get(`${API_ENDPOINTS.coursedetails}?filters[catalogue_key][$eq]=${entry.key}&${POPULATE}`, { headers });
+      course = response.data?.data?.[0] ?? null;
+    } else {
+      const response = await apiService.get(`${API_ENDPOINTS.coursedetails}/${id}?${POPULATE}`, { headers });
+      course = response.data?.data ?? null;
+    }
+
+    // Premium includes all Advanced videos, which stay attached to the Advanced course
+    if (course?.catalogue_key === "premium") {
+      const advanced = await apiService.get(`${API_ENDPOINTS.coursedetails}?filters[catalogue_key][$eq]=advanced&populate=course_modules`, { headers });
+      course.course_modules = [...(advanced.data?.data?.[0]?.course_modules ?? []), ...(course.course_modules ?? [])];
+    }
 
     return NextResponse.json(
-      { data, meta },
+      { data: course },
       {
-        status: response.status,
+        status: 200,
         headers: {
           "Cache-Control": "no-store",
           "Content-Type": "application/json",
@@ -33,8 +40,7 @@ console.log("Blog ID:", id, documentId);
     );
   } catch (err: any) {
     const status = err?.response?.status ?? 500;
-    const message =
-      err?.response?.data?.error?.message ?? "Failed to fetch blog details";
+    const message = err?.response?.data?.error?.message ?? "Failed to fetch course details";
 
     return NextResponse.json({ error: message, status }, { status });
   }

@@ -145,9 +145,7 @@ export async function GET(req: NextRequest) {
     //   }
     // });
 
-    const response = await apiService.get(`/recorderd-lectures/${documentId}`, {
-  params: {
-    populate: {
+    const populate = {
       course_modules: {
         populate: {
           thumbnail: true,
@@ -166,12 +164,21 @@ export async function GET(req: NextRequest) {
           }
         }
       }
+    };
+
+    const response = await apiService.get(`/recorderd-lectures/${documentId}`, { params: { populate } });
+    const course = response.data?.data;
+
+    // Premium students also get every Advanced module, which stays attached to the Advanced course
+    if (course?.catalogue_key === 'premium') {
+      const advanced = await apiService.get('/recorderd-lectures', {
+        params: { filters: { catalogue_key: { $eq: 'advanced' } }, populate },
+      });
+      course.course_modules = [...(advanced.data?.data?.[0]?.course_modules ?? []), ...(course.course_modules ?? [])];
     }
-  }
-});
 
     return NextResponse.json(
-      { data: response.data?.data },
+      { data: course },
       { headers: { 'Cache-Control': 'no-store' } }
     );
   } catch (err: any) {

@@ -1,6 +1,7 @@
 "use client";
 import { DataTable, DataTableSortStatus } from "mantine-datatable";
 import { useEffect, useState } from "react";
+import { formatRecordedAmount } from "@/utils/course-catalogue";
 import sortBy from "lodash/sortBy";
 import { formatDateTime } from "@/utils/dateFormatter";
 import IconEye from "@/components/icon/icon-eye";
@@ -146,9 +147,9 @@ const BillingHistoryList = () => {
                         accessor: "total_amount",
                         title: "Price",
                         sortable: true,
-                        render: ({ total_amount, purchased_course }) => (
+                        render: ({ total_amount, currency, purchased_course }) => (
                             <span className="font-semibold text-[#0b1b33]">
-                                ₹{total_amount ?? purchased_course?.course?.course_price}
+                                {formatRecordedAmount(total_amount ?? purchased_course?.course?.course_price, currency)}
                             </span>
                         ),
                     },

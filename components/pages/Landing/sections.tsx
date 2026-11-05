@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Marquee from 'react-fast-marquee';
-import { ArrowRight, BookOpenCheck, CircleCheck, LineChart, Quote, ShieldCheck, Target, Telescope, UserRoundCheck, Users } from 'lucide-react';
+import { ArrowRight, BookOpenCheck, CircleCheck, LineChart, Quote, ShieldCheck, Target, Telescope, UserRoundCheck, Users, X } from 'lucide-react';
+import { ADD_ON_PROGRAMMES, CATALOGUE, CatalogueEntry, COMPARISON_ROWS, ComparisonRow, ComparisonValue, CORE_COURSES, courseDetailHref, formatPrice } from '@/utils/course-catalogue';
 
 const TOPICS = ['Forex Basics', 'Price Action', 'Candlestick Patterns', 'Risk Management', 'Live Chart Analysis', 'Trading Psychology', 'Equity Markets', 'Crypto Fundamentals', 'Entry & Exit Strategy'];
 
@@ -140,42 +141,120 @@ export function AboutMission() {
     );
 }
 
-const PLANS = [
-    {
-        name: 'Foundation Course',
-        tagline: 'For beginners ready to take their first step',
-        price: '₹99',
-        was: '₹199',
-        href: '/courses/course-details/w4v2ac64489eegvefk0fjwbv',
-        features: ['Access to beginner trading courses', 'Weekly live sessions (basic level)', 'Practice quizzes & assignments', 'Community access', 'Real-time interaction'],
-    },
-    {
-        name: 'Full Course',
-        tagline: 'For serious traders who want an edge',
-        price: '₹26,550',
-        was: '₹56,999',
-        href: '/courses/course-details/yijrnm2mbfm4rxxm5mumf0gb',
-        featured: true,
-        features: [
-            'All Foundation features',
-            'Intermediate + advanced courses',
-            'Live chart analysis (3x/week)',
-            'Daily doubt session',
-            'Direct mentor support',
-            'Premium community access',
-            'Real-time market experience',
-            'Dedicated psychology program',
-        ],
-    },
-    {
-        name: 'Offline Course',
-        tagline: 'For dedicated learners seeking full trading growth',
-        price: '₹29,500',
-        was: '₹64,999',
-        href: '/courses/course-details/w7ru2um7ouxua9yxsw7c81i8',
-        features: ['Real-time doubt solution', '1-on-1 mentorship', 'Trade review & feedback', 'Career orientation', 'Entry/exit strategy templates', 'Real-time psychology development'],
-    },
-];
+function PlanCard({ plan }: { plan: CatalogueEntry }) {
+    const benefits = [...plan.includes, ...(plan.additionalBenefits ?? [])];
+    return (
+        <div
+            className={`relative flex flex-col rounded-3xl p-8 transition hover:-translate-y-1 ${plan.featured ? 'bg-[#0b1b33] text-white shadow-2xl shadow-slate-900/30 lg:-my-4 lg:py-12' : 'border border-slate-200 bg-white shadow-sm hover:shadow-xl'}`}
+        >
+            {plan.featured && <span className="absolute -top-3 left-8 rounded-full bg-[#16c75f] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#0b1b33]">Most popular</span>}
+            <h3 className="text-xl font-bold">{plan.name}</h3>
+            <p className={`mt-2 text-sm ${plan.featured ? 'text-white/65' : 'text-slate-500'}`}>{plan.tagline}</p>
+            <div className="mt-6 flex items-baseline gap-3">
+                <span className="tc-serif text-4xl font-black">{formatPrice(plan.price)}</span>
+                {plan.regularPrice > plan.price && <span className={`text-sm line-through ${plan.featured ? 'text-white/40' : 'text-slate-400'}`}>{formatPrice(plan.regularPrice)}</span>}
+            </div>
+            {plan.priceNote && <p className="mt-2 text-sm font-medium text-[#0e9f4a]">{plan.priceNote}</p>}
+            <Link
+                href={courseDetailHref(plan)}
+                className={`mt-6 inline-flex items-center justify-center gap-2 rounded-xl py-3 font-semibold transition ${plan.featured ? 'bg-[#16c75f] text-[#0b1b33] hover:bg-[#2fe079]' : 'bg-[#0b1b33] text-white hover:bg-[#13284a]'}`}
+            >
+                Get Started <ArrowRight className="h-4 w-4" />
+            </Link>
+            <p className={`mt-8 text-xs font-semibold uppercase tracking-wider ${plan.featured ? 'text-white/50' : 'text-slate-400'}`}>What&apos;s included</p>
+            {plan.pendingDetails ? (
+                <p className="mt-4 text-sm leading-relaxed text-slate-600">{plan.pendingDetails}</p>
+            ) : (
+                <ul className="mt-4 space-y-3 text-sm">
+                    {benefits.map((f) => (
+                        <li key={f} className="flex items-start gap-3">
+                            <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#16c75f]" />
+                            <span className={plan.featured ? 'text-white/85' : 'text-slate-700'}>{f}</span>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+}
+
+function ComparisonCell({ value }: { value: ComparisonValue }) {
+    if (value === true) {
+        return (
+            <span className="inline-flex justify-center">
+                <CircleCheck className="h-5 w-5 text-[#0e9f4a]" aria-hidden="true" />
+                <span className="sr-only">Included</span>
+            </span>
+        );
+    }
+    if (value === false) {
+        return (
+            <span className="inline-flex justify-center">
+                <X className="h-5 w-5 text-slate-300" aria-hidden="true" />
+                <span className="sr-only">Not included</span>
+            </span>
+        );
+    }
+    if (value === null) return <span className="text-xs text-slate-400">To be confirmed</span>;
+    return <span className="font-medium text-[#0b1b33]">{value}</span>;
+}
+
+function ComparisonTable() {
+    const [essentials, ...details] = COMPARISON_ROWS;
+    const firstColumn = 'sticky left-0 z-10 bg-white px-5 py-4 text-left font-medium text-slate-700';
+    const renderRow = (row: ComparisonRow) => (
+        <tr key={row.label} className="border-t border-slate-100">
+            <th scope="row" className={firstColumn}>
+                {row.label}
+            </th>
+            {CATALOGUE.map((course) => (
+                <td key={course.key} className="px-4 py-4 text-center">
+                    <ComparisonCell value={row.values[course.key]} />
+                </td>
+            ))}
+        </tr>
+    );
+
+    return (
+        <div id="compare" className="mt-16 scroll-mt-24">
+            <h3 className="tc-serif text-center text-2xl font-black text-[#0b1b33] sm:text-3xl">Compare all courses</h3>
+            <div className="relative mt-8 overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+                <table className="w-full min-w-[820px] border-collapse text-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col" className="sticky left-0 z-10 !bg-[#0b1b33] px-5 py-4 text-left font-semibold !text-white">
+                                Feature
+                            </th>
+                            {CATALOGUE.map((course) => (
+                                <th key={course.key} scope="col" className="!bg-[#0b1b33] px-4 py-4 text-center font-semibold !text-white">
+                                    <Link href={courseDetailHref(course)} className="hover:text-[#16c75f]">
+                                        {course.name.replace(/ (Course|Membership)$/, '')}
+                                    </Link>
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {renderRow(essentials)}
+                        <tr className="border-t border-slate-100 bg-[#f3fbf6]">
+                            <th scope="row" className={`${firstColumn} !bg-[#f3fbf6]`}>
+                                Pricing
+                            </th>
+                            {CATALOGUE.map((course) => (
+                                <td key={course.key} className="px-4 py-4 text-center">
+                                    <span className="tc-serif block text-lg font-black text-[#0b1b33]">{formatPrice(course.price)}</span>
+                                    {course.regularPrice > course.price && <span className="text-xs text-slate-400 line-through">{formatPrice(course.regularPrice)}</span>}
+                                    {course.priceNote && <span className="mt-1 block text-xs font-medium text-[#0e9f4a]">{course.priceNote}</span>}
+                                </td>
+                            ))}
+                        </tr>
+                        {details.map(renderRow)}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
 
 export function Plans() {
     return (
@@ -183,36 +262,16 @@ export function Plans() {
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <SectionHeading eyebrow="Our plans" title="Choose the path that fits you" sub="Real-world examples, live chart analysis and strategy-building sessions in every plan." />
                 <div className="mt-14 grid items-stretch gap-6 lg:grid-cols-3">
-                    {PLANS.map((plan) => (
-                        <div
-                            key={plan.name}
-                            className={`relative flex flex-col rounded-3xl p-8 transition hover:-translate-y-1 ${plan.featured ? 'bg-[#0b1b33] text-white shadow-2xl shadow-slate-900/30 lg:-my-4 lg:py-12' : 'border border-slate-200 bg-white shadow-sm hover:shadow-xl'}`}
-                        >
-                            {plan.featured && <span className="absolute -top-3 left-8 rounded-full bg-[#16c75f] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#0b1b33]">Most popular</span>}
-                            <h3 className="text-xl font-bold">{plan.name}</h3>
-                            <p className={`mt-2 text-sm ${plan.featured ? 'text-white/65' : 'text-slate-500'}`}>{plan.tagline}</p>
-                            <div className="mt-6 flex items-baseline gap-3">
-                                <span className="tc-serif text-4xl font-black">{plan.price}</span>
-                                <span className={`text-sm line-through ${plan.featured ? 'text-white/40' : 'text-slate-400'}`}>{plan.was}</span>
-                            </div>
-                            <Link
-                                href={plan.href}
-                                className={`mt-6 inline-flex items-center justify-center gap-2 rounded-xl py-3 font-semibold transition ${plan.featured ? 'bg-[#16c75f] text-[#0b1b33] hover:bg-[#2fe079]' : 'bg-[#0b1b33] text-white hover:bg-[#13284a]'}`}
-                            >
-                                Get Started <ArrowRight className="h-4 w-4" />
-                            </Link>
-                            <p className={`mt-8 text-xs font-semibold uppercase tracking-wider ${plan.featured ? 'text-white/50' : 'text-slate-400'}`}>What&apos;s included</p>
-                            <ul className="mt-4 space-y-3 text-sm">
-                                {plan.features.map((f) => (
-                                    <li key={f} className="flex items-start gap-3">
-                                        <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#16c75f]" />
-                                        <span className={plan.featured ? 'text-white/85' : 'text-slate-700'}>{f}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                    {CORE_COURSES.map((plan) => (
+                        <PlanCard key={plan.key} plan={plan} />
                     ))}
                 </div>
+                <div className="mx-auto mt-10 grid max-w-5xl items-stretch gap-6 lg:mt-12 lg:grid-cols-2">
+                    {ADD_ON_PROGRAMMES.map((plan) => (
+                        <PlanCard key={plan.key} plan={plan} />
+                    ))}
+                </div>
+                <ComparisonTable />
             </div>
         </section>
     );

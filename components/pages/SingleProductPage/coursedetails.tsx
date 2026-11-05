@@ -16,7 +16,8 @@ import { showToast } from '@/utils/toast';
 import { getImageUrl } from '@/utils/common/common';
 
 // Assuming you have an icon library like Lucide React or Heroicons
-import { Star, Users, Award, Clock, Play, CheckCircle, BookOpen, MessageSquare, ChevronDown } from 'lucide-react'; // Added BookOpen and MessageSquare for tabs
+import { Star, Users, Clock, Play, CheckCircle, BookOpen, MessageSquare, ChevronDown, ArrowRight, X, BadgePercent } from 'lucide-react'; // Added BookOpen and MessageSquare for tabs
+import { COMPARISON_ROWS, ComparisonValue, entryForKey, entryForSlug, formatCoursePrice, formatPrice, NEWS_TRADING_BUNDLE_DISCOUNT } from '@/utils/course-catalogue';
 import AuthModals from '@/component/auth/authModal';
 import { useSession } from 'next-auth/react';
 import IconLoader from '@/components/icon/icon-loader';
@@ -55,6 +56,9 @@ export type CourseAPI = {
     course_title?: string;
     course_desc?: string;
     course_price?: number;
+    regular_price?: number | null;
+    catalogue_key?: string | null;
+    offline_course?: boolean | null;
     video_url?: string;
 
     course_thumbnail?: {
@@ -79,7 +83,6 @@ export default function CourseDetails(props: { price?: number; title?: string; d
     const dispatch = useDispatch();
     const { totalQuantity, cartItems } = useSelector((state: IRootState) => state.cart);
     const [course, setCourse] = useState<CourseAPI>();
-    console.log(course, '>>>>>>>> course details');
     const { data: session, status } = useSession();
 
     // showToast(totalQuantity, 'Total Items in Cart');
@@ -115,13 +118,15 @@ export default function CourseDetails(props: { price?: number; title?: string; d
     const [activeTab, setActiveTab] = useState<'about' | 'lessons' | 'reviews'>('about'); // Added state for active tab
     const [openModal, setOpenModal] = useState<"login" | "signup" | "forgot" | null>(null);
 
-    const documentId = props.documentId || routeId;
+    const routeKey = props.documentId || routeId;
+    // The route may be a catalogue slug, but enrolment and checkout always need the real documentId
+    const documentId = course?.documentId;
+    const catalogue = entryForKey(course?.catalogue_key) ?? entryForSlug(routeKey);
 
     useEffect(() => {
         const fetchCourse = async () => {
             try {
-                const q = documentId ? `?documentId=${encodeURIComponent(documentId)}` : '';
-                const res = await fetch(`/api/courses/${documentId}`, {
+                const res = await fetch(`/api/courses/${routeKey}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     cache: 'no-store',
@@ -138,7 +143,7 @@ export default function CourseDetails(props: { price?: number; title?: string; d
 
         fetchCourse();
 
-    }, [documentId]);
+    }, [routeKey]);
 
     const [isPurchased, setIsPurchased] = useState(false);
     const [paymentData, setPaymentData] = useState<any>(null);
@@ -148,7 +153,6 @@ export default function CourseDetails(props: { price?: number; title?: string; d
         if (!documentId) return;
 
         const fetchData = async () => {
-            setLoading(true);
             try {
                 // // 1. Fetch Course Details
                 // const courseRes = await fetch(`//api/courses/${documentId}`, { cache: 'no-store' });
@@ -167,7 +171,6 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                 console.error('Failed to load data:', e);
                 // setCourse({} as CourseAPI);
             } finally {
-                setLoading(false);
                 setCheckingPurchase(false);
             }
         };
@@ -176,17 +179,23 @@ export default function CourseDetails(props: { price?: number; title?: string; d
     }, [documentId, status]); // Re-run if login status changes
 
     // Map API -> UI with prop fallbacks
-    const title = course?.course_title ?? props.title ?? 'Untitled Course';
-    const desc = course?.course_desc ?? props.desc ?? '';
-    const price = course?.course_price ?? props.price ?? 0;
-    const category = course?.course_category?.category_name ?? props.category ?? 'General';
+    const title = course?.course_title ?? catalogue?.name ?? props.title ?? 'Untitled Course';
+    const desc = course?.course_desc ?? catalogue?.tagline ?? props.desc ?? '';
+    const price = course?.course_price ?? catalogue?.price ?? props.price ?? 0;
+    const category = course?.course_category?.category_name ?? props.category ?? (catalogue ? 'Trading Programme' : 'General');
     const videoUrl = course?.video_url;
 
     const rawThumb = course?.course_thumbnail?.url || props?.img || "";
 
     const img = rawThumb ? (rawThumb.startsWith('http') ? rawThumb : getImageUrl(rawThumb)) : '/assets/landing/courses/6.png';
 
-    const priceText = useMemo(() => `₹ ${Number(price || 0).toLocaleString('en-IN')}`, [price]);
+    const priceText = useMemo(() => (course?.catalogue_key || !course?.documentId ? formatPrice(price) : formatCoursePrice(course)), [course, price]);
+    const regularPrice = Number(course?.regular_price ?? catalogue?.regularPrice ?? 0);
+    const saving = regularPrice - Number(price || 0);
+    // No course record yet, or the retired offline course: the page stays readable but cannot be bought
+    const canEnroll = Boolean(documentId) && !course?.offline_course;
+    const showReviews = !catalogue || Boolean(catalogue.hasReviews);
+    const accessRows = catalogue ? COMPARISON_ROWS.slice(1).filter((row) => row.values[catalogue.key] !== null && row.values[catalogue.key] !== false) : [];
 
     const courseId = (course?.documentId || documentId || String(course?.id || title)).toString();
 
@@ -266,6 +275,9 @@ export default function CourseDetails(props: { price?: number; title?: string; d
         return `${mins}:${secs.toString().padStart(2, '0')}`
     }
 
+    const renderAccessValue = (value: ComparisonValue) =>
+        value === true ? <CheckCircle size={18} className="text-[#0e9f4a]" aria-label="Included" /> : <span className="font-semibold text-[#0b1b33]">{value}</span>;
+
     const moduleCount = course?.course_modules?.length || 0;
 
     const lectureCount =
@@ -285,9 +297,10 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                     <div className="lg:w-2/3 lg:pr-8">
                         <span className="inline-block rounded-full bg-[#16c75f]/15 px-3 py-1 text-sm font-semibold capitalize text-[#16c75f]">{category}</span>
                         <h1 className="tc-serif mt-5 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">{title}</h1>
+                        {catalogue && <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/75">{catalogue.tagline}</p>}
 
                         {/* Rating and Stats */}
-                        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/75">
+                        {showReviews && <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/75">
                             <div className="flex items-center gap-2">
                                 <div className="flex text-amber-400">
                                     {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
@@ -298,7 +311,7 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                                 <Users size={16} />
                                 <span>5,000+ Enrolled</span>
                             </div>
-                        </div>
+                        </div>}
 
                         {/* Instructor */}
                         <div className="mt-8 flex items-center gap-3">
@@ -323,7 +336,7 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                             { id: 'about', label: 'About', icon: BookOpen },
                             { id: 'lessons', label: 'Lessons', icon: Play },
                             { id: 'reviews', label: 'Reviews', icon: MessageSquare },
-                        ] as const).map((tab) => (
+                        ] as const).filter((tab) => (tab.id !== 'reviews' || showReviews) && (tab.id !== 'lessons' || !catalogue || moduleCount > 0)).map((tab) => (
                             <button
                                 key={tab.id}
                                 type="button"
@@ -344,6 +357,72 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                             <div>
                                 <h3 className="tc-serif text-2xl font-black text-[#0b1b33]">Course Overview</h3>
                                 <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg">{desc}</p>
+
+                                {catalogue?.pendingDetails && (
+                                    <p className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 leading-relaxed text-slate-600">{catalogue.pendingDetails}</p>
+                                )}
+
+                                {catalogue && catalogue.includes.length > 0 && (
+                                    <div className="mt-10">
+                                        <h3 className="tc-serif text-2xl font-black text-[#0b1b33]">What&apos;s included</h3>
+                                        <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                                            {catalogue.includes.map((benefit) => (
+                                                <li key={benefit} className="flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-slate-700">
+                                                    <CheckCircle size={20} className="mt-0.5 shrink-0 text-[#0e9f4a]" />
+                                                    <span>{benefit}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {catalogue?.additionalBenefits && (
+                                    <div className="mt-10">
+                                        <h3 className="tc-serif text-2xl font-black text-[#0b1b33]">Additional benefits</h3>
+                                        <ul className="mt-5 space-y-3">
+                                            {catalogue.additionalBenefits.map((benefit) => (
+                                                <li key={benefit} className="flex items-start gap-3 text-slate-700">
+                                                    <CheckCircle size={20} className="mt-0.5 shrink-0 text-[#0e9f4a]" />
+                                                    <span>{benefit}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {accessRows.length > 0 && (
+                                    <div className="mt-10">
+                                        <h3 className="tc-serif text-2xl font-black text-[#0b1b33]">Access details</h3>
+                                        <dl className="mt-5 divide-y divide-slate-100 overflow-hidden rounded-2xl border border-slate-200">
+                                            {accessRows.map((row) => (
+                                                <div key={row.label} className="flex items-center justify-between gap-4 px-5 py-4">
+                                                    <dt className="text-slate-600">{row.label}</dt>
+                                                    <dd className="shrink-0 text-right">{catalogue && renderAccessValue(row.values[catalogue.key])}</dd>
+                                                </div>
+                                            ))}
+                                        </dl>
+                                    </div>
+                                )}
+
+                                {catalogue?.notIncluded && (
+                                    <div className="mt-10">
+                                        <h3 className="tc-serif text-2xl font-black text-[#0b1b33]">Not included</h3>
+                                        <ul className="mt-5 space-y-3">
+                                            {catalogue.notIncluded.map((item) => (
+                                                <li key={item} className="flex items-center gap-3 text-slate-600">
+                                                    <X size={18} className="shrink-0 text-slate-400" />
+                                                    <span>{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {catalogue && (
+                                    <Link href="/#compare" className="mt-8 inline-flex items-center gap-2 font-semibold text-[#0b1b33] hover:text-[#0e9f4a]">
+                                        Compare all courses <ArrowRight size={16} />
+                                    </Link>
+                                )}
                             </div>
                         )}
 
@@ -473,7 +552,19 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                         <div>
                             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Course Price</p>
                             <p className="tc-serif mt-1 text-4xl font-black text-[#0b1b33]">{priceText}</p>
+                            {catalogue && saving > 0 && (
+                                <p className="mt-1 flex flex-wrap items-center gap-2 text-sm">
+                                    <span className="text-slate-400 line-through">{formatPrice(regularPrice)}</span>
+                                    <span className="font-semibold text-[#0e9f4a]">Save {formatPrice(saving)}</span>
+                                </p>
+                            )}
                             <p className="mt-1 text-sm text-slate-500">One-time payment</p>
+                            {catalogue?.key === 'news_trading' && (
+                                <p className="mt-3 flex items-start gap-2 rounded-xl bg-[#f3fbf6] p-3 text-sm text-slate-700">
+                                    <BadgePercent size={18} className="mt-0.5 shrink-0 text-[#0e9f4a]" />
+                                    <span>{formatPrice(Number(price) * (1 - NEWS_TRADING_BUNDLE_DISCOUNT))} when purchased with any course. The discount is applied at checkout.</span>
+                                </p>
+                            )}
                         </div>
 
                         {/* Buttons */}
@@ -494,7 +585,7 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                             </div>}
                             <button
                                 type="button"
-                                disabled={loading || checkingPurchase || isPurchased}
+                                disabled={loading || checkingPurchase || isPurchased || !canEnroll}
                                 onClick={() => {
                                     if (status === "unauthenticated") {
                                         setOpenModal(null);
@@ -506,7 +597,7 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                                         onSubmit();
                                     }
                                 }}
-                                className={`w-full rounded-xl py-4 font-semibold transition ${isPurchased
+                                className={`w-full rounded-xl py-4 font-semibold transition ${isPurchased || !canEnroll
                                     ? "cursor-not-allowed bg-slate-300 text-white"
                                     : "bg-[#16c75f] text-[#0b1b33] shadow-lg shadow-[#16c75f]/25 hover:-translate-y-0.5 hover:bg-[#2fe079]"
                                     }`}
@@ -518,6 +609,8 @@ export default function CourseDetails(props: { price?: number; title?: string; d
                                     </>
                                 ) : isPurchased ? (
                                     "Already Enrolled"
+                                ) : !canEnroll ? (
+                                    course?.offline_course ? "No Longer Available" : "Enrolment Opening Soon"
                                 ) : (
                                     "Enroll Now"
                                 )}
@@ -527,19 +620,17 @@ export default function CourseDetails(props: { price?: number; title?: string; d
 
                         {/* Course Features */}
                         <ul className="space-y-3 border-t border-slate-100 pt-5 text-sm text-slate-700">
-                            <li className="flex items-center gap-3">
+                            {catalogue?.includes.map((benefit) => (
+                                <li key={benefit} className="flex items-start gap-3">
+                                    <CheckCircle className="mt-0.5 shrink-0 text-[#0e9f4a]" size={18} />
+                                    <span>{benefit}</span>
+                                </li>
+                            ))}
+                            {moduleCount > 0 && <li className="flex items-center gap-3">
                                 <Clock className="shrink-0 text-[#0e9f4a]" size={18} />
                                 <span>{moduleCount ?? 0} Modules</span>
                                 <span>{lectureCount ?? 0} Lecture</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <Award className="shrink-0 text-[#0e9f4a]" size={18} />
-                                <span>Certificate of Completion</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <Users className="shrink-0 text-[#0e9f4a]" size={18} />
-                                <span>Lifetime Access</span>
-                            </li>
+                            </li>}
                         </ul>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ export interface PaymentSuccessPayload {
   fullName: string;
   courseName: string;
   amount: number;
+  currency?: string;
   transactionId?: string;
   payment_mode?: string;
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Clock, Trash2 } from "lucide-react";
 import NoDataComponent from "@/utils/common/noDataComponent";
+import { formatCoursePrice } from "@/utils/course-catalogue";
 import { useCart } from "@/app/context/cart-context";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
@@ -87,7 +88,7 @@ export default function CartPage() {
                     </div>
 
                     <p className="tc-serif mt-3 text-xl font-black text-[#0b1b33]">
-                      ₹ {Number(item.course_price || 0).toLocaleString()}
+                      {formatCoursePrice(item as any)}
                     </p>
                   </div>
 

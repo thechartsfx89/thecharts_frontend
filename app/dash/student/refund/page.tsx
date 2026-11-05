@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import IconBell from "@/components/icon/icon-bell";
 import RefundForm from "./refundForm";
+import { formatRecordedAmount } from "@/utils/course-catalogue";
 
 export default function RefundPage() {
   const { data: session } = useSession();
@@ -119,7 +120,7 @@ export default function RefundPage() {
               Array.isArray(purchases) && purchases?.length > 0 && purchases?.map((p) => (
                 <tr key={p.id} className="border-b hover:bg-gray-50 transition-colors">
                   <td className="py-3 px-4 text-primary font-semibold ">{p.course.course_title}</td>
-                  <td className="py-3 px-4 text-gray-800">₹{p.course.course_price}</td>
+                  <td className="py-3 px-4 text-gray-800">{formatRecordedAmount(p.payment?.total_amount ?? p.course.course_price, p.payment?.currency)}</td>
 
                   <td className="py-3 px-4 text-gray-800">
                     {p.canRefund ? (

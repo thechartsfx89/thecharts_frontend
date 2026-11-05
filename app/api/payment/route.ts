@@ -1,5 +1,6 @@
 import { API_ENDPOINTS } from "@/api-constant";
 import apiService from "@/lib/axios";
+import { resolveCheckoutPrice } from "@/lib/course-pricing";
 import { paymentSchema } from "@/utils/formValidation";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
@@ -161,13 +162,18 @@ export async function POST(req: NextRequest) {
 
     // 5️⃣ CREATE if not exists
     const currentTimestamp = new Date().toISOString();
+    // Recorded on the payment so invoices and refunds never depend on the course's later price
+    const { amount, currency } = await resolveCheckoutPrice(validatedData.course as string, userId, token.jwt);
     response = await apiService.post(
       API_ENDPOINTS.payment,
       {
         data: {
           ...validatedData,
           user: userId,
-          payment_date: currentTimestamp
+          payment_date: currentTimestamp,
+          total_amount: amount,
+          base_price: amount,
+          currency,
         },
       },
       {

@@ -42,13 +42,14 @@ export default function CoursesGrid() {
               <Link href={`/courses/course-details/${course?.documentId}`} key={index} className="h-full">
                 <CourseCard
                   price={course?.course_price}
+                  regularPrice={course?.regular_price}
+                  catalogueKey={course?.catalogue_key}
                   category={course?.course_category?.category_name}
                   title={course?.course_title}
                   desc={course?.course_desc}
                   img={course?.course_thumbnail?.url}
                   feedback={course?.feedback}
                   length={course?.length}
-                  offline_course={course?.offline_course}
                 />
               </Link>
             ))}

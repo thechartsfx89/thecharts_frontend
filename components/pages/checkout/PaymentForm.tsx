@@ -18,6 +18,7 @@ import PaymentSkeleton from "./skeleton";
 import Link from "next/link";
 import PaymentSuccess from "@/app/payment-successful/page";
 import { sendPaymentSubmittedEmail } from "@/app/api/auth/email/services";
+import { CATALOGUE, courseDetailHref, formatRecordedAmount, NEWS_TRADING_BUNDLE_DISCOUNT, COURSE_CURRENCY } from "@/utils/course-catalogue";
 
 type Mode = "" | "BANK_DEPOSIT" | "DIGITAL_PAYMENT" | "CASH";
 
@@ -31,9 +32,8 @@ export default function PaymentPage(props: { course: any }) {
     const courseId = (params as any)?.id as string | undefined;
     //    console.log({status})
     const { course } = props
-     console.log({course})
     const [enrollData, setEnrollData] = useState<any>();
-    console.log({ enrollData })
+    const [quote, setQuote] = useState<{ listPrice: number; amount: number; currency: string; bundleApplied: boolean } | null>(null);
     // const documentId = props.documentId;
     const [loadingPay, setLoadingPay] = useState(false);
     const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
@@ -69,9 +69,18 @@ export default function PaymentPage(props: { course: any }) {
     useEffect(() => {
         if (courseId) {
             checkEnrollment(courseId)
-
+            fetch(`/api/courses/checkout-price/${courseId}`)
+                .then((res) => (res.ok ? res.json() : null))
+                .then((result) => setQuote(result?.data ?? null))
+                .catch((error) => console.error("Failed to load checkout price:", error));
         }
     }, [])
+
+    const money = (amount: any) => formatRecordedAmount(amount, quote?.currency ?? (course?.catalogue_key ? COURSE_CURRENCY : "INR"));
+    const totalDue = quote?.amount ?? course?.course_price ?? 0;
+    const newsTrading = CATALOGUE.find((entry) => entry.key === "news_trading");
+    // Offer the bundle once a course payment exists, because that is what unlocks its discount
+    const offerNewsTrading = newsTrading && course?.catalogue_key && !["news_trading", "one_to_one"].includes(course.catalogue_key);
     const handleMode = (val: any) => {
         setMode(val as Mode);
     };
@@ -127,7 +136,8 @@ export default function PaymentPage(props: { course: any }) {
                 email: session?.user?.email || "",
                 fullName: session?.user?.fullName ?? session?.user?.name ?? "NA",
                 courseName: course?.course_title || "NA",
-                amount: course?.course_price ?? 0,
+                amount: result?.data?.total_amount ?? totalDue,
+                currency: result?.data?.currency,
                 transactionId: result?.data?.transaction_id || "",
                 payment_mode: result?.data?.payment_mode || "",
             });
@@ -154,7 +164,16 @@ export default function PaymentPage(props: { course: any }) {
 
     return (
         <>{loadingPay ? <PaymentSkeleton /> :
-            <>{isPaymentSuccess ? <PaymentSuccess /> :
+            <>{isPaymentSuccess ? <>
+                <PaymentSuccess />
+                {offerNewsTrading && (
+                    <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-[#16c75f]/25 bg-[#f3fbf6] p-5 text-center">
+                        <p className="font-bold text-[#0b1b33]">Add News Trading for {money(newsTrading.price * (1 - NEWS_TRADING_BUNDLE_DISCOUNT))}</p>
+                        <p className="mt-1 text-sm text-slate-600">You now qualify for 25% off the regular {money(newsTrading.price)} price.</p>
+                        <Link href={courseDetailHref(newsTrading)} className="mt-3 inline-block font-semibold text-[#0e9f4a] underline">View News Trading</Link>
+                    </div>
+                )}
+            </> :
              (status === 'unauthenticated' ? (
           <div className="flex flex-col h-full items-center justify-center rounded-lg border border-dashed border-gray-300 p-10 text-center">
             <h3 className="mb-2 text-lg font-semibold text-gray-700">
@@ -384,12 +403,20 @@ export default function PaymentPage(props: { course: any }) {
 
                             <div className="flex justify-between">
                                 <span>Price:</span>
-                                <span>Rs. {course?.gst ? course?.mrp : course?.course_price}</span>
+                                <span>{money(quote?.bundleApplied ? quote.listPrice : course?.gst ? course?.mrp : course?.course_price)}</span>
                             </div>
-                            <div className="flex justify-between">
-                                <span>GST:</span>
-                                <span>Rs. {course?.gst ?? 0}</span>
-                            </div>
+                            {Number(course?.gst) > 0 && (
+                                <div className="flex justify-between">
+                                    <span>GST:</span>
+                                    <span>{money(course?.gst)}</span>
+                                </div>
+                            )}
+                            {quote?.bundleApplied && (
+                                <div className="flex justify-between text-[#0e9f4a]">
+                                    <span>Course bundle discount (25%):</span>
+                                    <span>-{money(quote.listPrice - quote.amount)}</span>
+                                </div>
+                            )}
                             {/* <div className="flex justify-between">
                             <span>Discount:</span>
                             <span>Rs. 0</span>
@@ -397,7 +424,7 @@ export default function PaymentPage(props: { course: any }) {
 
                             <div className="flex justify-between font-bold text-lg">
                                 <span>Total Amount:</span>
-                                <span className="text-[#0e9f4a]">Rs. {course?.course_price}</span>
+                                <span className="text-[#0e9f4a]">{money(totalDue)}</span>
                             </div>
                         </div>
                     </div>
